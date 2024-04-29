@@ -1,0 +1,12 @@
+<div id ="body" >
+
+    
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <input type="text" formControlName="cedula" placeholder="cedula">
+        <input type="password" formControlName="password" placeholder="Password">
+        <button type="submit" >Login</button>
+        
+    </form>
+ 
+    
+</div>

@@ -1,0 +1,38 @@
+h1{
+    text-align: center;
+    margin-top: 30px;
+    color: white;
+    font-family: Verdana;
+    
+
+}
+
+body {
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    
+}
+
+nav a {
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    color: #ffffff;
+}
+
+nav button {
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 2px solid red;
+    border-radius: 5px;
+    color: white;
+    background-color: red;
+}
