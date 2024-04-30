@@ -1,0 +1,36 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<h1>Lista de Usuario</h1>
+
+<div class="scroll-container">
+<table class="table">
+    
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>cedula</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+    
+    <tbody>
+        <tr *ngFor="let users of listaUserss">
+            <td>{{users.id}}</td>
+            <td>{{users.name}}</td>
+            <td>{{users.cedula}}</td>
+            <td>{{users.email}}</td>
+
+            
+
+           
+            <br>
+            <td>
+               <button type="button" class="btn btn-danger"(click)="eliminarUsers(users.id)">Eliminar</button>
+            </td>
+            
+             
+       </tr>
+    </tbody>
+    
+   </table>
+</div>
