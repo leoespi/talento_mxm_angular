@@ -10,8 +10,7 @@
 <H2>Incapacidades</H2>
 <br />
 <button (click)="downloadIncapacidades()">Descargar Incapacidades</button>
-
-
+<input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por cédula">
 
 <div class="scroll-container">
     <table class="table">
@@ -19,6 +18,7 @@
             <tr>
                 <th>ID</th>
                 <th>User ID</th>
+                <th>Cedula</th>
                 <th>Dias de incapacidad</th>
                 <th>Fecha inicio incapacidad</th>
                 <th>Aplica Cobro</th>
@@ -29,17 +29,20 @@
 
         <tbody>
             <!-- Aquí es donde necesitas aplicar el cambio -->
-            <tr *ngFor="let incapacidades of listarIncapacidades">
-                <td>{{ incapacidades.id }}</td>
-                <td>{{ incapacidades.user_id }}</td>
-                <td>{{ incapacidades.dias_incapacidad }}</td>
-                <td>{{ incapacidades.fecha_inicio_incapacidad }}</td>
-                <td>{{ incapacidades.aplica_cobro }}</td>
-                <td>{{ incapacidades.entidad_afiliada }}</td>
-                <td>{{ incapacidades.tipo_incapacidad }}</td>
-                
+            <tr *ngFor="let incapacidad of filtrarIncapacidades()">
+                <td>{{ incapacidad.id }}</td>
+                <td>{{ incapacidad.user_id }}</td>
+                <td>{{ incapacidad.cedula }}</td>
+                <td>{{ incapacidad.dias_incapacidad }}</td>
+                <td>{{ incapacidad.fecha_inicio_incapacidad }}</td>
+                <td>{{ incapacidad.aplica_cobro }}</td>
+                <td>{{ incapacidad.entidad_afiliada }}</td>
+                <td>{{ incapacidad.tipo_incapacidad }}</td>
+                <td>
+                    <button (click)="eliminarFeeds(incapacidad.id)">Eliminar</button>
+                    
+                </td>
             </tr>
-            
         </tbody>
     </table>
 </div>
