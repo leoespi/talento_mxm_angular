@@ -10,8 +10,20 @@ export class UsersService {
 
 
   url='http://127.0.0.1:8000/api/users';
+
+  urlExport='http://127.0.0.1:8000/api/export-users'
+
   constructor(private http:HttpClient){}
 
+
+  downloadUsers(access_token: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + access_token
+    });
+    const options = { headers: headers, responseType: 'blob' as 'json' }; // Aquí cambiamos el tipo de respuesta a "blob"
+    return this.http.get(this.urlExport, options);
+  }
+  
 
   getUserss(access_token:any):Observable<any>{
     const headers = new HttpHeaders({

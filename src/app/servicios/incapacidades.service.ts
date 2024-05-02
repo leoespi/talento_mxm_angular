@@ -16,6 +16,7 @@ export class IncapacidadesService {
 
   
   userUrl = 'http://127.0.0.1:8000/api/user';
+  urlExport='http://127.0.0.1:8000/api/export-incapacidades';
 
 
   constructor(private http:HttpClient) {
@@ -23,6 +24,14 @@ export class IncapacidadesService {
    }
 
    
+   downloadIncapacidades(access_token: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + access_token
+    });
+    const options = { headers: headers, responseType: 'blob' as 'json' }; // Aquí cambiamos el tipo de respuesta a "blob"
+    return this.http.get(this.urlExport, options);
+  }
+
    getIncapacidades(access_token:any):Observable<any>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

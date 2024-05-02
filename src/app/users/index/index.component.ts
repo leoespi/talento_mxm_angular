@@ -37,6 +37,22 @@ export class IndexComponent {
   }
 
 
+  downloadUsers(): void {
+    this.usersService.downloadUsers(this.token).subscribe((data: Blob) => {
+      const url = window.URL.createObjectURL(data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'usuarios.xlsx'; // Cambia la extensión del archivo según el tipo de archivo que Laravel devuelve
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }, error => {
+      console.log(error);
+    });
+  }
+  
+
 
   
   cargaUsers(): void{
