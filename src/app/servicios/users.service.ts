@@ -11,6 +11,8 @@ export class UsersService {
 
   url='http://127.0.0.1:8000/api/users';
 
+  urldestroy= 'http://127.0.0.1:8000/api/user';
+
   urlExport='http://127.0.0.1:8000/api/export-users'
 
   constructor(private http:HttpClient){}
@@ -59,6 +61,6 @@ export class UsersService {
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers};
-    return this.http.delete(this.url+"/"+id, options);
+    return this.http.delete(this.urldestroy+"/"+id, options);
   }
 }

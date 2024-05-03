@@ -71,7 +71,8 @@ cargaUsers(): void{
 
   
   eliminarUsers(id:any): void {
-    this.usersService.deleteUsers(id, this.token).subscribe(data=>{
+    this.usersService.deleteUsers(id, this.token).subscribe(
+      data=>{
       this.cargaUsers();
     },
     error =>{
@@ -92,7 +93,7 @@ cargaUsers(): void{
     return this.listaUserss.filter(Users => {
       // Filtra solo por cédula (user_id)
       return (
-        (Users.name?.toString() ?? '').includes(this.searchTerm.trim()),
+       
         (Users.cedula?.toString() ?? '').includes(this.searchTerm.trim()) 
       );
     });

@@ -78,7 +78,7 @@ export class IncapacidadesService {
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers};
-    return this.http.get(this.users, options);
+    return this.http.get(this.url, options);
   }
 
 }
