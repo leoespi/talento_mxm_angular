@@ -18,7 +18,7 @@
             <tr>
                 <th>ID</th>
                 <th>User ID</th>
-                <th>Cedula</th>
+                <th>Nombre </th>
                 <th>Dias de incapacidad</th>
                 <th>Fecha inicio incapacidad</th>
                 <th>Aplica Cobro</th>
@@ -32,7 +32,7 @@
             <tr *ngFor="let incapacidad of filtrarIncapacidades()">
                 <td>{{ incapacidad.id }}</td>
                 <td>{{ incapacidad.user_id }}</td>
-                <td>{{ incapacidad.cedula }}</td>
+                <td>{{ incapacidad.name}}</td>
                 <td>{{ incapacidad.dias_incapacidad }}</td>
                 <td>{{ incapacidad.fecha_inicio_incapacidad }}</td>
                 <td>{{ incapacidad.aplica_cobro }}</td>

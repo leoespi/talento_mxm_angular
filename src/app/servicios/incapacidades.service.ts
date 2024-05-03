@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +16,7 @@ export class IncapacidadesService {
 
 
   
-  userUrl = 'http://127.0.0.1:8000/api/users';
+  users = 'http://127.0.0.1:8000/api/users';
 
   urlExport='http://127.0.0.1:8000/api/export-incapacidades';
 
@@ -77,7 +78,7 @@ export class IncapacidadesService {
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers};
-    return this.http.get("http://127.0.0.1:8000/api/users", options);
+    return this.http.get(this.users, options);
   }
 
 }

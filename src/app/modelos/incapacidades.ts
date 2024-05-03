@@ -1,8 +1,9 @@
 export class Incapacidades {
     id?: number;
     user_id :number | null | undefined;
-    
-    cedula?: number;
+    user_cedula:number;
+    name :string | null | undefined;
+
     dias_incapacidad : number | null | undefined;
     fecha_inicio_incapacidad: Date;
     aplica_cobro : boolean | null | undefined
@@ -11,10 +12,11 @@ export class Incapacidades {
     
 
 
-        constructor(id: number, user_id:number,cedula: number, dias_incapacidad: number, fecha_inicio_incapacidad: Date, aplica_cobro: boolean, entidad_afiliada:string , tipo_incapacidad:string) {
+        constructor(id: number, user_id:number,cedula: number, name:string, dias_incapacidad: number, fecha_inicio_incapacidad: Date, aplica_cobro: boolean, entidad_afiliada:string , tipo_incapacidad:string, user_cedula:number) {
             this.id = id;
             this.user_id = user_id;
-            this.cedula = cedula;
+            this.user_cedula = user_cedula;
+            this.name = name;
             this.dias_incapacidad = dias_incapacidad;
             this.fecha_inicio_incapacidad= fecha_inicio_incapacidad;
             this.aplica_cobro = aplica_cobro;

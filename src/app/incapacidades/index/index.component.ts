@@ -101,7 +101,7 @@ export class IndexComponent {
     return this.listarIncapacidades.filter(incapacidad => {
       // Filtra solo por cédula (user_id)
       return (
-        (incapacidad.cedula?.toString() ?? '').includes(this.searchTerm.trim()) 
+        (incapacidad.name?.toString() ?? '').includes(this.searchTerm.trim()) 
       );
     });
   }

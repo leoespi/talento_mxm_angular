@@ -20,7 +20,7 @@ export class UsersService {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token
     });
-    const options = { headers: headers, responseType: 'blob' as 'json' }; // Aquí cambiamos el tipo de respuesta a "blob"
+    const options = { headers: headers, responseType: 'blob' as 'json' }; 
     return this.http.get(this.urlExport, options);
   }
   

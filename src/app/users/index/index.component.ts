@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UsersService } from '../../servicios/users.service';
 import { Users } from '../../modelos/users';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -10,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   selector: 'app-index',
   standalone: true,
   providers: [UsersService],
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './index.component.html',
   styleUrl: './index.component.scss'
 })
@@ -18,10 +19,12 @@ export class IndexComponent {
   id: string | null;
   listaUserss: Users[]=[];
   token: string | null = null;
+  searchTerm: string = '';
 
 
   constructor(private usersService: UsersService, private _router: Router, private aRouter: ActivatedRoute ) { 
     this.id=this.aRouter.snapshot.paramMap.get('id');
+    this.searchTerm = '';
   }
 
   ngOnInit(): void {
@@ -65,6 +68,8 @@ cargaUsers(): void{
   }
   )
 }
+
+  
   eliminarUsers(id:any): void {
     this.usersService.deleteUsers(id, this.token).subscribe(data=>{
       this.cargaUsers();
@@ -76,6 +81,21 @@ cargaUsers(): void{
 
   editarUsers(id:any): void{
     this._router.navigateByUrl("/users/editar/"+id);
+  }
+
+  filtrarUsers(): Users[] {
+    if (!this.searchTerm.trim()) {
+      // Si el término de búsqueda está vacío, devuelve todos los datos
+      return this.listaUserss;
+    }
+    // Filtra los datos según el término de búsqueda
+    return this.listaUserss.filter(Users => {
+      // Filtra solo por cédula (user_id)
+      return (
+        (Users.name?.toString() ?? '').includes(this.searchTerm.trim()),
+        (Users.cedula?.toString() ?? '').includes(this.searchTerm.trim()) 
+      );
+    });
   }
 
 
