@@ -51,6 +51,16 @@ export class IndexComponent {
     );
   }
 
+
+ // visualizarImagen(uuid: string): void {
+   // this.incapacidadesService.visualizarImagen(uuid, this.token).subscribe((imgSrc: string) => {
+      // Asigna el src de la imagen al elemento img en la plantilla HTML
+    //  document.getElementById('imagenVisualizada')!.setAttribute('src', imgSrc);
+   // }, error => {
+   // console.log(error);
+   // });
+  //}
+
   downloadIncapacidades(): void {
     this.incapacidadesService.downloadIncapacidades(this.token).subscribe((data: Blob) => {
       const url = window.URL.createObjectURL(data);
@@ -107,6 +117,7 @@ export class IndexComponent {
       console.log(error);
     });
   }
+  
 
 
   

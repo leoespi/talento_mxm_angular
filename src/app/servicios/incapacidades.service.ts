@@ -26,6 +26,26 @@ export class IncapacidadesService {
    }
 
 
+   //visualizarImagen(uuid: string, access_token: any): Observable<string> {
+    //const headers = new HttpHeaders({
+      //'Authorization': 'Bearer ' + access_token
+    //});
+    //const options = { headers: headers, responseType: 'blob' as 'json' };
+    //return this.http.get<Blob>(`${this.url}/${uuid}/download`, options).pipe(
+      //map((data: Blob) => {
+        //const reader = new FileReader();
+        //reader.readAsDataURL(data);
+        //return new Observable<string>((observer) => {
+         // reader.onloadend = () => {
+          //  observer.next(reader.result as string);
+            //observer.complete();
+          //};
+        //});
+     // })
+    //);
+  //}
+
+
    downloadImage(uuid: string, access_token: any): Observable<Blob> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token
