@@ -14,7 +14,7 @@ export class IncapacidadesService {
 
   url='http://127.0.0.1:8000/api/incapacidades';
 
-
+ 
   
   users = 'http://127.0.0.1:8000/api/users';
 
@@ -24,6 +24,15 @@ export class IncapacidadesService {
   constructor(private http:HttpClient) {
 
    }
+
+
+   downloadImage(uuid: string, access_token: any): Observable<Blob> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + access_token
+    });
+    const options = { headers: headers, responseType: 'blob' as 'json' };
+    return this.http.get<Blob>(`${this.url}/${uuid}/download`, options);
+  }
 
    
    downloadIncapacidades(access_token: any): Observable<any> {

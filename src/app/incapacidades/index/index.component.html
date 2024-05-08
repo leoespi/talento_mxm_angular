@@ -8,7 +8,7 @@
 
 
 <H1>Incapacidades</H1>
-<br />
+<br/>
 
 
 <button type="button" class="btn btn-primary"  (click)="downloadIncapacidades()">Descargar Incapacidades</button>
@@ -18,7 +18,8 @@
 
 
 <div class="scroll-container">
-    <table class="table table-bordered , table table-hover">
+    <table class="table table-bordered  table table-hover">
+
         <thead>
             <tr>
                 <th>ID</th>
@@ -29,6 +30,7 @@
                 <th>Aplica Cobro</th>
                 <th>Entidad Afiliada</th>
                 <th>Tipo de Incapacidad</th>
+                <th>imagen</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -44,6 +46,11 @@
                 <td>{{ incapacidad.aplica_cobro }}</td>
                 <td>{{ incapacidad.entidad_afiliada }}</td>
                 <td>{{ incapacidad.tipo_incapacidad }}</td>
+                <td>
+                    <button type="button" class="btn btn-success" *ngIf="incapacidad.uuid" (click)="downloadImage(incapacidad.uuid!)">Descargar imagen</button>
+
+                </td>
+                
                 <td>
                     
                     <button type="button" class="btn btn-danger"(click)="eliminarFeeds(incapacidad.id)">Eliminar</button>

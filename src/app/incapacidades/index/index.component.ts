@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IncapacidadesService } from '../../servicios/incapacidades.service'; // Asegúrate de importar el servicio correcto
-import { Incapacidades } from '../../modelos/incapacidades'; // Asegúrate de importar el modelo correcto
+import { IncapacidadesService } from '../../servicios/incapacidades.service';
+import { Incapacidades } from '../../modelos/incapacidades';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-index',
   standalone: true,
-  providers : [IncapacidadesService],
+  providers: [IncapacidadesService],
   imports: [CommonModule, FormsModule],
   templateUrl: './index.component.html',
-  styleUrl: './index.component.scss'
+  styleUrls: ['./index.component.scss']
 })
 export class IndexComponent {
 
@@ -22,21 +22,17 @@ export class IndexComponent {
   searchTerm: string = '';
   clave: string | null = null;
 
-
   constructor(private incapacidadesService: IncapacidadesService, private router: Router, private aRouter: ActivatedRoute) {
-
-    this.id=this.aRouter.snapshot.paramMap.get('id');
+    this.id = this.aRouter.snapshot.paramMap.get('id');
     this.searchTerm = '';
-
-
-   }
+  }
 
   ngOnInit(): void {
     this.recuperarToken();
     this.cargarIncapacidades();
   }
 
-  recuperarToken() {
+  recuperarToken(): void {
     this.token = localStorage.getItem('clave');
     if (this.token == null) {
       this.router.navigate(['/']);
@@ -47,27 +43,20 @@ export class IndexComponent {
     this.incapacidadesService.getIncapacidades(this.token).subscribe(
       (data: any) => {
         console.log(data);
-        this.listarIncapacidades = data.incapacidades; // Modificación: Asigna data.feeds en lugar de data
+        this.listarIncapacidades = data.incapacidades;
       },
       err => {
         console.log(err);
       }
     );
   }
-  
-  
-  
-
-  
-
-
 
   downloadIncapacidades(): void {
     this.incapacidadesService.downloadIncapacidades(this.token).subscribe((data: Blob) => {
       const url = window.URL.createObjectURL(data);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'incapacidades.xlsx'; // Cambia la extensión del archivo según el tipo de archivo que Laravel devuelve
+      a.download = 'incapacidades.xlsx';
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -94,16 +83,31 @@ export class IndexComponent {
 
   filtrarIncapacidades(): Incapacidades[] {
     if (!this.searchTerm.trim()) {
-      // Si el término de búsqueda está vacío, devuelve todos los datos
       return this.listarIncapacidades;
     }
-    // Filtra los datos según el término de búsqueda
     return this.listarIncapacidades.filter(incapacidad => {
-      // Filtra solo por cédula (user_id)
       return (
-        (incapacidad.cedula?.toString() ?? '').includes(this.searchTerm.trim()) 
+        (incapacidad.cedula?.toString() ?? '').includes(this.searchTerm.trim())
       );
     });
   }
+
+
+  downloadImage(uuid: string): void {
+    this.incapacidadesService.downloadImage(uuid, this.token).subscribe((data: Blob) => {
+      const url = window.URL.createObjectURL(data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'imagen.jpg'; // Cambia 'imagen.jpg' por el nombre adecuado
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+
   
 }
