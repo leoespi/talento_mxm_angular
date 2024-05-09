@@ -61,7 +61,7 @@ export class IncapacidadesService {
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers, responseType: 'blob' as 'json' };
-    return this.http.get<Blob>(`${this.url}/${uuid}/download`, options);
+    return this.http.get<Blob>(`${this.url}/${uuid}/downloadFromDB`, options);
   }
 
    
