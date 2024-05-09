@@ -11,7 +11,12 @@
 <br/>
 
 
+
 <button type="button" class="btn btn-primary"  (click)="downloadIncapacidades()">Descargar Incapacidades</button>
+
+<div *ngIf="imagenVisible">
+  <img [src]="imagenVisualizadaSrc" alt="Imagen Visualizada">
+</div>
 
 <input type="text"   [(ngModel)]="searchTerm" class="form-control" placeholder="Buscar por cédula" aria-label="Recipient's username" aria-describedby="basic-addon2">
 
@@ -44,6 +49,8 @@
               <td>{{ incapacidad.entidad_afiliada }}</td>
               <td>{{ incapacidad.tipo_incapacidad }}</td>
               <td>
+                <button type="button" class="btn btn-primary" *ngIf="incapacidad.uuid" (click)="visualizarImagen(incapacidad.uuid!)">Visualizar</button>
+
                 <button type="button" class="btn btn-success" *ngIf="incapacidad.uuid" (click)="downloadImage(incapacidad.uuid!)">Descargar</button>
               </td>
               <td>

@@ -21,6 +21,9 @@ export class IndexComponent {
   token: string | null = null;
   searchTerm: string = '';
   clave: string | null = null;
+  imagenVisible: boolean = false;
+  imagenVisualizadaSrc: string | null = null; 
+
 
   constructor(private incapacidadesService: IncapacidadesService, private router: Router, private aRouter: ActivatedRoute) {
     this.id = this.aRouter.snapshot.paramMap.get('id');
@@ -38,6 +41,23 @@ export class IndexComponent {
       this.router.navigate(['/']);
     }
   }
+
+  visualizarImagen(uuid: string): void {
+    this.incapacidadesService.downloadImage(uuid, this.token).subscribe((data: Blob) => {
+      const url = window.URL.createObjectURL(data);
+      const newWindow = window.open(url, '_blank');
+      if (newWindow) {
+        newWindow.focus();
+      } else {
+        console.error('No se pudo abrir una nueva pestaña.');
+      }
+    }, error => {
+      console.log(error);
+    });
+  }
+  
+  
+  
 
   cargarIncapacidades(): void {
     this.incapacidadesService.getIncapacidades(this.token).subscribe(
