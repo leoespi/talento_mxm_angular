@@ -3,7 +3,7 @@ export class Incapacidades {
     user_id :number | null | undefined;
     cedula:number;
     name :string | null | undefined;
-
+    user: any;
     dias_incapacidad : number | null | undefined;
     fecha_inicio_incapacidad: Date;
     aplica_cobro : boolean | null | undefined

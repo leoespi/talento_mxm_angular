@@ -16,7 +16,7 @@ export class IncapacidadesService {
 
  
   
-  users = 'http://127.0.0.1:8000/api/users';
+  usersUrl = 'http://127.0.0.1:8000/api/users';
 
   urlExport='http://127.0.0.1:8000/api/export-incapacidades';
 
@@ -24,6 +24,16 @@ export class IncapacidadesService {
   constructor(private http:HttpClient) {
 
    }
+
+
+   getUserById(userId: number | null | undefined, access_token: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + access_token
+    });
+    const options = { headers: headers };
+    return this.http.get<any>(`${this.usersUrl}/${userId}`, options);
+  }
+   
 
 
    //visualizarImagen(uuid: string, access_token: any): Observable<string> {

@@ -18,46 +18,38 @@
 
 
 <div class="scroll-container">
-    <table class="table table-bordered  table table-hover">
-
+    <table class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>User ID</th>
-                <th>Nombre </th>
-                <th>Dias de incapacidad</th>
+                <th>Cédula</th> <!-- Nuevo encabezado para la cédula -->
+                <th>Nombre</th> <!-- Nuevo encabezado para el nombre -->
+                <th>Días de incapacidad</th>
                 <th>Fecha inicio incapacidad</th>
                 <th>Aplica Cobro</th>
                 <th>Entidad Afiliada</th>
                 <th>Tipo de Incapacidad</th>
-                <th>imagen</th>
+                <th>Imagen</th>
                 <th>Acciones</th>
             </tr>
         </thead>
-
         <tbody>
-            <!-- Aquí es donde necesitas aplicar el cambio -->
-            <tr *ngFor="let incapacidad of filtrarIncapacidades()">
-                <td>{{ incapacidad.id }}</td>
-                <td>{{ incapacidad.user_id }}</td>
-                <td>{{ incapacidad.name}}</td>
-                <td>{{ incapacidad.dias_incapacidad }}</td>
-                <td>{{ incapacidad.fecha_inicio_incapacidad }}</td>
-                <td>{{ incapacidad.aplica_cobro }}</td>
-                <td>{{ incapacidad.entidad_afiliada }}</td>
-                <td>{{ incapacidad.tipo_incapacidad }}</td>
-                <td>
-                    <button type="button" class="btn btn-success" *ngIf="incapacidad.uuid" (click)="downloadImage(incapacidad.uuid!)">Descargar </button>
-                    
-                </td>
-
-                
-                <td>
-                    
-                    <button type="button" class="btn btn-danger"(click)="eliminarFeeds(incapacidad.id)">Eliminar</button>
-                    
-                </td>
+            <tr *ngFor="let incapacidad of listarIncapacidades">
+              <td>{{ incapacidad.id }}</td>
+              <td>{{ incapacidad.user.cedula }}</td>
+              <td>{{ incapacidad.user.name }}</td>
+              <td>{{ incapacidad.dias_incapacidad }}</td>
+              <td>{{ incapacidad.fecha_inicio_incapacidad }}</td>
+              <td>{{ incapacidad.aplica_cobro }}</td>
+              <td>{{ incapacidad.entidad_afiliada }}</td>
+              <td>{{ incapacidad.tipo_incapacidad }}</td>
+              <td>
+                <button type="button" class="btn btn-success" *ngIf="incapacidad.uuid" (click)="downloadImage(incapacidad.uuid!)">Descargar</button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger" (click)="eliminarFeeds(incapacidad.id)">Eliminar</button>
+              </td>
             </tr>
-        </tbody>
+          </tbody>
     </table>
 </div>

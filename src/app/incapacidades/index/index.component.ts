@@ -90,17 +90,17 @@ export class IndexComponent {
   editarFeeds(id: any): void {
     this.router.navigateByUrl("/feeds/editar/" + id);
   }
-
   filtrarIncapacidades(): Incapacidades[] {
     if (!this.searchTerm.trim()) {
       return this.listarIncapacidades;
     }
     return this.listarIncapacidades.filter(incapacidad => {
       return (
-        (incapacidad.cedula?.toString() ?? '').includes(this.searchTerm.trim())
+        (incapacidad.user?.cedula?.toString() ?? '').includes(this.searchTerm.trim())
       );
     });
   }
+  
 
 
   downloadImage(uuid: string): void {
