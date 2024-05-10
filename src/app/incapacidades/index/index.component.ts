@@ -137,6 +137,10 @@ export class IndexComponent {
       console.log(error);
     });
   }
+
+  editarIncapacidades(id: any): void {
+    this.router.navigateByUrl("/incapacidades/editar/"+id);
+  }
   
 
 
