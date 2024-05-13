@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class IncapacidadesService {
 
-  url='http://127.0.0.1:8000/api/incapacidades';
+  url='http://127.0.0.1:8000/api/incapacidades/';
 
  
   
@@ -83,13 +83,13 @@ export class IncapacidadesService {
 
 
 
-  updateIncapacidades(id:string, incapacidades :Incapacidades, access_token:any):Observable<any>{
+  updateIncapacidades(id:string, incapacidades:Incapacidades, access_token:any):Observable<any>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers};
-    return this.http.put(this.url +"/"+id,incapacidades, options);         
+    return this.http.put(this.url +id,incapacidades, options);         
   }
 
   deleteIncapacidades(id:string, access_token:any):Observable<any>{

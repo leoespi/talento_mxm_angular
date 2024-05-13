@@ -7,6 +7,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Incapacidades } from '../../modelos/incapacidades';
 import { IncapacidadesService } from '../../servicios/incapacidades.service';
+import { subscribe } from 'node:diagnostics_channel';
 
 
 
@@ -24,7 +25,7 @@ export class CreateComponent {
 
 
   incapcacidadForm = this.fb.group({
-    aplica_cobro: false,
+    aplica_cobro: null,
     tipo_incapacidad: '',
   
    
@@ -40,7 +41,7 @@ export class CreateComponent {
 
   ngOnInit(): void {
     this.recuperarToken();
-    this.verEditar();
+    //this.verEditar();
     
   }
 
@@ -51,44 +52,47 @@ export class CreateComponent {
     }
   }
 
-  verEditar(): void {
-    if (this.id != null) {
-      this.IncapacidadesServicio.getIncapacidades(this.token).subscribe(
-        data => {
-          this.incapcacidadForm.setValue({
-            aplica_cobro: data.aplica_cobro || false, // Asigna un valor por defecto si data.aplica_cobro es nulo
-            tipo_incapacidad: data.tipo || '',
-            // Otros campos del formulario...
-          })
-        },
-        err => {
-          console.log(err);
-        }
-      )
-    }
-  }
+  
 
 
   agregarIncapacidad(): void {
-    // Obtén el valor actual de aplica_cobro y tipo_incapacidad del formulario
-    const aplica_cobro = this.incapcacidadForm.get('aplica_cobro')?.value;
-    const tipo_incapacidad = this.incapcacidadForm.get('tipo_incapacidad')?.value;
-  
-    // Crea un objeto Incapacidades solo con los campos que deseas editar
-    const incapacidades: Partial<Incapacidades> = {
-      aplica_cobro: aplica_cobro,
-      tipo_incapacidad: tipo_incapacidad,
-    };
-  
-    console.log(incapacidades);
-  
-    // Resto del código...
+
+    const incapacidad: Incapacidades = {
+      aplica_cobro: this.incapcacidadForm.get("aplica_cobro")?.value,
+      tipo_incapacidad: this.incapcacidadForm.get('tipo_incapacidad')?.value,
+      user: this.incapcacidadForm.get('user')?.value,
+      user_id: this.incapcacidadForm.get('user_id')?.value,
+      cedula: this.incapcacidadForm.get('cedula')?.value!,
+      name: this.incapcacidadForm.get('name')?.value,
+      dias_incapacidad: this.incapcacidadForm.get('dias_incapacidad')?.value,
+      fecha_inicio_incapacidad: this.incapcacidadForm.get('fecha_inicio_incapacidad')?.value!,
+    }
+
+    if (this.id !=null){
+      this.IncapacidadesServicio.updateIncapacidades (this.id,incapacidad,this.token)
+      .subscribe(data =>{
+        this._router.navigate(['/incapacidades/index']);
+
+      },err => {
+        console.log(err);
+        this._router.navigate(['/incapacidades/index']);
+      }
+    );
+
+    }else{
+      this.IncapacidadesServicio.addIncapacidades(incapacidad, this.token).subscribe
+      (data =>{
+        this._router.navigate(['/incapacidades/index']);
+
+      },err => {
+        console.log(err);
+        this._router.navigate(['/incapacidades/index']);
+      }
+    );
+    }
+
+    
   }
-  
-  
-
-
-
 
 
 }
