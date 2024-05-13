@@ -98,7 +98,7 @@ export class IncapacidadesService {
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers};
-    return this.http.delete(this.url +"/"+id, options);
+    return this.http.delete(this.url +id, options);
   }
 
   getUserss(access_token:any):Observable<any>{

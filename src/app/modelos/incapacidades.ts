@@ -17,7 +17,7 @@ export class Incapacidades {
         constructor(id: number, user_id:number,cedula: number, name:string, dias_incapacidad: number, fecha_inicio_incapacidad: Date, aplica_cobro: boolean, entidad_afiliada:string , tipo_incapacidad:string, user_cedula:number, image:string, uuid: string) {
             this.id = id;
             this.user_id = user_id;
-            this.cedula = user_cedula;
+            this.cedula = cedula;
             this.name = name;
             this.dias_incapacidad = dias_incapacidad;
             this.fecha_inicio_incapacidad= fecha_inicio_incapacidad;

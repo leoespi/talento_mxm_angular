@@ -72,14 +72,7 @@ export class IndexComponent {
   }
 
 
- // visualizarImagen(uuid: string): void {
-   // this.incapacidadesService.visualizarImagen(uuid, this.token).subscribe((imgSrc: string) => {
-      // Asigna el src de la imagen al elemento img en la plantilla HTML
-    //  document.getElementById('imagenVisualizada')!.setAttribute('src', imgSrc);
-   // }, error => {
-   // console.log(error);
-   // });
-  //}
+
 
   downloadIncapacidades(): void {
     this.incapacidadesService.downloadIncapacidades(this.token).subscribe((data: Blob) => {
@@ -107,19 +100,19 @@ export class IndexComponent {
     );
   }
 
-  editarFeeds(id: any): void {
-    this.router.navigateByUrl("/feeds/editar/" + id);
-  }
+ 
   filtrarIncapacidades(): Incapacidades[] {
     if (!this.searchTerm.trim()) {
       return this.listarIncapacidades;
     }
-    return this.listarIncapacidades.filter(incapacidad => {
+    return this.listarIncapacidades.filter(Incapacidades => {
       return (
-        (incapacidad.user?.cedula?.toString() ?? '').includes(this.searchTerm.trim())
+        (Incapacidades.id?.toString() ?? '').includes(this.searchTerm.trim())
       );
     });
   }
+
+  
   
 
 
