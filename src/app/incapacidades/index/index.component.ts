@@ -105,12 +105,14 @@ export class IndexComponent {
     if (!this.searchTerm.trim()) {
       return this.listarIncapacidades;
     }
-    return this.listarIncapacidades.filter(Incapacidades => {
+    return this.listarIncapacidades.filter(incapacidad => {
+      // Filtra por la cédula del usuario
       return (
-        (Incapacidades.id?.toString() ?? '').includes(this.searchTerm.trim())
+        (incapacidad.user?.cedula?.toString() ?? '').includes(this.searchTerm.trim())
       );
     });
   }
+  
 
   
   

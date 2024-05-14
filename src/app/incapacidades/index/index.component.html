@@ -1,64 +1,49 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-
-
-   
-
-
-
-<H1> Lista de Incapacidades</H1>
+<h1>Lista de Incapacidades</h1>
 <br/>
 
-
-
-<button type="button" class="btn btn-primary"  (click)="downloadIncapacidades()">Descargar Incapacidades</button>
+<button type="button" class="btn btn-primary" (click)="downloadIncapacidades()">Descargar Incapacidades</button>
 
 <div *ngIf="imagenVisible">
   <img [src]="imagenVisualizadaSrc" alt="Imagen Visualizada">
 </div>
 
-<input type="text"   [(ngModel)]="searchTerm" class="form-control" placeholder="Buscar por cédula" aria-label="Recipient's username" aria-describedby="basic-addon2">
-
-
+<input type="text" [(ngModel)]="searchTerm" class="form-control" placeholder="Buscar por cédula" aria-label="Recipient's username" aria-describedby="basic-addon2">
 
 <div class="scroll-container">
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Cédula</th> <!-- Nuevo encabezado para la cédula -->
-                <th>Nombre</th> <!-- Nuevo encabezado para el nombre -->
-                <th>Días de incapacidad</th>
-                <th>Fecha inicio incapacidad</th>
-                <th>Aplica Cobro</th>
-                <th>Entidad Afiliada</th>
-                <th>Tipo de Incapacidad</th>
-                <th>Imagen</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let incapacidad of listarIncapacidades">
-              <td>{{ incapacidad.id }}</td>
-              <td>{{ incapacidad.user.cedula }}</td>
-              <td>{{ incapacidad.user.name }}</td>
-              <td>{{ incapacidad.dias_incapacidad }}</td>
-              <td>{{ incapacidad.fecha_inicio_incapacidad }}</td>
-              <td>{{ incapacidad.aplica_cobro }}</td>
-              <td>{{ incapacidad.entidad_afiliada }}</td>
-              <td>{{ incapacidad.tipo_incapacidad }}</td>
-              <td>
-                <button type="button" class="btn btn-primary" *ngIf="incapacidad.uuid" (click)="visualizarImagen(incapacidad.uuid!)">Visualizar</button>
-
-                <button type="button" class="btn btn-success" *ngIf="incapacidad.uuid" (click)="downloadImage(incapacidad.uuid!)">Descargar</button>
-              </td>
-              <td>
-                <button type="button" class="btn btn-danger" (click)="eliminarFeeds(incapacidad.id)">Eliminar</button>
-                <button type="button" class="btn btn-warning" (click)="editarIncapacidades(incapacidad.id)">Autorizar</button>
-               
-              </td>
-            </tr>
-          </tbody>
-    </table>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Cédula</th> <!-- Nuevo encabezado para la cédula -->
+        <th>Nombre</th> <!-- Nuevo encabezado para el nombre -->
+        <th>Días de incapacidad</th>
+        <th>Fecha inicio incapacidad</th>
+        <th>Aplica Cobro</th>
+        <th>Entidad Afiliada</th>
+        <th>Tipo de Incapacidad</th>
+        <th>Imagen</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let incapacidad of filtrarIncapacidades()">
+        <td>{{ incapacidad.id }}</td>
+        <td>{{ incapacidad.user.cedula }}</td>
+        <td>{{ incapacidad.name }}</td>
+        <td>{{ incapacidad.dias_incapacidad }}</td>
+        <td>{{ incapacidad.fecha_inicio_incapacidad }}</td>
+        <td>{{ incapacidad.aplica_cobro }}</td>
+        <td>{{ incapacidad.entidad_afiliada }}</td>
+        <td>{{ incapacidad.tipo_incapacidad }}</td>
+        <td>
+          <button type="button" class="btn btn-primary" *ngIf="incapacidad.uuid" (click)="visualizarImagen(incapacidad.uuid!)">Visualizar</button>
+          <button type="button" class="btn btn-success" *ngIf="incapacidad.uuid" (click)="downloadImage(incapacidad.uuid!)">Descargar</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger" (click)="eliminarFeeds(incapacidad.id)">Eliminar</button>
+          <button type="button" class="btn btn-warning" (click)="editarIncapacidades(incapacidad.id)">Autorizar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
