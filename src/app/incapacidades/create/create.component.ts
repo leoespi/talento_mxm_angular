@@ -45,6 +45,7 @@ export class CreateComponent {
     
   }
 
+  // Recupera el token
   recuperarToken(){
     this.token = localStorage.getItem('clave');
     if (this.token == null) {
@@ -55,6 +56,7 @@ export class CreateComponent {
   
 
 
+  // Agrega una nueva incapacidad 
   agregarIncapacidad(): void {
 
     const incapacidad: Incapacidades = {
@@ -69,6 +71,7 @@ export class CreateComponent {
     }
 
     if (this.id !=null){
+      // Si hay un ID, actualiza la incapacidad existente
       this.IncapacidadesServicio.updateIncapacidades (this.id,incapacidad,this.token)
       .subscribe(data =>{
         this._router.navigate(['/incapacidades/index']);
@@ -80,6 +83,7 @@ export class CreateComponent {
     );
 
     }else{
+      // Si no hay un ID, agrega una nueva incapacidad
       this.IncapacidadesServicio.addIncapacidades(incapacidad, this.token).subscribe
       (data =>{
         this._router.navigate(['/incapacidades/index']);

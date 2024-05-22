@@ -35,6 +35,7 @@ export class IndexComponent {
     this.cargarIncapacidades();
   }
 
+  // Recupera el token del almacenamiento local
   recuperarToken(): void {
     this.token = localStorage.getItem('clave');
     if (this.token == null) {
@@ -42,6 +43,7 @@ export class IndexComponent {
     }
   }
 
+  // Visualiza la imagen asociada a una incapacidad en una nueva pestaña
   visualizarImagen(uuid: string): void {
     this.incapacidadesService.downloadImage(uuid, this.token).subscribe((data: Blob) => {
       const url = window.URL.createObjectURL(data);
@@ -59,6 +61,7 @@ export class IndexComponent {
   
   
 
+  // Carga las incapacidades desde el servidor
   cargarIncapacidades(): void {
     this.incapacidadesService.getIncapacidades(this.token).subscribe(
       (data: any) => {
@@ -74,6 +77,7 @@ export class IndexComponent {
 
 
 
+  // Descarga las incapacidades en formato de archivo
   downloadIncapacidades(): void {
     this.incapacidadesService.downloadIncapacidades(this.token).subscribe((data: Blob) => {
       const url = window.URL.createObjectURL(data);
@@ -89,6 +93,7 @@ export class IndexComponent {
     });
   }
 
+  // Elimina una incapacidad por su ID
   eliminarFeeds(id: any): void {
     this.incapacidadesService.deleteIncapacidades(id, this.token).subscribe(
       data => {
@@ -101,6 +106,7 @@ export class IndexComponent {
   }
 
  
+   // Filtra las incapacidades según el término de búsqueda
   filtrarIncapacidades(): Incapacidades[] {
     if (!this.searchTerm.trim()) {
       return this.listarIncapacidades;
@@ -118,6 +124,7 @@ export class IndexComponent {
   
 
 
+  // Descarga una imagen asociada a una incapacidad
   downloadImage(uuid: string): void {
     this.incapacidadesService.downloadImage(uuid, this.token).subscribe((data: Blob) => {
       const url = window.URL.createObjectURL(data);
@@ -133,6 +140,7 @@ export class IndexComponent {
     });
   }
 
+  // Redirige a la página de edición de una incapacidad por su ID
   editarIncapacidades(id: any): void {
     this.router.navigateByUrl("/incapacidades/editar/"+id);
   }

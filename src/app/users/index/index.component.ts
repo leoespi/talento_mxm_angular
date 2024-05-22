@@ -32,6 +32,7 @@ export class IndexComponent {
     this.cargaUsers();;
   }
 
+  // Recupera el token del almacenamiento local
   recuperarToken(){
     this.token = localStorage.getItem('clave');
     if (this.token == null) {
@@ -40,6 +41,7 @@ export class IndexComponent {
   }
 
 
+  // Descarga la lista de usuarios en formato de archivo
   downloadUsers(): void {
   this.usersService.downloadUsers(this.token).subscribe((data: Blob) => {
     const url = window.URL.createObjectURL(data);
@@ -57,7 +59,7 @@ export class IndexComponent {
 
 
 
-  
+// Carga la lista de usuarios desde el servidor
 cargaUsers(): void{
   this.usersService.getUserss( this.token).subscribe(data=>{
     console.log(data);
@@ -69,7 +71,8 @@ cargaUsers(): void{
   )
 }
 
-  
+
+  // Elimina un usuario por su ID
   eliminarUsers(id:any): void {
     this.usersService.deleteUsers(id, this.token).subscribe(
       data=>{
@@ -80,10 +83,13 @@ cargaUsers(): void{
     });
   }
 
+  // Redirige a la página de edición de un usuario por su ID
   editarUsers(id:any): void{
     this._router.navigateByUrl("/users/editar/"+id);
   }
 
+  // Filtra la lista de usuarios según el término de búsqueda
+  
   filtrarUsers(): Users[] {
     if (!this.searchTerm.trim()) {
       // Si el término de búsqueda está vacío, devuelve todos los datos

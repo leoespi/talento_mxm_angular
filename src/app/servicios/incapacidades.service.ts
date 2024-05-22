@@ -12,12 +12,15 @@ import { Observable } from 'rxjs';
 })
 export class IncapacidadesService {
 
+   // URL base de la API para las incapacidades
   url='http://127.0.0.1:8000/api/incapacidades/';
 
  
-  
+  // URL de la API para obtener usuarios
   usersUrl = 'http://127.0.0.1:8000/api/users';
 
+
+  // URL de la API para exportar incapacidades
   urlExport='http://127.0.0.1:8000/api/export-incapacidades';
 
 
@@ -26,6 +29,7 @@ export class IncapacidadesService {
    }
 
 
+    // Método para obtener un usuario por su ID
    getUserById(userId: number | null | undefined, access_token: any): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token
@@ -35,7 +39,7 @@ export class IncapacidadesService {
   }
    
 
-
+  // Método para visualizar una imagen asociada a una incapacidad
   visualizarImagen(uuid: string, access_token: any): Observable<Blob> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token
@@ -45,7 +49,7 @@ export class IncapacidadesService {
   }
   
 
-
+  // Método para descargar una imagen asociada a una incapacidad
    downloadImage(uuid: string, access_token: any): Observable<Blob> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token
@@ -54,7 +58,7 @@ export class IncapacidadesService {
     return this.http.get<Blob>(`${this.url}${uuid}/downloadFromDB`, options);
   }
 
-   
+   // Método para descargar todas las incapacidades en formato de hoja de cálculo
    downloadIncapacidades(access_token: any): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token
@@ -63,6 +67,7 @@ export class IncapacidadesService {
     return this.http.get(this.urlExport, options);
   }
 
+     // Método para obtener todas las incapacidades médicas LISTAR LOS DATOS
    getIncapacidades(access_token:any):Observable<any>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -72,6 +77,7 @@ export class IncapacidadesService {
     return this.http.get(this.url, options);
   }
 
+  // Método para agregar una nueva incapacidad médica
   addIncapacidades(incapacidades: Incapacidades, access_token: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -82,7 +88,7 @@ export class IncapacidadesService {
   }
 
 
-
+  // Método para actualizar una incapacidad médica existente
   updateIncapacidades(id:string, incapacidades:Incapacidades, access_token:any):Observable<any>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -92,6 +98,7 @@ export class IncapacidadesService {
     return this.http.put(this.url +id,incapacidades, options);         
   }
 
+  // Método para eliminar una incapacidad médica
   deleteIncapacidades(id:string, access_token:any):Observable<any>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -101,6 +108,7 @@ export class IncapacidadesService {
     return this.http.delete(this.url +id, options);
   }
 
+  // Método para obtener todos los usuarios del sistema
   getUserss(access_token:any):Observable<any>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
