@@ -7,6 +7,7 @@
   <img [src]="imagenVisualizadaSrc" alt="Imagen Visualizada">
 </div>
 
+<input type="month" [(ngModel)]="searchMonth" class="form-control" aria-label="Month Filter">
 <input type="text" [(ngModel)]="searchTerm" class="form-control" placeholder="Buscar por cédula" aria-label="Recipient's username" aria-describedby="basic-addon2">
 
 <div class="scroll-container">
@@ -20,7 +21,7 @@
         <th>Fecha inicio incapacidad</th>
         <th>Aplica Cobro</th>
         <th>Entidad Afiliada</th>
-        <th>Tipo de Incapacidad</th>
+        <th>Tipo de Incapacidad Autorizada</th>
         <th>Imagen</th>
         <th>Acciones</th>
       </tr>
