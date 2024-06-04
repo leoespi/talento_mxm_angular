@@ -4,9 +4,13 @@
   overflow-y: auto; /* Habilita el scrollbar vertical cuando sea necesario */
 }
 
-h1{
+h1 {
   text-align: center;
-  margin-top:  10px;
+  margin-top: 10px;
   color: gray;
   font-family: Verdana;
+}
+
+.container {
+  margin-top: 20px; /* Margen superior para separar el título de los filtros */
 }

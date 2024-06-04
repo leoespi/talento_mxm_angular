@@ -1,23 +1,36 @@
 <h1>Lista de Incapacidades</h1>
 <br/>
 
-<button type="button" class="btn btn-primary" (click)="downloadIncapacidades()">Descargar Incapacidades</button>
-
-<div *ngIf="imagenVisible">
-  <img [src]="imagenVisualizadaSrc" alt="Imagen Visualizada">
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <button type="button" class="btn btn-primary" (click)="downloadIncapacidades()">Descargar Incapacidades</button>
+    </div>
+    <div class="col-sm-4">
+      <input type="month" [(ngModel)]="searchMonth" class="form-control" aria-label="Month Filter">
+    </div>
+    <div class="col-sm-4">
+      <input type="text" [(ngModel)]="searchTerm" class="form-control" placeholder="Buscar por cédula" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <select [(ngModel)]="tipoIncapacidadSeleccionada" class="form-control">
+        <option value="">Seleccionar Tipo de Incapacidad</option>
+        <option *ngFor="let tipo of tiposIncapacidad" [value]="tipo">{{ tipo }}</option>
+      </select>
+    </div>
+  </div>
 </div>
-
-<input type="month" [(ngModel)]="searchMonth" class="form-control" aria-label="Month Filter">
-<input type="text" [(ngModel)]="searchTerm" class="form-control" placeholder="Buscar por cédula" aria-label="Recipient's username" aria-describedby="basic-addon2">
 
 <div class="scroll-container">
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Cédula</th> <!-- Nuevo encabezado para la cédula -->
+        <th>Cédula</th>
         <th>Nombre</th>
-        <th>Tipo de Incapacidad Reportada</th> <!-- Nuevo encabezado para el nombre -->
+        <th>Tipo de Incapacidad Reportada</th>
         <th>Días de incapacidad</th>
         <th>Fecha inicio incapacidad</th>
         <th>Aplica Cobro</th>

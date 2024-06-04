@@ -24,7 +24,8 @@ export class IndexComponent {
   imagenVisible: boolean = false;
   imagenVisualizadaSrc: string | null = null; 
   searchMonth: string = '';
-
+  tipoIncapacidadSeleccionada: string = '';
+  tiposIncapacidad: string[] = [];
 
   constructor(private incapacidadesService: IncapacidadesService, private router: Router, private aRouter: ActivatedRoute) {
     this.id = this.aRouter.snapshot.paramMap.get('id');
@@ -58,9 +59,6 @@ export class IndexComponent {
       console.log(error);
     });
   }
-  
-  
-  
 
   // Carga las incapacidades desde el servidor
   cargarIncapacidades(): void {
@@ -68,6 +66,7 @@ export class IndexComponent {
       (data: any) => {
         console.log(data);
         this.listarIncapacidades = data.incapacidades;
+        this.obtenerTiposIncapacidad();
       },
       err => {
         console.log(err);
@@ -75,8 +74,16 @@ export class IndexComponent {
     );
   }
 
-
-
+  // Obtener tipos únicos de incapacidades
+  obtenerTiposIncapacidad(): void {
+    const tipos: Set<string> = new Set();
+    this.listarIncapacidades.forEach(incapacidad => {
+      if (incapacidad.tipo_incapacidad_reportada) {
+        tipos.add(incapacidad.tipo_incapacidad_reportada);
+      }
+    });
+    this.tiposIncapacidad = Array.from(tipos);
+  }
 
   // Descarga las incapacidades en formato de archivo
   downloadIncapacidades(): void {
@@ -106,35 +113,36 @@ export class IndexComponent {
     );
   }
 
- 
-   // Modificamos la función filtrarIncapacidades para incluir el filtro por mes
-filtrarIncapacidades(): Incapacidades[] {
-  let incapacidadesFiltradas = this.listarIncapacidades;
+  // Filtramos las incapacidades por término de búsqueda, mes y tipo de incapacidad reportada
+  filtrarIncapacidades(): Incapacidades[] {
+    let incapacidadesFiltradas = this.listarIncapacidades;
 
-  // Filtrar por término de búsqueda
-  if (this.searchTerm.trim()) {
-    incapacidadesFiltradas = incapacidadesFiltradas.filter(incapacidad => 
-      (incapacidad.user?.cedula?.toString() ?? '').includes(this.searchTerm.trim())
-    );
+    // Filtrar por término de búsqueda
+    if (this.searchTerm.trim()) {
+      incapacidadesFiltradas = incapacidadesFiltradas.filter(incapacidad => 
+        (incapacidad.user?.cedula?.toString() ?? '').includes(this.searchTerm.trim())
+      );
+    }
+
+    // Filtrar por mes
+    if (this.searchMonth) {
+      const partes = this.searchMonth.split('-');
+      const mesSeleccionado = new Date(parseInt(partes[0]), parseInt(partes[1]) - 1);
+      incapacidadesFiltradas = incapacidadesFiltradas.filter(incapacidad => {
+        const fechaIncapacidad = new Date(incapacidad.fecha_inicio_incapacidad);
+        return fechaIncapacidad.getMonth() === mesSeleccionado.getMonth() && fechaIncapacidad.getFullYear() === mesSeleccionado.getFullYear();
+      });
+    }
+
+    // Filtrar por tipo de incapacidad reportada
+    if (this.tipoIncapacidadSeleccionada) {
+      incapacidadesFiltradas = incapacidadesFiltradas.filter(incapacidad => 
+        (incapacidad.tipo_incapacidad_reportada?.toLowerCase() === this.tipoIncapacidadSeleccionada.toLowerCase())
+      );
+    }
+
+    return incapacidadesFiltradas;
   }
-
-  
-if (this.searchMonth) {
-  const partes = this.searchMonth.split('-');
-  const mesSeleccionado = new Date(parseInt(partes[0]), parseInt(partes[1]) - 1);
-  incapacidadesFiltradas = incapacidadesFiltradas.filter(incapacidad => {
-    const fechaIncapacidad = new Date(incapacidad.fecha_inicio_incapacidad);
-    return fechaIncapacidad.getMonth() === mesSeleccionado.getMonth() && fechaIncapacidad.getFullYear() === mesSeleccionado.getFullYear();
-  });
-}
-
-
-  return incapacidadesFiltradas;
-}
-
-  
-  
-
 
   // Descarga una imagen asociada a una incapacidad
   downloadImage(uuid: string): void {
@@ -156,8 +164,4 @@ if (this.searchMonth) {
   editarIncapacidades(id: any): void {
     this.router.navigateByUrl("/incapacidades/editar/"+id);
   }
-  
-
-
-  
 }
