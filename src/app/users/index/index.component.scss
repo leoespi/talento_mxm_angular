@@ -1,16 +1,8 @@
-.scroll-container {
-  width: 100%; /* Ancho del contenedor */
-  height: 700px; /* Altura del contenedor */
-  overflow-y: auto; /* Habilita el scrollbar vertical cuando sea necesario */
+.table-container {
+  max-height: 560px; /* Altura máxima de la tabla */
+  overflow-y: auto; /* Habilitar el desplazamiento vertical solo si es necesario */
 }
 
-h1 {
-  text-align: center;
-  margin-top: 10px;
-  color: gray;
-  font-family: Verdana;
-}
-
-.container {
-  margin-top: 20px; /* Margen superior para separar el título de los filtros */
+.scrollable-tbody {
+  overflow-y: auto; /* Habilitar el desplazamiento vertical solo si es necesario */
 }

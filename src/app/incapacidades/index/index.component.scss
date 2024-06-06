@@ -1,18 +1,8 @@
-h1 {
-  text-align: left;
-  margin-top: 0; /* Eliminar margen superior del título */
-  color: gray;
-  font-family: Verdana;
+.table-container {
+  max-height: 560px; /* Altura máxima de la tabla */
+  overflow-y: auto; /* Habilitar el desplazamiento vertical solo si es necesario */
 }
 
-.container {
-  margin-top: 20px;
-}
-
-.label {
-  margin-bottom: 5px;
-}
-
-.scroll-container {
-  margin-top: 20px; /* Ajustar margen superior de la tabla */
+.scrollable-tbody {
+  overflow-y: auto; /* Habilitar el desplazamiento vertical solo si es necesario */
 }

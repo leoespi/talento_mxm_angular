@@ -1,76 +1,71 @@
 <div class="container">
   <div class="row">
-    <div class="col-6">
-      <h1 class="text-left">Lista de Incapacidades</h1>
+    <div class="col-12">
+      <h2 class="text-left">Lista de Incapacidades</h2>
     </div>
   </div>
   <br/>
   <div class="row mt-4">
-    <div class="col-md-3">
-      <label for="searchMonth">Mes:</label>
+    <div class="col-md-2">
+      <label for="searchMonth">Seleccionar incapacidad por Mes:</label>
       <input type="month" id="searchMonth" [(ngModel)]="searchMonth" class="form-control form-control-sm" aria-label="Month Filter">
     </div>
-    <div class="col-md-3">
-      <label for="searchTerm">Buscar por Cédula:</label>
+    <div class="col-md-2">
+      <label for="searchTerm">Buscar Incapacidad por Cédula:</label>
       <input type="text" id="searchTerm" [(ngModel)]="searchTerm" class="form-control form-control-sm" placeholder="Buscar por cédula" aria-label="Recipient's username" aria-describedby="basic-addon2">
     </div>
-    <div class="col-md-3">
-      <label for="tipoIncapacidad">Tipo de Incapacidad:</label>
+    <div class="col-md-2">
+      <label for="tipoIncapacidad">Buscar por Tipo de Incapacidad:</label>
       <select id="tipoIncapacidad" [(ngModel)]="tipoIncapacidadSeleccionada" class="form-control form-control-sm">
         <option value="">Seleccionar Tipo de Incapacidad</option>
         <option *ngFor="let tipo of tiposIncapacidad" [value]="tipo">{{ tipo }}</option>
       </select>
     </div>
-    <div class="col-md-3">
-      <label for="year">Año:</label>
-      <input type="text" id="year" [(ngModel)]="year" class="form-control form-control-sm" placeholder="Año" aria-label="Año">
+    <div class="col-md-2">
+      <label for="year">Seleccionar año a Descargar</label>
+      <input type="text" id="year" [(ngModel)]="year" class="form-control form-control-sm" placeholder="Buscar por año " aria-label="Año">
+    </div>
+    <div class="col-md-2">
+      <label for="year"></label>
+      <button type="button" class="btn btn-primary btn-block mt-4" (click)="downloadIncapacidadesByYear(year)">Descargar </button>
     </div>
   </div>
-  <div class="row mt-4">
-    <div class="col-12">
-      <button type="button" class="btn btn-primary" (click)="downloadIncapacidadesByYear(year)">Descargar Incapacidades por Año</button>
-    </div>
-  </div>
-  
 </div>
-
-<div class="scroll-container mt-4">
-  <table class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Cédula</th>
-        <th>Nombre</th>
-        <th>Tipo de Incapacidad Reportada</th>
-        <th>Días de incapacidad</th>
-        <th>Fecha inicio incapacidad</th>
-        <th>Aplica Cobro</th>
-        <th>Entidad Afiliada</th>
-        <th>Tipo de Incapacidad Autorizada</th>
-        <th>Imagen</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let incapacidad of filtrarIncapacidades()">
-        <td>{{ incapacidad.id }}</td>
-        <td>{{ incapacidad.user.cedula }}</td>
-        <td>{{ incapacidad.user.name }}</td>
-        <td>{{incapacidad.tipo_incapacidad_reportada}}</td>
-        <td>{{ incapacidad.dias_incapacidad }}</td>
-        <td>{{ incapacidad.fecha_inicio_incapacidad }}</td>
-        <td>{{ incapacidad.aplica_cobro }}</td>
-        <td>{{ incapacidad.entidad_afiliada }}</td>
-        <td>{{ incapacidad.tipo_incapacidad }}</td>
-        <td>
-          <button type="button" class="btn btn-success" *ngIf="incapacidad.uuid" (click)="downloadImage(incapacidad.uuid!)">Descargar</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-danger" (click)="eliminarFeeds(incapacidad.id)">Eliminar</button>
-          <button type="button" class="btn btn-warning" (click)="editarIncapacidades(incapacidad.id)">Autorizar</button>
-        </td>
-      </tr>
-    </tbody>
-
-  </table>
-</div>
+<div class="table-container">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cédula</th>
+          <th>Nombre</th>
+          <th>Tipo de Incapacidad Reportada</th>
+          <th>Días de incapacidad</th>
+          <th>Fecha inicio incapacidad</th>
+          <th>Aplica Cobro</th>
+          <th>Entidad Afiliada</th>
+          <th>Tipo de Incapacidad Autorizada</th>
+          <th>Imagen</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="scrollable-tbody">
+        <tr *ngFor="let incapacidad of filtrarIncapacidades()">
+          <td>{{ incapacidad.id }}</td>
+          <td>{{ incapacidad.user.cedula }}</td>
+          <td>{{ incapacidad.user.name }}</td>
+          <td>{{incapacidad.tipo_incapacidad_reportada}}</td>
+          <td>{{ incapacidad.dias_incapacidad }}</td>
+          <td>{{ incapacidad.fecha_inicio_incapacidad }}</td>
+          <td>{{ incapacidad.aplica_cobro }}</td>
+          <td>{{ incapacidad.entidad_afiliada }}</td>
+          <td>{{ incapacidad.tipo_incapacidad }}</td>
+          <td>
+            <button type="button" class="btn btn-success" *ngIf="incapacidad.uuid" (click)="downloadImage(incapacidad.uuid!)">Descargar</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger" (click)="eliminarFeeds(incapacidad.id)">Eliminar</button>
+            <button type="button" class="btn btn-warning" (click)="editarIncapacidades(incapacidad.id)">Autorizar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
