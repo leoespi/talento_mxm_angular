@@ -58,14 +58,15 @@ export class IncapacidadesService {
     return this.http.get<Blob>(`${this.url}${uuid}/downloadFromDB`, options);
   }
 
-   // Método para descargar todas las incapacidades en formato de hoja de cálculo
-   downloadIncapacidades(access_token: any): Observable<any> {
+   // Método para descargar todas las incapacidades en formato de hoja de cálculo por año
+  downloadIncapacidadesByYear(year: string, access_token: any): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token
     });
-    const options = { headers: headers, responseType: 'blob' as 'json' }; // Aquí cambiamos el tipo de respuesta a "blob"
-    return this.http.get(this.urlExport, options);
+    const options = { headers: headers, responseType: 'blob' as 'json' }; // Cambia el tipo de respuesta a "blob"
+    return this.http.get(`${this.urlExport}?year=${year}`, options); // Agrega el año a la URL
   }
+
 
      // Método para obtener todas las incapacidades médicas LISTAR LOS DATOS
    getIncapacidades(access_token:any):Observable<any>{

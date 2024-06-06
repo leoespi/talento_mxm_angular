@@ -17,6 +17,7 @@ export class IndexComponent {
 
   id: string | null;
 
+  year: string = ''; // Agrega la propiedad year
   listarIncapacidades: Incapacidades[] = [];
   token: string | null = null;
   searchTerm: string = '';
@@ -85,21 +86,23 @@ export class IndexComponent {
     this.tiposIncapacidad = Array.from(tipos);
   }
 
-  // Descarga las incapacidades en formato de archivo
-  downloadIncapacidades(): void {
-    this.incapacidadesService.downloadIncapacidades(this.token).subscribe((data: Blob) => {
-      const url = window.URL.createObjectURL(data);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'incapacidades.xlsx';
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-    }, error => {
-      console.log(error);
-    });
-  }
+  // Método para descargar incapacidades por año
+// Método para descargar incapacidades por año
+downloadIncapacidadesByYear(year: string): void {
+  this.incapacidadesService.downloadIncapacidadesByYear(year, this.token).subscribe((data: Blob) => {
+    const url = window.URL.createObjectURL(data);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `incapacidades_${year}.xlsx`; // Nombre del archivo con el año
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  }, error => {
+    console.log(error);
+  });
+}
+
 
   // Elimina una incapacidad por su ID
   eliminarFeeds(id: any): void {
