@@ -27,10 +27,12 @@
     </div>
     <div class="col-md-2">
       <label for="year"></label>
-      <button type="button" class="btn btn-primary btn-block mt-4" (click)="downloadIncapacidadesByYear(year)">Descargar </button>
+      <button type="button" class="btn btn-primary btn-block mt-4" (click)="downloadIncapacidadesByYear(year)">Descargar Incapacidades  </button>
+    
     </div>
   </div>
 </div>
+
 <div class="table-container">
     <table class="table table-bordered table-hover">
       <thead>
@@ -60,7 +62,8 @@
           <td>{{ incapacidad.entidad_afiliada }}</td>
           <td>{{ incapacidad.tipo_incapacidad }}</td>
           <td>
-            <button type="button" class="btn btn-success" *ngIf="incapacidad.uuid" (click)="downloadImage(incapacidad.uuid!)">Descargar</button>
+           
+            <button type="button" class="btn btn-success" *ngIf="incapacidad.uuid" (click)="downloadZip(incapacidad.uuid!)">Descargar ZIP</button>
           </td>
           <td>
             <button type="button" class="btn btn-danger" (click)="eliminarFeeds(incapacidad.id)">Eliminar</button>

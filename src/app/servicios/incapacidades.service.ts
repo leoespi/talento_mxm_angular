@@ -39,24 +39,8 @@ export class IncapacidadesService {
   }
    
 
-  // Método para visualizar una imagen asociada a una incapacidad
-  visualizarImagen(uuid: string, access_token: any): Observable<Blob> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + access_token
-    });
-    const options = { headers: headers, responseType: 'blob' as 'json' };
-    return this.http.get<Blob>(`${this.url}/${uuid}/downloadFromDB`, options);
-  }
-  
 
-  // Método para descargar una imagen asociada a una incapacidad
-   downloadImage(uuid: string, access_token: any): Observable<Blob> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + access_token
-    });
-    const options = { headers: headers, responseType: 'blob' as 'json' };
-    return this.http.get<Blob>(`${this.url}${uuid}/downloadFromDB`, options);
-  }
+ 
 
    // Método para descargar todas las incapacidades en formato de hoja de cálculo por año
   downloadIncapacidadesByYear(year: string, access_token: any): Observable<any> {
@@ -107,6 +91,23 @@ export class IncapacidadesService {
     });
     const options = { headers: headers};
     return this.http.delete(this.url +id, options);
+  }
+
+
+  downloadImage(uuid: string, access_token: any): Observable<Blob> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + access_token
+    });
+    const options = { headers: headers, responseType: 'blob' as 'json' };
+    return this.http.get<Blob>(`${this.url}${uuid}/downloadFromDB`, options);
+  }
+
+  downloadZip(uuid: string, access_token: any): Observable<Blob> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + access_token
+    });
+    const options = { headers: headers, responseType: 'blob' as 'json' };
+    return this.http.get<Blob>(`${this.url}download-zip/${uuid}`, options);
   }
 
   // Método para obtener todos los usuarios del sistema

@@ -163,6 +163,22 @@ downloadIncapacidadesByYear(year: string): void {
     });
   }
 
+
+  downloadZip(uuid: string): void {
+    this.incapacidadesService.downloadZip(uuid, this.token).subscribe((data: Blob) => {
+      const url = window.URL.createObjectURL(data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `incapacidad_${uuid}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }, error => {
+      console.log(error);
+    });
+  }
+
   // Redirige a la página de edición de una incapacidad por su ID
   editarIncapacidades(id: any): void {
     this.router.navigateByUrl("/incapacidades/editar/"+id);
