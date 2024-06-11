@@ -164,12 +164,12 @@ downloadIncapacidadesByYear(year: string): void {
   }
 
 
-  downloadZip(uuid: string): void {
+  downloadZip(uuid: string, cedula: number): void {
     this.incapacidadesService.downloadZip(uuid, this.token).subscribe((data: Blob) => {
       const url = window.URL.createObjectURL(data);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `incapacidad_${uuid}.zip`;
+      a.download = `incapacidad_${cedula}__${uuid}.zip`; // Aquí se incluye la cédula del usuario en el nombre del archivo ZIP
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -178,6 +178,7 @@ downloadIncapacidadesByYear(year: string): void {
       console.log(error);
     });
   }
+  
 
   // Redirige a la página de edición de una incapacidad por su ID
   editarIncapacidades(id: any): void {
