@@ -1,53 +1,68 @@
-
 #body {
-    font-family: Arial, sans-serif;
-    align-items: center;
+    display: flex;
     justify-content: center;
-    height: 100vh;
-    margin: 0;
-}
-
-
-form {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 300px;
-    width: 100%;
-    margin-top: 5%;
-    margin-left: 41%;
-    
-   
-}
-form h1{
-    color: gray;
-    text-align: center;
-    font-family: cursive;
-}
-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-    font-family: cursive;
-}
-
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-family: cursive;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-nav a {
     align-items: center;
+    height: 100vh;
+    background-color: #f7f7f7;
+}
+
+.login-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+    margin-bottom: 400px;
+}
+
+.login-form {
+    text-align: center;
+
+    h1 {
+        color: #333;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin-bottom: 30px;
+        font-weight: 500;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            font-size: 16px;
+            color: #555;
+            background-color: transparent;
+            transition: border-color 0.3s ease;
+
+            &:focus {
+                outline: none;
+                border-bottom-color: #4caf50;
+            }
+
+            &::placeholder {
+                color: #bbb;
+            }
+        }
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #45a049;
+        }
+    }
 }

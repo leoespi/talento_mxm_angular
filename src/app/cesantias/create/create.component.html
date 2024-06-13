@@ -1,0 +1,9 @@
+<form [formGroup]="cesantiaForm" (ngSubmit)="agregarCesantias()">
+    <label for="tipo_cesantia_reportada"> Tipo de solicitud</label>
+    <input type="text" id="tipo_cesantia_reportada" formControlName="tipo_cesantia_reportada">
+
+    <label for="estado"> Estado</label>
+    <input type="text" id="estado" formControlName="estado">
+
+    <button type="submit">Guardar</button>
+</form>

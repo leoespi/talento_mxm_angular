@@ -1,0 +1,30 @@
+form {
+    width: 300px; /* Ajusta el ancho según tu preferencia */
+    margin: 0 auto; /* Centra horizontalmente */
+    text-align: center; /* Centra el contenido del formulario */
+    margin-top: 200px
+  }
+  
+  form label {
+    display: block; /* Coloca cada etiqueta en una línea nueva */
+    margin-bottom: 50px; /* Espacio entre etiquetas y campos de entrada */
+  }
+  
+  form input {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    padding: 8px; /* Espacio interno en los campos de entrada */
+    margin-bottom: 10px; /* Espacio entre campos de entrada */
+  }
+  
+  form button {
+    padding: 10px 20px; /* Espacio interno en el botón */
+    background-color: #007bff; /* Color de fondo del botón */
+    color: #fff; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  }
+  
+  form button:hover {
+    background-color: #0056b3; /* Color de fondo al pasar sobre el botón */
+  }
+  

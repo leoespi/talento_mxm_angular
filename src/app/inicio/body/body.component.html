@@ -1,16 +1,14 @@
-<div id ="body" >
-
-    <div class="login">
-
-        <form [formGroup]="loginForm" (ngSubmit)="login()">
-            <input type="text" formControlName="cedula" placeholder="cedula">
-            <input type="password" formControlName="password" placeholder="Password">
-            <button type="submit" >Login</button>
-            
+<div id="body">
+    <div class="login-container">
+        <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+            <h1>Inicio de sesion Portal Talento Humano</h1>
+            <div class="input-group">
+                <input type="text" formControlName="cedula" placeholder="Cédula">
+            </div>
+            <div class="input-group">
+                <input type="password" formControlName="password" placeholder="Contraseña">
+            </div>
+            <button type="submit">Ingresar</button>
         </form>
-        
     </div>
-    
- 
-    
 </div>

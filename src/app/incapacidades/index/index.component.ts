@@ -22,6 +22,7 @@ export class IndexComponent {
   token: string | null = null;
   searchTerm: string = '';
   clave: string | null = null;
+  
   imagenVisible: boolean = false;
   imagenVisualizadaSrc: string | null = null; 
   searchMonth: string = '';
