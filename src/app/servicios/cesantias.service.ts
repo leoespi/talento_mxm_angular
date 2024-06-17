@@ -20,6 +20,8 @@ export class CesantiasService {
  
    // URL de la API para exportar incapacidades
    urlExport='http://127.0.0.1:8000/api/export-cesantias';
+
+   
  
  
    constructor(private http:HttpClient) {}

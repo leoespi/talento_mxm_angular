@@ -49,7 +49,8 @@
                 <td>{{ cesantia.tipo_cesantia_reportada }}</td>
                 <td>{{ cesantia.estado }}</td>
                 <td>
-                    <button type="button" class="btn-success"  *ngIf?="cesantias.uuid"></button>
+                    <button type="button" class="btn btn-success" *ngIf="cesantia?.uuid && cesantia?.user?.cedula" (click)="downloadZip(cesantia.uuid!, cesantia.user.cedula)">Descargar ZIP</button>
+
                 </td>
                 <td>
                     <button type="button" class="btn btn-warning" (click)="editarCesantias(cesantia.id)">Autorizar</button>
