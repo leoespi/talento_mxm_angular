@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Cesantias } from '../modelos/cesantias';
 import { Observable } from 'rxjs';
 
@@ -46,6 +46,18 @@ export class CesantiasService {
     return this.http.get(this.url, options);
   }
 
+  downloadCesantiasByYear(year: number, access_token: any): Observable<Blob> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + access_token
+    });
+    const options = { headers: headers, responseType: 'blob' as 'json' };
+
+    // Construir los parámetros de la solicitud HTTP
+    const params = new HttpParams().set('year', year.toString());
+
+    return this.http.get<Blob>(`${this.url}/export-cesantias`, { ...options, params: params });
+  }
+  
     // Método para agregar una nueva incapacidad médica
   addCesantias(cesantias: Cesantias, access_token: any): Observable<any> {
     const headers = new HttpHeaders({
@@ -66,6 +78,10 @@ export class CesantiasService {
     return this.http.put(this.url +id,cesantias, options);         
   }
 
+
+  
+   // Método para descargar todas las incapacidades en formato de hoja de cálculo por año
+ 
   deleteCesantias(id:string, access_token:any):Observable<any>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

@@ -21,6 +21,7 @@ export class IndexComponent {
   token: string | null = null;
   searchTerm: string = '';
   clave: string | null = null;
+  yearToDownload: number = 0; // Declaración de la propiedad yearToDownload   
    
   
   tipoCesantiasSeleccionada: string = '';
@@ -59,6 +60,24 @@ export class IndexComponent {
     );
   }
 
+  descargarCesantiasPorAnio(year: number): void {
+    this.cesantiasService.downloadCesantiasByYear(year, this.token).subscribe(
+      (data: Blob) => {
+        const url = window.URL.createObjectURL(data);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `cesantias_${year}.xlsx`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      },
+      error => {
+        console.error('Error al descargar las cesantías:', error);
+      }
+    );
+  }
+
    // Obtener tipos únicos de cesantias
    obtenerTiposCesantias(): void {
     const tipos: Set<string> = new Set();
@@ -69,6 +88,9 @@ export class IndexComponent {
     });
     this.tiposCesantias = Array.from(tipos);
   }
+
+
+ 
 
 
 
