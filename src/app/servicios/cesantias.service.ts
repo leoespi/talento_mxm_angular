@@ -46,6 +46,37 @@ export class CesantiasService {
     return this.http.get(this.url, options);
   }
 
+  authorizeCesantia(id: number | undefined, access_token: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token
+    });
+    const options = { headers: headers };
+
+    // Asegúrate de que id no sea undefined antes de hacer la solicitud
+    if (id === undefined) {
+      throw new Error('ID de cesantía no definido');
+    }
+
+    return this.http.put(`${this.url}${id}/authorize`, {}, options);
+  } 
+
+  denyCesantia(id: number | undefined, access_token: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token
+    });
+    const options = { headers: headers };
+
+    // Asegúrate de que id no sea undefined antes de hacer la solicitud
+    if (id === undefined) {
+      throw new Error('ID de cesantía no definido');
+    }
+
+    return this.http.put(`${this.url}${id}/deny`, {}, options);
+  } 
+  
+
   downloadCesantiasByYear(year: number, access_token: any): Observable<Blob> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token

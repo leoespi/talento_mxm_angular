@@ -9,7 +9,9 @@ import { CreateComponent as CreateIncapacidades } from './incapacidades/create/c
 import { IndexComponent as IndexCesantias} from './cesantias/index/index.component';
 import { CreateComponent as CreateCesantias } from './cesantias/create/create.component';
 
+import { IndexComponent as IndexCesantiasAutorizadas} from './cesantiasautorizadas/index/index.component';
 
+import { CreateComponent as CreateCesantiasAutorizadas } from './cesantiasautorizadas/create/create.component';
 
 export const routes: Routes = [
 
@@ -24,7 +26,14 @@ export const routes: Routes = [
      
     {path: 'cesantias/index', component:IndexCesantias},
     {path: 'cesantias/create', component:CreateCesantias},
-    {path: 'cesantias/editar/:id', component: CreateCesantias}
+    {path: 'cesantias/editar/:id', component: CreateCesantias},
+
+    {path: 'cesantiasautorizadas/index', component:IndexCesantiasAutorizadas},
+    {path: 'cesantiasautorizadas/create', component:CreateCesantiasAutorizadas},
+
+    
+
+    
 
     
 ];
