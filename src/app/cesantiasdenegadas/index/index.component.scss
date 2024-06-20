@@ -1,0 +1,10 @@
+.table-container {
+    max-height: 710px; /* Altura máxima del contenedor de la tabla */
+   
+    overflow-y: auto;
+     /* Habilitar el desplazamiento vertical si es necesario */
+  }
+  
+  .scrollable-tbody {
+    overflow-y: auto; /* Habilitar el desplazamiento vertical solo si es necesario */
+  }
