@@ -9,7 +9,7 @@
   <a href="/incapacidades/index" *ngIf="clave != null">Incapacidades</a>
   <a href="/cesantias/index" *ngIf="clave != null">Cesantias</a>
   
-  <a href="/cesantiasautorizadas/index" *ngIf="clave != null && rolId === 4">Opción Especial</a>
+  <a href="/cesantiasautorizadas/index" *ngIf="clave != null && rolId === 4">Cesantias Autorizadas</a>
 
   <button type="button" *ngIf="clave != null" (click)="logout()" id="logout">Cerrar Sesión</button>
 </nav>
