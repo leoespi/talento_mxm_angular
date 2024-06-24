@@ -8,7 +8,8 @@ import { CreateComponent as CreateCesantias } from './cesantias/create/create.co
 import { IndexComponent as IndexCesantiasAutorizadas } from './cesantiasautorizadas/index/index.component';
 import { CreateComponent as CreateCesantiasAutorizadas } from './cesantiasautorizadas/create/create.component';
 import { IndexComponent as IndexCesantiasDenegadas } from './cesantiasdenegadas/index/index.component';
-import { RolesGuard } from './roles.guard';
+import { RolesGuard } from './Guards/roles.guard';
+import { ComunicacionGuard } from './Guards/comunicacion-guard.guard'; // Nuevo guardia para rol 3
 
 export const routes: Routes = [
   { path: '', redirectTo: 'inicio/body', pathMatch: 'full' },
@@ -23,4 +24,7 @@ export const routes: Routes = [
   { path: 'cesantiasautorizadas/index', component: IndexCesantiasAutorizadas, canActivate: [RolesGuard] },
   { path: 'cesantiasautorizadas/create', component: CreateCesantiasAutorizadas },
   { path: 'cesantiasdenegadas/index', component: IndexCesantiasDenegadas },
+
+
+  //definir la ruta para el usuario comunicacion
 ];

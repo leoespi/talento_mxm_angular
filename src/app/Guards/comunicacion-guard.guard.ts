@@ -1,3 +1,5 @@
+// comunicacion.guard.ts
+
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -5,7 +7,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class RolesGuard implements CanActivate {
+export class ComunicacionGuard implements CanActivate {
 
   constructor(private router: Router) {}
 
@@ -15,12 +17,12 @@ export class RolesGuard implements CanActivate {
 
     const rolId = localStorage.getItem('rolId');
 
-    // Verificar si el rolId es 4 (Superadmin)
-    if (rolId && parseInt(rolId, 10) === 4) {
-      return true; // Permite el acceso si el rol es Superadmin
+    // Verificar si el rolId es 3 (Comunicacion)
+    if (rolId && parseInt(rolId, 10) === 3) {
+      return true; // Permite el acceso si el rol es Comunicacion
     } else {
       // Redirige a otra ruta o realiza alguna acción de denegación de acceso
-      this.router.navigate(['/users/index']); // Redirige a una página de acceso denegado
+      this.router.navigate(['/inicio/body']); // Redirige a la página de inicio o a una página de acceso denegado
       return false;
     }
   }
