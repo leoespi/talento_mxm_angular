@@ -11,25 +11,17 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent {
   clave: string | null = null;
+  rolId: number | null = null; // Agrega esta variable para almacenar el rol del usuario
 
+  constructor(private router: Router) {}
 
-  constructor( private router: Router){
-
+  ngOnInit(): void {
+    this.clave = localStorage.getItem('clave');
+    this.rolId = parseInt(localStorage.getItem('rolId') || '0', 10); // Parsea el rolId a número
   }
 
-  ngOnInit():void {
-
-    if(this.clave == null){
-      this.clave=localStorage.getItem('clave');
-
-    }
-  }
-  
-
-  logout():void {
+  logout(): void {
     localStorage.clear();
     window.location.reload();
-
   }
-
 }

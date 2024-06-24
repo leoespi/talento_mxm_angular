@@ -50,29 +50,21 @@ export class BodyComponent {
   }
 
   login(): void {
-
-    console.log(this.loginForm.get('cedula')?.value! + this.loginForm.get('password')?.value);
-    
-    
-    
     this.loginService.login(this.loginForm.get('cedula')?.value, this.loginForm.get('password')?.value)
-      .subscribe( rs => {
+      .subscribe(rs => {
         this.respuesta = rs;
-
-        
-       
-        if (this.respuesta != null && this.respuesta.user.rol_id!=2) {
-          GlobalComponent.respuesta = this.respuesta;
-          console.log(this.respuesta);
-
-          
+  
+        if (this.respuesta != null && this.respuesta.user !== undefined && this.respuesta.user.rol_id !== undefined) {
           localStorage.setItem('clave', rs.token);
+          localStorage.setItem('rolId', this.respuesta.user.rol_id.toString());
           window.location.reload();
         }
       }, err => {
         console.log(err);
       });
   }
+  
+  
 
 
 }
