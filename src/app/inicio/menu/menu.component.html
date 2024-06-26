@@ -5,9 +5,9 @@
 <nav>
   <img src="assets/img/MXMLOGO.png" alt="logo">
   
-  <a href="/inicio/body" *ngIf="clave != null">Usuarios</a>
-  <a href="/incapacidades/index" *ngIf="clave != null">Incapacidades</a>
-  <a href="/cesantias/index" *ngIf="clave != null">Cesantias</a>
+  <a href="/inicio/body" *ngIf="(clave != null && rolId === 4) || rolId === 1">Usuarios</a>
+  <a href="/incapacidades/index" *ngIf="(clave != null && rolId === 4) || rolId === 1">Incapacidades</a>
+  <a href="/cesantias/index" *ngIf="(clave != null && rolId === 4) || rolId === 1">Cesantias</a>
   
   <a href="/cesantiasautorizadas/index" *ngIf="clave != null && rolId === 4">Cesantias Autorizadas</a>
 
