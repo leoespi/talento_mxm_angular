@@ -4,37 +4,39 @@
             <h2 class="text-left">Lista de Cesantias Autorizadas</h2>
         </div>
     </div>
+
+
+    <div class="table-container">
+
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cedula</th>
+                    <th>Nombre</th>
+                    <th>Tipo de Solicitud</th>
+                    <th>Estado</th>
+                  
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+    
+            <tbody class="scrollable-tbody">
+                <tr *ngFor="let cesantia of listarCesantias">
+                  <td>{{ cesantia.id }}</td>
+                  <td>{{ cesantia.user.cedula }}</td>
+                  <td>{{ cesantia.user.name }}</td>
+                  <td>{{ cesantia.tipo_cesantia_reportada }}</td>
+                  <td>{{ cesantia.estado }}</td>
+                 
+                </tr>
+              </tbody>
+              
+              
+    
+        </table>
+    </div>
     
 </div>
 
 
-<div class="table-container">
-
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Cedula</th>
-                <th>Nombre</th>
-                <th>Tipo de Solicitud</th>
-                <th>Estado</th>
-              
-                <th>Acciones</th>
-            </tr>
-        </thead>
-
-        <tbody class="scrollable-tbody">
-            <tr *ngFor="let cesantia of listarCesantias">
-              <td>{{ cesantia.id }}</td>
-              <td>{{ cesantia.user.cedula }}</td>
-              <td>{{ cesantia.user.name }}</td>
-              <td>{{ cesantia.tipo_cesantia_reportada }}</td>
-              <td>{{ cesantia.estado }}</td>
-             
-            </tr>
-          </tbody>
-          
-          
-
-    </table>
-</div>

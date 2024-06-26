@@ -16,12 +16,14 @@ import { FormsModule } from '@angular/forms';
 })
 export class IndexComponent {
 
+
+  
+
   id: string | null;
   listarCesantias: Cesantias[] = [];
   token: string | null = null;
   searchTerm: string = '';
-  clave: string | null = null;
-  yearToDownload: number = 0; // Declaración de la propiedad yearToDownload   
+  clave: string | null = 'valor'; // Asumiendo que `clave` tiene un valor inicial  yearToDownload: number = 0; // Declaración de la propiedad yearToDownload   
    
   
   tipoCesantiasSeleccionada: string = '';
@@ -31,6 +33,10 @@ export class IndexComponent {
   constructor(private cesantiasService: CesantiasService, private router: Router, private aRouter: ActivatedRoute) {
     this.id = this.aRouter.snapshot.paramMap.get('id');
     this.searchTerm = '';
+  }
+
+  navigateToCesantiasDenegadas(): void {
+    this.router.navigate(['/cesantiasdenegadas/index']); // Navegación a la ruta deseada
   }
 
   ngOnInit(): void {
