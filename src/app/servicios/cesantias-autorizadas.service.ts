@@ -13,6 +13,8 @@ export class CesantiasAutorizadasService {
    // URL base de la API para las incapacidades
    url='http://127.0.0.1:8000/api/';
 
+   urldenyadmin='http://127.0.0.1:8000/api/cesantias/';
+
  
    // URL de la API para obtener usuarios
    usersUrl = 'http://127.0.0.1:8000/api/users';
@@ -47,7 +49,7 @@ export class CesantiasAutorizadasService {
   }
 
 
-  denyCesantia(id: number | undefined, access_token: any): Observable<any> {
+  denyCesantiaAdmin(id: number | undefined, access_token: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token
@@ -59,7 +61,7 @@ export class CesantiasAutorizadasService {
       throw new Error('ID de cesantía no definido');
     }
 
-    return this.http.put(`${this.url}${id}/deny`, {}, options);
+    return this.http.put(`${this.urldenyadmin}${id}/denyadmin`, {}, options);
   } 
   
 

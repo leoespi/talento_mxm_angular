@@ -28,6 +28,11 @@
                   <td>{{ cesantia.user.name }}</td>
                   <td>{{ cesantia.tipo_cesantia_reportada }}</td>
                   <td>{{ cesantia.estado }}</td>
+                  <td>
+                    
+                    <button type="button" class="btn btn-warning" (click)="denegarCesantiaAdmin(cesantia.id)">Denegar</button>
+                   
+                </td>
                  
                 </tr>
               </tbody>
