@@ -108,6 +108,9 @@ export class CesantiasAutorizadasService {
     const options = { headers: headers, responseType: 'blob' as 'json' };
     return this.http.get<Blob>(`${this.url}authorizedCesantia/download-zip/${uuid}`, options);
   }
+
+
+  
  
    // Método para obtener todos los usuarios del sistema
    getUserss(access_token:any):Observable<any>{
