@@ -24,6 +24,7 @@ export const routes: Routes = [
   { path: 'cesantiasautorizadas/index', component: IndexCesantiasAutorizadas, canActivate: [RolesGuard] },
   { path: 'cesantiasautorizadas/create', component: CreateCesantiasAutorizadas },
   { path: 'cesantiasdenegadas/index', component: IndexCesantiasDenegadas },
+  
 
 
   //definir la ruta para el usuario comunicacion

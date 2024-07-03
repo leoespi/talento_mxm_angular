@@ -60,6 +60,32 @@ export class IndexComponent {
       }
     );
   }
+
+  aprobarCesantia(id: number | undefined): void {
+    if (!id) {
+        console.error('ID de cesantía no definido');
+        return;
+    }
+
+    const justificacion = prompt('Ingrese la justificación para la aprobación:');
+    if (!justificacion) {
+        console.error('Justificación requerida');
+        return;
+    }
+
+    // Llamar al servicio para aprobar la cesantía
+    this.CesantiasAutorizadasServicio.aprobarCesantia(id, justificacion, this.token).subscribe(
+        (data) => {
+            console.log('Cesantía aprobada exitosamente:', data);
+            // Aquí podrías actualizar la lista de cesantías si es necesario
+            this.cargarCesantias();
+        },
+        (error) => {
+            console.error('Error al aprobar la cesantía:', error);
+        }
+    );
+}
+
   
 
   denegarCesantiaAdmin(id: number | undefined): void {

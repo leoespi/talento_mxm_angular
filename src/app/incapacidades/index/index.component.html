@@ -43,10 +43,12 @@
           <th>Tipo de Incapacidad Reportada</th>
           <th>Días de incapacidad</th>
           <th>Fecha inicio incapacidad</th>
+          
           <th>Aplica Cobro</th>
+          <th>Imagen</th>
           <th>Entidad Afiliada</th>
           <th>Tipo de Incapacidad Autorizada</th>
-          <th>Imagen</th>
+          
           <th>Acciones</th>
         </tr>
       </thead>
@@ -58,13 +60,15 @@
           <td>{{incapacidad.tipo_incapacidad_reportada}}</td>
           <td>{{ incapacidad.dias_incapacidad }}</td>
           <td>{{ incapacidad.fecha_inicio_incapacidad }}</td>
+         
           <td>{{ incapacidad.aplica_cobro }}</td>
-          <td>{{ incapacidad.entidad_afiliada }}</td>
-          <td>{{ incapacidad.tipo_incapacidad }}</td>
           <td>
             <button type="button" class="btn btn-success" *ngIf="incapacidad.uuid" (click)="downloadZip(incapacidad.uuid!, incapacidad.user.cedula)">Descargar ZIP</button>
 
           </td>
+          <td>{{ incapacidad.entidad_afiliada }}</td>
+          <td>{{ incapacidad.tipo_incapacidad }}</td>
+          
           <td>
             <button type="button" class="btn btn-danger" (click)="eliminarFeeds(incapacidad.id)">Eliminar</button>
             <button type="button" class="btn btn-warning" (click)="editarIncapacidades(incapacidad.id)">Autorizar</button>

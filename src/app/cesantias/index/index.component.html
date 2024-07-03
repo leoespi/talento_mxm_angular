@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12">
             <h2 class="text-left">Lista de Cesantias En Revision</h2>
-            <button type="button" class="btn btn-primary" *ngIf="clave !== null" (click)="navigateToCesantiasDenegadas()">Cesantias Denegadas</button>
+            <button type="button" class="btn btn-outline-dark" *ngIf="clave !== null" (click)="navigateToCesantiasDenegadas()">Cesantias Denegadas</button>
         </div>
     </div>
     <br>
@@ -28,8 +28,9 @@
                     <th>Cedula</th>
                     <th>Nombre</th>
                     <th>Tipo de Solicitud</th>
+                    <th>Imagenes</th>
                     <th>Estado</th>
-                    <th>Imagen</th>
+                    
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -39,14 +40,15 @@
                     <td>{{ cesantia.user.cedula }}</td>
                     <td>{{ cesantia.user.name }}</td>
                     <td>{{ cesantia.tipo_cesantia_reportada }}</td>
-                    <td>{{ cesantia.estado }}</td>
                     <td>
-                        <button type="button" class="btn btn-success" *ngIf="cesantia?.uuid && cesantia?.user?.cedula" (click)="downloadZip(cesantia.uuid!, cesantia.user.cedula)">Descargar ZIP</button>
+                        <button type="button" class="btn btn-primary" *ngIf="cesantia?.uuid && cesantia?.user?.cedula" (click)="downloadZip(cesantia.uuid!, cesantia.user.cedula)">Descargar</button>
                     </td>
+                    <td>{{ cesantia.estado }}</td>
+                   
                     <td>
                         <button type="button" class="btn btn-success" (click)="autorizarCesantia(cesantia.id)">Autorizar</button>
-                        <button type="button" class="btn btn-warning" (click)="denegarCesantia(cesantia.id)">Denegar</button>
-                        <button type="button" class="btn btn-danger" (click)="eliminarCesantias(cesantia.id)">Eliminar</button>
+                        <button type="button" class="btn btn-danger" (click)="denegarCesantia(cesantia.id)">Denegar</button>
+                        
                     </td>
                 </tr>
             </tbody>
