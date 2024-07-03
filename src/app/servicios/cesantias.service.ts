@@ -61,20 +61,19 @@ export class CesantiasService {
     return this.http.put(`${this.url}${id}/authorize`, {}, options);
   } 
 
-  denyCesantia(id: number | undefined, access_token: any): Observable<any> {
+
+  
+  denyCesantiaAdmin(id: number, access_token: string, justificacion: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers };
-
-    // Asegúrate de que id no sea undefined antes de hacer la solicitud
-    if (id === undefined) {
-      throw new Error('ID de cesantía no definido');
-    }
-
-    return this.http.put(`${this.url}${id}/deny`, {}, options);
-  } 
+  
+    const body = { justificacion: justificacion };
+  
+    return this.http.post(`${this.url}deny/${id}`, body, options);
+  }
   
 
   downloadCesantiasByYear(year: number, access_token: any): Observable<Blob> {

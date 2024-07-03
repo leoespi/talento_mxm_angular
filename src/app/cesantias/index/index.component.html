@@ -42,13 +42,14 @@
                     <td>{{ cesantia.tipo_cesantia_reportada }}</td>
                     <td>
                         <button type="button" class="btn btn-primary" *ngIf="cesantia?.uuid && cesantia?.user?.cedula" (click)="downloadZip(cesantia.uuid!, cesantia.user.cedula)">Descargar</button>
+                        
+
                     </td>
                     <td>{{ cesantia.estado }}</td>
                    
                     <td>
                         <button type="button" class="btn btn-success" (click)="autorizarCesantia(cesantia.id)">Autorizar</button>
-                        <button type="button" class="btn btn-danger" (click)="denegarCesantia(cesantia.id)">Denegar</button>
-                        
+                        <button type="button" class="btn btn-danger" (click)="denegarCesantiaAdmin(cesantia.id)">Denegar</button>                        
                     </td>
                 </tr>
             </tbody>
