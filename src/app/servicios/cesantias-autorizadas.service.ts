@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Cesantiasautorizadas } from '../modelos/cesantiasautorizadas';
 
 @Injectable({
   providedIn: 'root'
@@ -63,18 +64,18 @@ export class CesantiasAutorizadasService {
   }
 
   // Método para denegar cesantía administrativamente
-  denyCesantiaAdmin(id: number | undefined, access_token: any): Observable<any> {
+  denyCesantiaAdmin(id: number, access_token: string, justificacion: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers };
 
-    if (id === undefined) {
-      throw new Error('ID de cesantía no definido');
-    }
+    const body = { justificacion: justificacion };
 
-    return this.http.put(`${this.urldenyadmin}${id}/denyadmin`, {}, options);
+    
+
+    return this.http.post(`${this.urldenyadmin}denyadmin/${id}`,body, options);
   }
 
   // Método para descargar cesantías por año

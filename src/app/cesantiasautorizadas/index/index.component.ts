@@ -88,31 +88,31 @@ export class IndexComponent {
 
   
 
-  denegarCesantiaAdmin(id: number | undefined): void {
-    if (id === undefined) {
-      console.error('ID de cesantía no definido');
-      return;
-    }
-
-    // Obtener token de algún lugar, por ejemplo del almacenamiento local
-    const access_token = localStorage.getItem('clave');
-    if (!access_token) {
-      console.error('Token de acceso no encontrado');
-      return;
-    }
-
-    // Llamar al servicio para autorizar la cesantía
-    this.CesantiasAutorizadasServicio.denyCesantiaAdmin(id, access_token).subscribe(
-      (data) => {
-        console.log('Cesantía denegada exitosamente:', data);
-        // Aquí podrías actualizar la lista de cesantías si es necesario
-        this.cargarCesantias();
-      },
-      (error) => {
-        console.error('Error al denegada la cesantía:', error);
-      }
-    );
+  
+denegarCesantiaAdmin(id: number | undefined): void {
+  if (!id) {
+    console.error('ID de cesantía no definido');
+    return;
   }
+
+  // Puedes pedir una justificación al usuario si es necesario
+  const justificacion = prompt('Ingrese la justificación para la denegación:');
+  if (!justificacion) {
+    console.error('Justificación requerida');
+    return;
+  }
+
+  this.CesantiasAutorizadasServicio.denyCesantiaAdmin(id, this.token!, justificacion).subscribe(
+    (data) => {
+      console.log('Cesantía denegada exitosamente:', data);
+      this.cargarCesantias(); // Actualizar la lista después de denegar
+    },
+    (error) => {
+      console.error('Error al denegar la cesantía:', error);
+    }
+  );
+}
+
 
 
   downloadZip(uuid: string, cedula: number): void {
