@@ -22,6 +22,8 @@ export class IndexComponent {
   id: string | null;
   listarCesantias: Cesantias[] = [];
   token: string | null = null;
+  yearToDownload: number | null = null;
+
   searchTerm: string = '';
   clave: string | null = 'valor'; // Asumiendo que `clave` tiene un valor inicial  yearToDownload: number = 0; // Declaración de la propiedad yearToDownload   
    
@@ -49,6 +51,29 @@ export class IndexComponent {
     this.token = localStorage.getItem('clave');
     if (this.token == null) {
       this.router.navigate(['/']);
+    }
+  }
+
+   // Método para descargar cesantías por el año seleccionado
+   descargarCesantiasPorAnio(): void {
+    if (this.yearToDownload !== null) {
+      this.cesantiasService.exportCesantias(this.yearToDownload).subscribe(
+        (data: Blob) => {
+          const url = window.URL.createObjectURL(data);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `cesantias_${this.yearToDownload}.xlsx`; // Nombre del archivo de descarga
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+        },
+        error => {
+          console.error('Error al descargar las cesantías:', error);
+        }
+      );
+    } else {
+      console.error('No se ha seleccionado ningún año para descargar.');
     }
   }
 
@@ -120,23 +145,6 @@ export class IndexComponent {
 
 
 
-  descargarCesantiasPorAnio(year: number): void {
-    this.cesantiasService.downloadCesantiasByYear(year, this.token).subscribe(
-      (data: Blob) => {
-        const url = window.URL.createObjectURL(data);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `cesantias_${year}.xlsx`;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-      },
-      error => {
-        console.error('Error al descargar las cesantías:', error);
-      }
-    );
-  }
 
    // Obtener tipos únicos de cesantias
    obtenerTiposCesantias(): void {

@@ -19,7 +19,7 @@ export class CesantiasService {
  
  
    // URL de la API para exportar incapacidades
-   urlExport='http://127.0.0.1:8000/api/export-cesantias';
+   urlExport='http://127.0.0.1:8000/api/';
 
    
  
@@ -36,6 +36,25 @@ export class CesantiasService {
      const options = { headers: headers };
      return this.http.get<any>(`${this.usersUrl}/${userId}`, options);
    }
+
+    // Método para exportar cesantías en formato Excel
+  exportCesantias(year: number | null): Observable<Blob> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('clave') // Asegúrate de tener el token en el almacenamiento local
+    });
+
+    const options = {
+      headers: headers,
+      responseType: 'blob' as 'json' // Indicamos que esperamos una respuesta de tipo Blob
+    };
+
+    // Construimos la URL para exportar las cesantías por año
+    const exportUrl = `${this.urlExport}export-cesantias/${year}`;
+
+    return this.http.get<Blob>(exportUrl, options);
+  }
+
    
    getCesantias(access_token:any):Observable<any>{
     const headers = new HttpHeaders({
@@ -76,17 +95,6 @@ export class CesantiasService {
   }
   
 
-  downloadCesantiasByYear(year: number, access_token: any): Observable<Blob> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + access_token
-    });
-    const options = { headers: headers, responseType: 'blob' as 'json' };
-
-    // Construir los parámetros de la solicitud HTTP
-    const params = new HttpParams().set('year', year.toString());
-
-    return this.http.get<Blob>(`${this.url}/export-cesantias`, { ...options, params: params });
-  }
   
     // Método para agregar una nueva incapacidad médica
   addCesantias(cesantias: Cesantias, access_token: any): Observable<any> {

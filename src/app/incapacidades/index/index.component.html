@@ -27,7 +27,7 @@
     </div>
     <div class="col-md-2">
       <label for="year"></label>
-      <button type="button" class="btn btn-primary btn-block mt-4" (click)="downloadIncapacidadesByYear(year)">Descargar Incapacidades  </button>
+      <button type="button" class="btn btn-success btn-block mt-4" (click)="downloadIncapacidadesByYear(year)">Descargar Incapacidades  </button>
     
     </div>
   </div>
@@ -63,7 +63,7 @@
          
           <td>{{ incapacidad.aplica_cobro }}</td>
           <td>
-            <button type="button" class="btn btn-success" *ngIf="incapacidad.uuid" (click)="downloadZip(incapacidad.uuid!, incapacidad.user.cedula)">Descargar ZIP</button>
+            <button type="button" class="btn btn-primary" *ngIf="incapacidad.uuid" (click)="downloadZip(incapacidad.uuid!, incapacidad.user.cedula)">Descargar ZIP</button>
 
           </td>
           <td>{{ incapacidad.entidad_afiliada }}</td>

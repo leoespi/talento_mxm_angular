@@ -18,6 +18,17 @@
                 <option *ngFor="let tipo of tiposCesantias" [value]="tipo">{{ tipo }}</option>
             </select>
         </div>
+
+        <div class="col-md-2">
+            <label for="yearToDownload">Seleccionar año a Descargar:</label>
+            <input type="number" id="yearToDownload" [(ngModel)]="yearToDownload" class="form-control form-control-sm" placeholder="Año" aria-label="Año">
+          </div>
+          <div class="col-md-2">
+            <label for="btnDescargar">Descargar Cesantías:</label>
+            <button type="button" id="btnDescargar" class="btn btn-success btn-block mt-2" (click)="descargarCesantiasPorAnio()">Descargar Cesantias</button>
+          </div>
+
+
     </div>
 
     <div class="table-container">
