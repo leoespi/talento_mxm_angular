@@ -20,6 +20,7 @@ export class IndexComponent {
   listaUserss: Users[]=[];
   token: string | null = null;
   searchTerm: string = '';
+  cargandoReferidos: boolean = false; 
 
 
   constructor(private usersService: UsersService, private _router: Router, private aRouter: ActivatedRoute ) { 
@@ -61,12 +62,15 @@ export class IndexComponent {
 
 // Carga la lista de usuarios desde el servidor
 cargaUsers(): void{
+  this.cargandoReferidos = true;
   this.usersService.getUserss( this.token).subscribe(data=>{
     console.log(data);
+    this.cargandoReferidos = false;
     this.listaUserss = data;     
   },
   err =>{
     console.log(err);
+    this.cargandoReferidos = false;
   }
   )
 }

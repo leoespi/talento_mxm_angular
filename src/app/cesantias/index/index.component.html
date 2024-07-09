@@ -32,7 +32,15 @@
     </div>
 
     <div class="table-container">
-        <table class="table table-bordered table-hover">
+
+           <!-- Icono de carga -->
+    <div *ngIf="cargandoReferidos" class="loading-overlay">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+
+        <table *ngIf="!cargandoReferidos" class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th>ID</th>

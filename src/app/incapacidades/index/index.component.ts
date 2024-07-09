@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 export class IndexComponent {
 
   id: string | null;
+  cargandoReferidos: boolean = false;
 
   year: string = ''; // Agrega la propiedad year
   listarIncapacidades: Incapacidades[] = [];
@@ -64,14 +65,17 @@ export class IndexComponent {
 
   // Carga las incapacidades desde el servidor
   cargarIncapacidades(): void {
+    this.cargandoReferidos = true; // Activar el estado de carga al inicio de la solicitud
     this.incapacidadesService.getIncapacidades(this.token).subscribe(
       (data: any) => {
         console.log(data);
         this.listarIncapacidades = data.incapacidades;
+        this.cargandoReferidos = false; // Desactivar el estado de carga al recibir la respuesta
         this.obtenerTiposIncapacidad();
       },
       err => {
         console.log(err);
+        this.cargandoReferidos = false; // Desactivar el estado de carga en caso de error
       }
     );
   }

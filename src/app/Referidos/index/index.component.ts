@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 export class IndexComponent  {
   
   referidos: Referidos[] = [];
+  cargandoReferidos: boolean = false; 
 
   constructor(private referidosService: ReferidosService) { }
 
@@ -24,17 +25,23 @@ export class IndexComponent  {
     this.loadReferidos();
   }
 
+  
+  
   loadReferidos(): void {
+    this.cargandoReferidos = true; // Activar el estado de carga al inicio de la solicitud
     this.referidosService.getReferidos().subscribe(
       (data: any) => {
         console.log(data);
         this.referidos = data.referidos;
+        this.cargandoReferidos = false; // Desactivar el estado de carga al recibir la respuesta
       },
       (error: any) => {
         console.log(error);
+        this.cargandoReferidos = false; // Desactivar el estado de carga en caso de error
       }
     );
   }
+
 
   downloadDocumento(id: number | undefined): void {
     if (id !== undefined) {

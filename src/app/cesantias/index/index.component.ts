@@ -23,6 +23,7 @@ export class IndexComponent {
   listarCesantias: Cesantias[] = [];
   token: string | null = null;
   yearToDownload: number | null = null;
+  cargandoReferidos: boolean = false; 
 
   searchTerm: string = '';
   clave: string | null = 'valor'; // Asumiendo que `clave` tiene un valor inicial  yearToDownload: number = 0; // Declaración de la propiedad yearToDownload   
@@ -79,14 +80,17 @@ export class IndexComponent {
 
   // Carga las cesantias desde el servidor
   cargarCesantias(): void {
+    this.cargandoReferidos = true;
     this.cesantiasService.getCesantias(this.token).subscribe(
       (data: any) => {
         console.log(data);
+        this.cargandoReferidos = false;
         this.listarCesantias = data.cesantias;
         this.obtenerTiposCesantias();
       },
       err => {
         console.log(err);
+        this.cargandoReferidos = false;
       }
     );
   }

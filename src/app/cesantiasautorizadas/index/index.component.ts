@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class IndexComponent {
   id: string | null;
+  cargandoReferidos: boolean = false; 
   listarCesantias: Cesantias[] = [];
   token: string | null = null;
   searchTerm: string = '';
@@ -50,13 +51,16 @@ export class IndexComponent {
 
   // Carga las cesantias desde el servidor
   cargarCesantias(): void {
+    this.cargandoReferidos = true;
     this.CesantiasAutorizadasServicio.getCesantiasAutorizadas(this.token).subscribe(
       (data: any) => {
         console.log(data);
+        this.cargandoReferidos = false;
         this.listarCesantias = data.authorizedCesantia; // Asegúrate de que el nombre sea correcto según la respuesta de tu API
       },
       err => {
         console.log(err);
+        this.cargandoReferidos = false; 
       }
     );
   }
