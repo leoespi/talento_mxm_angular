@@ -10,6 +10,6 @@
   <a href="/cesantias/index" *ngIf="(clave != null && rolId === 4) || rolId === 1">Cesantias</a>
   
   <a href="/cesantiasautorizadas/index" *ngIf="clave != null && rolId === 4">Cesantias Autorizadas</a>
-
+  <a href="/referidos/index" *ngIf="clave != null">Plan de Referidos</a>
   <button type="button" *ngIf="clave != null" (click)="logout()" id="logout">Cerrar Sesión</button>
 </nav>

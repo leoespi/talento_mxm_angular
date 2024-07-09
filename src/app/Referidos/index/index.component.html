@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="text-left">Lista de Referidos</h2>
+      </div>
+    </div>
+    <br/>
+    <div class="table-container">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Tipo de Cargo</th>
+            <th>Documento</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let referido of referidos">
+            <td>{{ referido.id }}</td>
+            <td>{{ referido.user ? referido.user.name : 'Usuario no especificado' }}</td>
+            <td>{{ referido.tipo_cargo }}</td>
+            <td>
+              <button type="button" class="btn btn-primary" (click)="downloadDocumento(referido.id)">Descargar Documento</button>
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger" (click)="deleteReferido(referido.id)">Eliminar</button>
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

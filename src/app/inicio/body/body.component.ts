@@ -54,7 +54,7 @@ export class BodyComponent {
       .subscribe(rs => {
         this.respuesta = rs;
   
-        if (this.respuesta != null && this.respuesta.user !== undefined && this.respuesta.user.rol_id !== undefined) {
+        if (this.respuesta != null && this.respuesta.user !== undefined && this.respuesta.user.rol_id !== undefined  && this.respuesta.user.rol_id !== 2) {
           localStorage.setItem('clave', rs.token);
           localStorage.setItem('rolId', this.respuesta.user.rol_id.toString());
           window.location.reload();
