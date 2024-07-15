@@ -1,0 +1,42 @@
+.custom-form {
+    width: 300px; /* Ajusta el ancho según tu preferencia */
+    margin: 0 auto; /* Centra horizontalmente */
+    text-align: center; /* Centra el contenido del formulario */
+    margin-top: 200px; /* Espacio superior */
+  
+    .form-group {
+      margin-bottom: 20px; /* Espacio entre etiquetas y campos de entrada */
+      text-align: left; /* Alineación del texto de las etiquetas */
+    }
+  
+    label {
+      display: block; /* Coloca cada etiqueta en una línea nueva */
+      margin-bottom: 5px; /* Espacio entre etiquetas y campos de entrada */
+      font-weight: bold; /* Texto de etiqueta en negrita */
+    }
+  
+    input[type="text"] {
+      width: calc(100% - 20px); /* Ocupa todo el ancho disponible menos el padding */
+      padding: 10px; /* Espacio interno en los campos de entrada */
+      border: 1px solid #ccc; /* Borde del campo de entrada */
+      border-radius: 4px; /* Bordes redondeados */
+      font-size: 16px; /* Tamaño de fuente */
+    }
+  
+    button {
+      width: 100%; /* Ocupa todo el ancho disponible */
+      padding: 10px 20px; /* Espacio interno en el botón */
+      background-color: #007bff; /* Color de fondo del botón */
+      color: #fff; /* Color del texto del botón */
+      border: none; /* Sin borde */
+      cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+      border-radius: 4px; /* Bordes redondeados */
+      font-size: 16px; /* Tamaño de fuente */
+      transition: background-color 0.3s; /* Transición suave del color de fondo */
+    }
+  
+    button:hover {
+      background-color: #0056b3; /* Color de fondo al pasar sobre el botón */
+    }
+  }
+  
