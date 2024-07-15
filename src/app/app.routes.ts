@@ -9,6 +9,7 @@ import { IndexComponent as IndexCesantiasAutorizadas } from './cesantiasautoriza
 import { CreateComponent as CreateCesantiasAutorizadas } from './cesantiasautorizadas/create/create.component';
 import { IndexComponent as IndexCesantiasDenegadas } from './cesantiasdenegadas/index/index.component';
 import { IndexComponent as IndexReferidosComponent } from './Referidos/index/index.component';
+import { CreateComponent as CreateReferidosComponent } from './Referidos/create/create.component';
 
 import { RolesGuard } from './Guards/roles.guard';
 
@@ -28,7 +29,8 @@ export const routes: Routes = [
   { path: 'cesantiasautorizadas/index', component: IndexCesantiasAutorizadas, canActivate: [RolesGuard] },
   { path: 'cesantiasautorizadas/create', component: CreateCesantiasAutorizadas },
   { path: 'cesantiasdenegadas/index', component: IndexCesantiasDenegadas },
-  { path: 'referidos/index', component: IndexReferidosComponent } // Comentar esta línea temporalmente
+  { path: 'referidos/index', component: IndexReferidosComponent }, // Comentar esta línea temporalmente
+  { path: 'referidos/editar/:id', component: CreateReferidosComponent },
 ];
 
 

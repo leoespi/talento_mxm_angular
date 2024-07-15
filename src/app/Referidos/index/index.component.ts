@@ -18,18 +18,31 @@ export class IndexComponent  {
   
   referidos: Referidos[] = [];
   cargandoReferidos: boolean = false; 
+  id: string | null;
+  token: string | null = null;
 
-  constructor(private referidosService: ReferidosService) { }
+  constructor(private referidosService: ReferidosService,  private router: Router, private aRouter: ActivatedRoute) { 
+    this.id = this.aRouter.snapshot.paramMap.get('id');
+
+  }
 
   ngOnInit(): void {
+    this.recuperarToken();
+
     this.loadReferidos();
   }
 
-  
+   // Recupera el token del almacenamiento local
+   recuperarToken(): void {
+    this.token = localStorage.getItem('clave');
+    if (this.token == null) {
+      this.router.navigate(['/']);
+    }
+  }
   
   loadReferidos(): void {
     this.cargandoReferidos = true; // Activar el estado de carga al inicio de la solicitud
-    this.referidosService.getReferidos().subscribe(
+    this.referidosService.getReferidos(this.token).subscribe(
       (data: any) => {
         console.log(data);
         this.referidos = data.referidos;
@@ -71,5 +84,12 @@ export class IndexComponent  {
         }
       );
     }
+  }
+
+
+
+  // Redirige a la página de edición de una incapacidad por su ID
+  editarReferidos(id: any): void {
+    this.router.navigateByUrl("/referidos/editar/"+id);
   }
 }

@@ -27,10 +27,10 @@ export class ReferidosService {
   }
 
 
-  getReferidos(): Observable<any> {
+  getReferidos(access_token:any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' 
+      'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers};
     return this.http.get(this.apiUrl, options);
@@ -47,4 +47,16 @@ export class ReferidosService {
   deleteReferido(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}${id}`);
   }
+
+  // Método para actualizar una incapacidad médica existente
+  updateReferidos(id:string, referidos:Referidos, access_token:any):Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token
+    });
+    const options = { headers: headers};
+    return this.http.put(this.apiUrl +id,referidos, options);         
+  }
+
+
 }

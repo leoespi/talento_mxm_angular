@@ -5,7 +5,7 @@ export class Referidos {
     name :string | null | undefined;
     user: any;
 
-    tipo_cargo ?: string | null | undefined;
+    estado ?: string | null | undefined;
     //estado ?: string | null | undefined;
     documento ?:string | null | undefined;
      
@@ -16,7 +16,7 @@ export class Referidos {
         this.user_id = user_id;
         this.cedula = cedula;
         this.name = name;
-        this.tipo_cargo = tipo_cargo;
+        this.estado = estado;
         //this.estado = estado;
         this.documento = this.documento;  
         //this.uuid = uuid; 
