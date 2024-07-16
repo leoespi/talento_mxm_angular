@@ -1,10 +1,15 @@
 <form [formGroup]="incapcacidadForm" (ngSubmit)="agregarIncapacidad()" class="custom-form">
+    
+  <div class="form-group">
     <label for="aplica_cobro">Aplica cobro</label>
     <input type="text" id="aplica_cobro" formControlName="aplica_cobro">
     
     <label for="tipo_incapacidad">Tipo de incapacidad</label>
     <input type="text" id="tipo_incapacidad" formControlName="tipo_incapacidad">
     
+
+  </div>
+   
     <button type="submit">Guardar</button>
   </form>
   

@@ -36,9 +36,10 @@ export class ReferidosService {
     return this.http.get(this.apiUrl, options);
   }
 
-  downloadDocumento(id: number, ): Observable<Blob> {
+  downloadDocumento(id: number, access_token: string ): Observable<Blob> {
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer '
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers, responseType: 'blob' as 'json' };
     return this.http.get<Blob>(`${this.apiUrl}download/${id}`, options);

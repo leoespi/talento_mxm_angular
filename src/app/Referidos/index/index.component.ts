@@ -58,7 +58,7 @@ export class IndexComponent  {
 
   downloadDocumento(id: number | undefined): void {
     if (id !== undefined) {
-      this.referidosService.downloadDocumento(id).subscribe((data: Blob) => {
+      this.referidosService.downloadDocumento(id, this.token!).subscribe((data: Blob) => {
         const url = window.URL.createObjectURL(data);
         const a = document.createElement('a');
         a.href = url;

@@ -36,32 +36,32 @@ export class CesantiasAutorizadasService {
     return this.http.get(`${this.url}authorizedCesantia`, options);
   }
 
-  // Método para aprobar cesantía
-  aprobarCesantia(id: number, justificacion: string, access_token: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + access_token
-    });
-    const options = { headers: headers };
-    const body = { justificacion: justificacion };
-
-    return this.http.post(`${this.url}cesantias/aprobar/${id}`, body, options).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.error instanceof ErrorEvent) {
-          // Error del lado del cliente
-          console.error('Error del lado del cliente:', error.error.message);
-        } else {
-          // El servidor devolvió un código de estado HTTP con un error
-          console.error(
-            `Código de error ${error.status}, ` +
-            `Error: ${error.error}`
-          );
-        }
-        // Retornar un observable con un mensaje de error para el componente
-        return throwError('Error al procesar la solicitud. Por favor, inténtelo de nuevo más tarde.');
-      })
-    );
-  }
+    // Método para aprobar cesantía
+    aprobarCesantia(id: number, justificacion: string, access_token: any): Observable<any> {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + access_token
+      });
+      const options = { headers: headers };
+      const body = { justificacion: justificacion };
+  
+      return this.http.post(`${this.url}cesantias/aprobar/${id}`, body, options).pipe(
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = 'Error desconocido';
+          if (error.error instanceof ErrorEvent) {
+            // Error del lado del cliente
+            errorMessage = `Error: ${error.error.message}`;
+          } else {
+            // El servidor devolvió un código de estado HTTP con un error
+            errorMessage = `Código de error ${error.status}, Error: ${error.error}`;
+          }
+          console.error(errorMessage);
+          // Retornar un observable con un mensaje de error para el componente
+          return throwError('Error al procesar la solicitud. Por favor, inténtelo de nuevo más tarde.');
+        })
+      );
+    }
+  
 
   // Método para denegar cesantía administrativamente
   denyCesantiaAdmin(id: number, access_token: string, justificacion: string): Observable<any> {
