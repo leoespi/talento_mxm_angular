@@ -5,7 +5,7 @@
             
         </div>
     </div>
-    <br>
+    <br/>
     <div class="row mt-4">
         <div class="col-md-2">
             <label for="searchTerm">Buscar Cesantia por Cédula:</label>
@@ -20,15 +20,14 @@
         </div>
 
         <div class="col-md-2">
-            <label for="yearToDownload">Seleccionar año a Descargar:</label>
-            <input type="number" id="yearToDownload" [(ngModel)]="yearToDownload" class="form-control form-control-sm" placeholder="Año" aria-label="Año">
+            <label for="yearToDownload">Seleccionar año:</label>
+            <input type="number" id="yearToDownload" [(ngModel)]="yearToDownload" class="form-control form-control-sm" placeholder="Año a Descargar" aria-label="Año">
           </div>
-          <div class="col-md-2">
-            <label for="btnDescargar">Descargar Cesantías:</label>
-            <button type="button" id="btnDescargar" class="btn btn-success btn-block mt-2" (click)="descargarCesantiasPorAnio()">Descargar Cesantias</button>
-          </div>
-
-
+        <div class="col-md-2">
+         
+            <button type="button" id="btnDescargar" class="btn btn-success btn-block mt-2" (click)="descargarCesantiasPorAnio()">Descargar <br> Cesantias</button>
+        </div>
+        
     </div>
 
     <div class="table-container">

@@ -18,20 +18,24 @@
       <thead>
         <tr>
           <th>ID</th>
+          <th>Cédula</th>
           <th>Usuario</th>
-          <th>Estado</th>
+         
           <th>Documento</th>
+          <th>Estado</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody class="scrollable-tbody">
         <tr *ngFor="let referido of referidos">
           <td>{{ referido.id }}</td>
+          <td>{{ referido.user.cedula }}</td>
           <td>{{ referido.user ? referido.user.name : 'Usuario no especificado' }}</td>
-          <td>{{ referido.estado }}</td>
+          
           <td>
             <button type="button" class="btn btn-primary" (click)="downloadDocumento(referido.id)">Descargar Documento</button>
           </td>
+          <td>{{ referido.estado }}</td>
           <td>
             <button type="button" class="btn btn-warning" (click)="editarReferidos(referido.id)">Autorizar</button>
 
