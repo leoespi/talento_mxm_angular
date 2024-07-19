@@ -1,9 +1,12 @@
 <form [formGroup]="referidosForm" (ngSubmit)="agregarReferidos()" class="custom-form">
-    <div class="form-group">
-      <label for="estado">Estado</label>
-      <input type="text" id="estado" formControlName="estado">
-    </div>
-    
-    <button type="submit">Guardar</button>
-  </form>
+  <div class="form-group">
+    <label for="estado">Estado</label>
+    <select id="estado" formControlName="estado">
+      <option value="Pendiente">Pendiente</option>
+      <option value="Aprobado">Aprobado</option>
+      <option value="Denegado">Denegado</option>
+    </select>
+  </div>
   
+  <button type="submit">Guardar</button>
+</form>

@@ -40,3 +40,36 @@
     }
   }
   
+  // form-styles.scss
+
+// Estilos para el combo box personalizado
+select {
+  // Establecer estilos básicos
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box; // Asegura que el padding no aumente el ancho total
+  
+  // Estilos específicos para el triángulo indicador
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+  // Fondo y color de texto
+  background-color: #fff;
+  color: #333;
+  
+  // Estilo al hacer hover
+  &:hover {
+    border-color: #aaa;
+  }
+  
+  // Estilo cuando está enfocado
+  &:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  }
+}
