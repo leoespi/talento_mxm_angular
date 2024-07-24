@@ -11,6 +11,9 @@ import { IndexComponent as IndexCesantiasDenegadas } from './cesantiasdenegadas/
 import { IndexComponent as IndexReferidosComponent } from './Referidos/index/index.component';
 import { CreateComponent as CreateReferidosComponent } from './Referidos/create/create.component';
 
+import { FeedListComponent } from './Feed/feed-list/feed-list.component';
+import { CreateFeedComponent as CreateFeedComponent } from './Feed/create-feed/create-feed.component';
+
 import { RolesGuard } from './Guards/roles.guard';
 
 import { ComunicacionGuard } from './Guards/comunicacion-guard.guard'; // Nuevo guardia para rol 3
@@ -31,6 +34,8 @@ export const routes: Routes = [
   { path: 'cesantiasdenegadas/index', component: IndexCesantiasDenegadas },
   { path: 'referidos/index', component: IndexReferidosComponent }, // Comentar esta línea temporalmente
   { path: 'referidos/editar/:id', component: CreateReferidosComponent },
+  { path: 'feeds/listado', component: FeedListComponent}, // Nuevo guardia para rol 3
+  { path: 'feeds/crear', component: CreateFeedComponent }, // Nuevo guardia para rol 3
 ];
 
 

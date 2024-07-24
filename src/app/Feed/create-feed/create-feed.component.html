@@ -1,0 +1,11 @@
+<form [formGroup]="feedForm" (ngSubmit)="onSubmit()" class="feed-form">
+  <div class="form-group">
+    <label for="content">Content:</label>
+    <textarea id="content" formControlName="content" required></textarea>
+  </div>
+  <div class="form-group">
+    <label for="images">Images:</label>
+    <input type="file" id="images" name="images" formControlName="images" multiple (change)="onFileSelected($event)" accept="image/*" required>
+  </div>
+  <button type="submit" [disabled]="feedForm.invalid" class="submit-button">Create Feed</button>
+</form>

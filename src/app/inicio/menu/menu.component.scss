@@ -1,10 +1,8 @@
-h1{
+h1 {
     text-align: center;
     margin-top: 30px;
     color: white;
     font-family: Verdana;
-    
-
 }
 
 body {
@@ -12,18 +10,28 @@ body {
 }
 
 nav {
-    display: ruby;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 60px;
-   
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos horizontalmente */
     align-items: center;
-    
+    padding: 10px 20px; /* Añade espacio interno al contenedor del menú */
+    background-color:  rgb(0, 10, 146); /* Fondo oscuro para el menú */
+}
+
+.logo-container {
+    flex: -2; /* Ocupa todo el espacio restante */
+    margin-right: 20px; /* Pequeño margen a la derecha para separar del menú */
+}
+
+.links-container {
+    flex: -1; /* Ocupa la mayor parte del espacio */
+    display: flex;
+    justify-content: space-around; /* Distribuye los enlaces equitativamente */
+    gap: 10px; /* Espacio entre los enlaces */
 }
 
 nav a {
     text-decoration: none;
-    padding: 10px 20px;
+    padding: 10px 15px; /* Reducir el padding para hacer los enlaces más compactos */
     border: 1px solid rgb(255, 255, 255);
     border-radius: 5px;
     color: #ffffff;
@@ -36,16 +44,4 @@ nav button {
     border-radius: 5px;
     color: white;
     background-color: red;
-    text-align: center;
-    align-items: center;
-}
-nav img {
-    display: flex;
-    text-align: start;
-    width: 200px;
-    height: 100px;
-    margin-right: 800px;
-    margin-top: -30px;
-    
-
 }

@@ -44,7 +44,7 @@ export class IndexComponent {
   recuperarToken(): void {
     this.token = localStorage.getItem('clave');
     if (this.token == null) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/']);  
     }
   }
 

@@ -1,0 +1,38 @@
+.table-container {
+    max-height: 760px; /* Altura máxima de la tabla */
+    overflow-y: auto; /* Habilitar el desplazamiento vertical solo si es necesario */
+  }
+  
+  .scrollable-tbody {
+    overflow-y: auto; /* Habilitar el desplazamiento vertical solo si es necesario */
+  }
+  
+  .loading-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  }
+  
+  .loading-spinner {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 6px solid rgba(0, 0, 0, 0.2); /* Borde con transparencia */
+    border-top-color: #4CAF50; /* Color del borde superior */
+    animation: spin 1s linear infinite; /* Animación de rotación */
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg); /* Rotación inicial */
+    }
+    100% {
+      transform: rotate(360deg); /* Rotación completa */
+    }
+  }
+  

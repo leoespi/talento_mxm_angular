@@ -1,0 +1,48 @@
+.feed-form {
+    max-width: 600px; /* Ancho máximo del formulario */
+    margin: 0 auto; /* Centrar el formulario horizontalmente */
+    padding: 20px; /* Espaciado interno del formulario */
+    background-color: #f0f0f0; /* Color de fondo del formulario */
+    border: 1px solid #ccc; /* Borde del formulario */
+    border-radius: 5px; /* Bordes redondeados */
+  
+    .form-group {
+      margin-bottom: 15px; /* Espaciado inferior entre grupos de elementos */
+    }
+  
+    label {
+      font-weight: bold; /* Texto del label en negrita */
+      margin-bottom: 5px; /* Espaciado inferior del label */
+      display: block; /* Mostrar el label como bloque para ocupar todo el ancho disponible */
+    }
+  
+    textarea, input[type="file"] {
+      width: 100%; /* Ancho completo para textarea e input */
+      padding: 8px; /* Espaciado interno */
+      font-size: 14px; /* Tamaño de fuente */
+      border: 1px solid #ccc; /* Borde */
+      border-radius: 4px; /* Bordes redondeados */
+      box-sizing: border-box; /* Mantener el ancho total incluyendo el padding y borde */
+    }
+  
+    .submit-button {
+      background-color: #4CAF50; /* Color de fondo del botón */
+      color: white; /* Color del texto del botón */
+      padding: 10px 20px; /* Espaciado interno del botón */
+      font-size: 16px; /* Tamaño de fuente */
+      border: none; /* Sin borde */
+      border-radius: 4px; /* Bordes redondeados */
+      cursor: pointer; /* Cambiar cursor al pasar por encima */
+      transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+    }
+  
+    .submit-button:disabled {
+      background-color: #ccc; /* Color de fondo del botón deshabilitado */
+      cursor: not-allowed; /* Cambiar cursor a no permitido */
+    }
+  
+    .submit-button:hover:not(:disabled) {
+      background-color: #45a049; /* Color de fondo del botón al pasar el ratón */
+    }
+  }
+  
