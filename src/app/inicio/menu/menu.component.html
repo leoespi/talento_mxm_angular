@@ -8,12 +8,14 @@
   </div>
   
   <div class="links-container">
-    <a href="/inicio/body" *ngIf="(clave != null && rolId === 4) || rolId === 1">Usuarios</a>
+    <a href="/home/index" *ngIf="clave != null">Inicio</a>
+
+    <a href="/users/index" *ngIf="(clave != null && rolId === 4) || rolId === 1">Usuarios</a>
     <a href="/incapacidades/index" *ngIf="(clave != null && rolId === 4) || rolId === 1">Incapacidades</a>
     <a href="/cesantias/index" *ngIf="(clave != null && rolId === 4) || rolId === 1">Cesantias</a>
     <a href="/cesantiasautorizadas/index" *ngIf="clave != null && rolId === 4">Cesantias Autorizadas</a>
-    <a href="/referidos/index" *ngIf="clave != null">Plan Referidos</a>
-    <a href="/feeds/listado" *ngIf="clave != null">Publicacion</a>
+    <a href="/referidos/index" *ngIf="(clave != null && rolId === 4) || rolId === 1">Plan Referidos</a>
+    <a href="/feeds/listado" *ngIf="(clave != null && rolId === 4) || rolId === 3">Publicacion</a>
     <button type="button" *ngIf="clave != null" (click)="logout()" id="logout">Cerrar Sesión</button>
 
   </div>

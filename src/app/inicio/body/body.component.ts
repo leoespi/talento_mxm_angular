@@ -39,7 +39,7 @@ export class BodyComponent {
   ngOnInit(): void {
     this.clave=localStorage.getItem("clave");
     if (this.clave) {
-      this._router.navigate(['/users/index']);
+      this._router.navigate(['/home/index']);
      
       
     }

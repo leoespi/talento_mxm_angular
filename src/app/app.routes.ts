@@ -14,28 +14,33 @@ import { CreateComponent as CreateReferidosComponent } from './Referidos/create/
 import { FeedListComponent } from './Feed/feed-list/feed-list.component';
 import { CreateFeedComponent as CreateFeedComponent } from './Feed/create-feed/create-feed.component';
 
+import { IndexComponent as IndexHomeComponent } from './home/index/index.component';
+
+
 import { RolesGuard } from './Guards/roles.guard';
 
 import { ComunicacionGuard } from './Guards/comunicacion-guard.guard'; // Nuevo guardia para rol 3
+
+import { AdminGuard } from './Guards/admin.guard'; // Nuevo guardia para rol 3
 
 
 export const routes: Routes = [
   { path: '', redirectTo: 'inicio/body', pathMatch: 'full' },
   { path: 'inicio/body', component: BodyComponent },
-  { path: 'users/index', component: IndexUsers },
-  { path: 'incapacidades/index', component: IndexIncapacidades },
-  { path: 'incapacidades/create', component: CreateIncapacidades },
-  { path: 'incapacidades/editar/:id', component: CreateIncapacidades },
-  { path: 'cesantias/index', component: IndexCesantias },
-  { path: 'cesantias/create', component: CreateCesantias },
-  { path: 'cesantias/editar/:id', component: CreateCesantias },
-  { path: 'cesantiasautorizadas/index', component: IndexCesantiasAutorizadas, canActivate: [RolesGuard] },
-  { path: 'cesantiasautorizadas/create', component: CreateCesantiasAutorizadas },
-  { path: 'cesantiasdenegadas/index', component: IndexCesantiasDenegadas },
-  { path: 'referidos/index', component: IndexReferidosComponent }, // Comentar esta línea temporalmente
-  { path: 'referidos/editar/:id', component: CreateReferidosComponent },
-  { path: 'feeds/listado', component: FeedListComponent}, // Nuevo guardia para rol 3
-  { path: 'feeds/crear', component: CreateFeedComponent }, // Nuevo guardia para rol 3
+  { path: 'users/index', component: IndexUsers, canActivate: [AdminGuard]},
+  { path: 'incapacidades/index', component: IndexIncapacidades , canActivate: [AdminGuard]},
+  { path: 'incapacidades/create', component: CreateIncapacidades , canActivate: [AdminGuard]},
+  { path: 'incapacidades/editar/:id', component: CreateIncapacidades, canActivate: [AdminGuard] },
+  { path: 'cesantias/index', component: IndexCesantias , canActivate: [AdminGuard]},
+  { path: 'cesantias/create', component: CreateCesantias , canActivate: [AdminGuard]},
+  { path: 'cesantias/editar/:id', component: CreateCesantias , canActivate: [AdminGuard]},
+  { path: 'cesantiasautorizadas/index', component: IndexCesantiasAutorizadas, canActivate: [AdminGuard] },
+  { path: 'cesantiasautorizadas/create', component: CreateCesantiasAutorizadas, canActivate: [AdminGuard] },
+  { path: 'referidos/index', component: IndexReferidosComponent , canActivate: [AdminGuard]}, // Comentar esta línea temporalmente
+  { path: 'referidos/editar/:id', component: CreateReferidosComponent , canActivate: [AdminGuard]},
+  { path: 'feeds/listado', component: FeedListComponent, canActivate: [ComunicacionGuard] }, // Nuevo guardia para rol 3
+  { path: 'feeds/crear', component: CreateFeedComponent, canActivate: [ComunicacionGuard] }, // Nuevo guardia para rol 3
+  { path: 'home/index', component: IndexHomeComponent }, // Nuevo guardia para rol 3
 ];
 
 

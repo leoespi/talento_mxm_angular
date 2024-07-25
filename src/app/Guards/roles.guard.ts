@@ -20,7 +20,7 @@ export class RolesGuard implements CanActivate {
       return true; // Permite el acceso si el rol es Superadmin
     } else {
       // Redirige a otra ruta o realiza alguna acción de denegación de acceso
-      this.router.navigate(['/users/index']); // Redirige a una página de acceso denegado
+      this.router.navigate(['/inicio/index']); // Redirige a una página de acceso denegado
       return false;
     }
   }
