@@ -35,7 +35,8 @@ export class CreateFeedComponent implements OnInit {
   ) {
     this.feedForm = this.fb.group({
       content: ['', Validators.required],
-      images: ['', Validators.required]
+      images: [''],
+      videoLink: ['']
     });
   }
 
@@ -58,6 +59,8 @@ export class CreateFeedComponent implements OnInit {
 
     const formData = new FormData();
     formData.append('content', this.feedForm.value.content);
+    formData.append('video_link', this.feedForm.value.videoLink);
+
     this.images.forEach((image) => {
       formData.append('images[]', image, image.name);
     });

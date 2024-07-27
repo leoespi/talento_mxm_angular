@@ -27,14 +27,14 @@ getAllFeeds(access_token: any): Observable<any> {
 }
 
 
-  createFeed(feed: Feed, access_token: string, formData: FormData): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + access_token
-    });
+createFeed(feed: Feed, access_token: string, formData: FormData): Observable<any> {
+  const headers = new HttpHeaders({
+    'Authorization': 'Bearer ' + access_token
+  });
 
-    // Agregar user_id al FormData
-    formData.append('user_id', feed.user_id.toString());
+  // Agregar user_id al FormData
+  formData.append('user_id', feed.user_id.toString());
 
-    return this.http.post(this.feedsUrl, formData, { headers });
-  }
+  return this.http.post(this.feedsUrl, formData, { headers });
+}
 }
