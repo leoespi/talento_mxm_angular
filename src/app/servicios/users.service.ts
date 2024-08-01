@@ -67,4 +67,24 @@ export class UsersService {
     const options = { headers: headers};
     return this.http.delete(this.urldestroy+"/"+id, options);
   }
+
+   // Método para activar usuarios
+   activateUser(id: string, access_token: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token
+    });
+    const options = { headers: headers };
+    return this.http.post(`http://127.0.0.1:8000/api/users/${id}/activate`, {}, options);
+  }
+
+  // Método para desactivar usuarios
+  deactivateUser(id: string, access_token: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token
+    });
+    const options = { headers: headers };
+    return this.http.post(`http://127.0.0.1:8000/api/users/${id}/deactivate`, {}, options);
+  }
 }

@@ -92,6 +92,31 @@ cargaUsers(): void{
     this._router.navigateByUrl("/users/editar/"+id);
   }
 
+
+  // Activa un usuario por su ID
+  activarUser(id: any): void {
+    this.usersService.activateUser(id, this.token).subscribe(
+      data => {
+        this.cargaUsers();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  // Desactiva un usuario por su ID
+  desactivarUser(id: any): void {
+    this.usersService.deactivateUser(id, this.token).subscribe(
+      data => {
+        this.cargaUsers();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   // Filtra la lista de usuarios según el término de búsqueda
   
   filtrarUsers(): Users[] {

@@ -46,7 +46,8 @@
           <td>{{ user.cedula }}</td>
           <td>{{ user.email }}</td>
           <td>
-            <button type="button" class="btn btn-danger" (click)="eliminarUsers(user.id)">Eliminar</button>
+            <button type="button" class="btn btn-success" (click)="activarUser(user.id)" *ngIf="!user.is_active">Activar</button>
+            <button type="button" class="btn btn-warning" (click)="desactivarUser(user.id)" *ngIf="user.is_active">Desactivar</button>
           </td>
         </tr>
       </tbody>
