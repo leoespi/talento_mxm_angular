@@ -37,4 +37,16 @@ createFeed(feed: Feed, access_token: string, formData: FormData): Observable<any
 
   return this.http.post(this.feedsUrl, formData, { headers });
 }
+
+
+deleteFeeds(id:string, access_token:any): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + access_token
+  });
+  const options = { headers: headers};
+  return this.http.delete(this.feedsUrl +id, options);
+
+}
+
 }

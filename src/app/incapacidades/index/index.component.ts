@@ -189,4 +189,6 @@ downloadIncapacidadesByYear(year: string): void {
   editarIncapacidades(id: any): void {
     this.router.navigateByUrl("/incapacidades/editar/"+id);
   }
+
+  
 }

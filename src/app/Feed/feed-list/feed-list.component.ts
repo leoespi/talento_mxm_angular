@@ -58,4 +58,14 @@ export class FeedListComponent {
       this.router.navigate(['/']);
     }
   }
+
+
+  aliminarfeeds(id:any):void{
+    this.feedService.deleteFeeds(id, this.token).subscribe(
+      data=>{
+        this.ngOnInit();
+      },
+    )
+  }
+
 }
