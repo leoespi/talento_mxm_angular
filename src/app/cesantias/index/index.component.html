@@ -1,76 +1,73 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h2 class="text-left">Lista de Cesantias En Revision</h2>
-            
+            <h2 class="text-left">Lista de Cesantías En Revisión</h2>
         </div>
     </div>
     <br/>
     <div class="row mt-4">
         <div class="col-md-2">
-            <label for="searchTerm">Buscar Cesantia por Cédula:</label>
+            <label for="searchTerm">Buscar Cesantía por Cédula:</label>
             <input type="text" id="searchTerm" [(ngModel)]="searchTerm" class="form-control form-control-sm" placeholder="Buscar por cédula" aria-label="Recipient's username" aria-describedby="basic-addon2">
         </div>
         <div class="col-md-2">
-            <label for="tiposCesantias">Buscar por Tipo Cesantia:</label>
+            <label for="tiposCesantias">Buscar por Tipo Cesantía:</label>
             <select id="tiposCesantias" [(ngModel)]="tipoCesantiasSeleccionada" class="form-control form-control-sm">
-                <option value="">Seleccionar Tipo de cesantia</option>
+                <option value="">Seleccionar Tipo de cesantía</option>
                 <option *ngFor="let tipo of tiposCesantias" [value]="tipo">{{ tipo }}</option>
             </select>
         </div>
-
         <div class="col-md-2">
             <label for="yearToDownload">Seleccionar año:</label>
             <input type="number" id="yearToDownload" [(ngModel)]="yearToDownload" class="form-control form-control-sm" placeholder="Año a Descargar" aria-label="Año">
-          </div>
-        <div class="col-md-2">
-         
-            <button type="button" id="btnDescargar" class="btn btn-success btn-block mt-2" (click)="descargarCesantiasPorAnio()">Descargar <br> Cesantias</button>
         </div>
-        
+        <div class="col-md-2">
+            <button type="button" id="btnDescargar" class="btn btn-success btn-block mt-2" (click)="descargarCesantiasPorAnio()">Descargar <br> Cesantías</button>
+        </div>
     </div>
 
     <div class="table-container">
-
-           <!-- Icono de carga -->
-    <div *ngIf="cargandoReferidos" class="loading-overlay">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Cargando...</span>
+        <div *ngIf="cargandoReferidos" class="loading-overlay">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+            </div>
         </div>
-      </div>
 
         <table *ngIf="!cargandoReferidos" class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Cedula</th>
+                    <th>Cédula</th>
                     <th>Nombre</th>
                     <th>Tipo de Solicitud</th>
-                    <th>Imagenes</th>
+                    <th>Imágenes</th>
                     <th>Estado</th>
-                    
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody class="scrollable-tbody">
-                <tr *ngFor="let cesantia of filtrarCesantias()">
+                <tr *ngFor="let cesantia of paginatedCesantias()">
                     <td>{{ cesantia.id }}</td>
                     <td>{{ cesantia.user.cedula }}</td>
                     <td>{{ cesantia.user.name }}</td>
                     <td>{{ cesantia.tipo_cesantia_reportada }}</td>
                     <td>
                         <button type="button" class="btn btn-primary" *ngIf="cesantia?.uuid && cesantia?.user?.cedula" (click)="downloadZip(cesantia.uuid!, cesantia.user.cedula)">Descargar</button>
-                        
-
                     </td>
                     <td>{{ cesantia.estado }}</td>
-                   
                     <td>
                         <button type="button" class="btn btn-success" (click)="autorizarCesantia(cesantia.id)">Autorizar</button>
-                        <button type="button" class="btn btn-danger" (click)="denegarCesantiaAdmin(cesantia.id)">Denegar</button>                        
+                        <button type="button" class="btn btn-danger" (click)="denegarCesantiaAdmin(cesantia.id)">Denegar</button>
                     </td>
                 </tr>
             </tbody>
         </table>
+
+       
+    </div>
+    <div *ngIf="!cargandoReferidos" class="d-flex justify-content-center mt-3">
+        <button (click)="prevPage()" [disabled]="currentPage === 1" class="btn btn-secondary">Anterior</button>
+        <span>Página {{ currentPage }} de {{ totalPages() }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages()" class="btn btn-secondary">Siguiente</button>
     </div>
 </div>

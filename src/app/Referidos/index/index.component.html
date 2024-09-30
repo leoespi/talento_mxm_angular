@@ -20,29 +20,33 @@
           <th>ID</th>
           <th>Cédula</th>
           <th>Usuario</th>
-         
           <th>Documento</th>
           <th>Estado</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody class="scrollable-tbody">
-        <tr *ngFor="let referido of referidos">
+        <tr *ngFor="let referido of paginatedReferidos()">
           <td>{{ referido.id }}</td>
           <td>{{ referido.user.cedula }}</td>
           <td>{{ referido.user ? referido.user.name : 'Usuario no especificado' }}</td>
-          
           <td>
             <button type="button" class="btn btn-primary" (click)="downloadDocumento(referido.id)">Descargar Documento</button>
           </td>
           <td>{{ referido.estado }}</td>
           <td>
             <button type="button" class="btn btn-warning" (click)="editarReferidos(referido.id)">Autorizar</button>
-
             <button type="button" class="btn btn-danger" (click)="deleteReferido(referido.id)">Eliminar</button>
           </td>
         </tr>
       </tbody>
     </table>
+
+   
+  </div>
+  <div *ngIf="!cargandoReferidos" class="d-flex justify-content-center mt-3">
+    <button (click)="prevPage()" [disabled]="currentPage === 1" class="btn btn-secondary">Anterior</button>
+    <span>Página {{ currentPage }} de {{ totalPages() }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages()" class="btn btn-secondary">Siguiente</button>
   </div>
 </div>

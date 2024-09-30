@@ -19,15 +19,13 @@
     </div>
   </div>
 
-
   <div class="table-container">
-
-      <!-- Icono de carga -->
-      <div *ngIf="cargandoReferidos" class="loading-overlay">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Cargando...</span>
-        </div>
+    <!-- Icono de carga -->
+    <div *ngIf="cargandoReferidos" class="loading-overlay">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
       </div>
+    </div>
 
     <table *ngIf="!cargandoReferidos" class="table table-bordered table-hover">
       <thead>
@@ -40,7 +38,7 @@
         </tr>
       </thead>
       <tbody class="scrollable-tbody">
-        <tr *ngFor="let user of filtrarUsers()">
+        <tr *ngFor="let user of paginatedUsers()">
           <td>{{ user.id }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.cedula }}</td>
@@ -53,12 +51,11 @@
       </tbody>
     </table>
 
-    <div class="d-flex justify-content-center mt-3">
-      <button class="btn btn-secondary" (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
-      <span class="mx-3">Página {{ currentPage }} de {{ totalPages() }}</span>
-      <button class="btn btn-secondary" (click)="nextPage()" [disabled]="currentPage === totalPages()">Siguiente</button>
-    </div>
+   
   </div>
-  
+  <div class="d-flex justify-content-center mt-3">
+    <button class="btn btn-secondary" (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+    <span class="mx-3">Página {{ currentPage }} de {{ totalPages() }}</span>
+    <button class="btn btn-secondary" (click)="nextPage()" [disabled]="currentPage === totalPages()">Siguiente</button>
+  </div>
 </div>
-

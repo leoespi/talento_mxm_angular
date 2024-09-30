@@ -5,41 +5,31 @@ import { Cesantias } from '../../modelos/cesantias';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-
 @Component({
   selector: 'app-index',
   standalone: true,
-  providers:[CesantiasService],
-  imports: [ FormsModule,CommonModule],
+  providers: [CesantiasService],
+  imports: [FormsModule, CommonModule],
   templateUrl: './index.component.html',
-  styleUrl: './index.component.scss'
+  styleUrls: ['./index.component.scss']
 })
 export class IndexComponent {
-
-
-  
-
   id: string | null;
   listarCesantias: Cesantias[] = [];
   token: string | null = null;
   yearToDownload: number | null = null;
-  cargandoReferidos: boolean = false; 
+  cargandoReferidos: boolean = false;
 
   searchTerm: string = '';
-  clave: string | null = 'valor'; // Asumiendo que `clave` tiene un valor inicial  yearToDownload: number = 0; // Declaración de la propiedad yearToDownload   
-   
-  
   tipoCesantiasSeleccionada: string = '';
   tiposCesantias: string[] = [];
 
+  currentPage: number = 1; // Página actual
+  itemsPerPage: number = 10; // Elementos por página
 
   constructor(private cesantiasService: CesantiasService, private router: Router, private aRouter: ActivatedRoute) {
     this.id = this.aRouter.snapshot.paramMap.get('id');
     this.searchTerm = '';
-  }
-
-  navigateToCesantiasDenegadas(): void {
-    this.router.navigate(['/cesantiasdenegadas/index']); // Navegación a la ruta deseada
   }
 
   ngOnInit(): void {
@@ -55,8 +45,24 @@ export class IndexComponent {
     }
   }
 
-   // Método para descargar cesantías por el año seleccionado
-   descargarCesantiasPorAnio(): void {
+  // Carga las cesantías desde el servidor
+  cargarCesantias(): void {
+    this.cargandoReferidos = true;
+    this.cesantiasService.getCesantias(this.token).subscribe(
+      (data: any) => {
+        this.cargandoReferidos = false;
+        this.listarCesantias = data.cesantias;
+        this.obtenerTiposCesantias();
+      },
+      err => {
+        console.log(err);
+        this.cargandoReferidos = false;
+      }
+    );
+  }
+
+  // Método para descargar cesantías por el año seleccionado
+  descargarCesantiasPorAnio(): void {
     if (this.yearToDownload !== null) {
       this.cesantiasService.exportCesantias(this.yearToDownload).subscribe(
         (data: Blob) => {
@@ -78,23 +84,49 @@ export class IndexComponent {
     }
   }
 
-  // Carga las cesantias desde el servidor
-  cargarCesantias(): void {
-    this.cargandoReferidos = true;
-    this.cesantiasService.getCesantias(this.token).subscribe(
-      (data: any) => {
-        console.log(data);
-        this.cargandoReferidos = false;
-        this.listarCesantias = data.cesantias;
-        this.obtenerTiposCesantias();
-      },
-      err => {
-        console.log(err);
-        this.cargandoReferidos = false;
-      }
-    );
+  // Filtramos las cesantías por término de búsqueda y tipo de cesantía
+  filtrarCesantias(): Cesantias[] {
+    let cesantiasFiltradas = this.listarCesantias;
+
+    // Filtrar por término de búsqueda
+    if (this.searchTerm.trim()) {
+      cesantiasFiltradas = cesantiasFiltradas.filter(cesantia => 
+        (cesantia.user?.cedula?.toString() ?? '').includes(this.searchTerm.trim())
+      );
+    }
+
+    // Filtrar por tipo de cesantía reportada
+    if (this.tipoCesantiasSeleccionada) {
+      cesantiasFiltradas = cesantiasFiltradas.filter(cesantia => 
+        (cesantia.tipo_cesantia_reportada?.toLowerCase() === this.tipoCesantiasSeleccionada.toLowerCase())
+      );
+    }
+
+    return cesantiasFiltradas;
   }
 
+  // Método para paginar las cesantías
+  paginatedCesantias(): Cesantias[] {
+    const filteredCesantias = this.filtrarCesantias();
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return filteredCesantias.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  totalPages(): number {
+    return Math.ceil(this.filtrarCesantias().length / this.itemsPerPage);
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages()) {
+      this.currentPage++;
+    }
+  }
 
   autorizarCesantia(id: number | undefined): void {
     if (id === undefined) {
@@ -102,18 +134,15 @@ export class IndexComponent {
       return;
     }
 
-    // Obtener token de algún lugar, por ejemplo del almacenamiento local
     const access_token = localStorage.getItem('clave');
     if (!access_token) {
       console.error('Token de acceso no encontrado');
       return;
     }
 
-    // Llamar al servicio para autorizar la cesantía
     this.cesantiasService.authorizeCesantia(id, access_token).subscribe(
       (data) => {
         console.log('Cesantía autorizada exitosamente:', data);
-        // Aquí podrías actualizar la lista de cesantías si es necesario
         this.cargarCesantias();
       },
       (error) => {
@@ -122,14 +151,12 @@ export class IndexComponent {
     );
   }
 
-
   denegarCesantiaAdmin(id: number | undefined): void {
     if (!id) {
       console.error('ID de cesantía no definido');
       return;
     }
 
-    // Puedes pedir una justificación al usuario si es necesario
     const justificacion = prompt('Ingrese la justificación para la denegación:');
     if (!justificacion) {
       console.error('Justificación requerida');
@@ -139,7 +166,7 @@ export class IndexComponent {
     this.cesantiasService.denyCesantiaAdmin(id, this.token!, justificacion).subscribe(
       (data) => {
         console.log('Cesantía denegada exitosamente:', data);
-        this.cargarCesantias(); // Actualizar la lista después de denegar
+        this.cargarCesantias();
       },
       (error) => {
         console.error('Error al denegar la cesantía:', error);
@@ -147,81 +174,24 @@ export class IndexComponent {
     );
   }
 
-
-
-
-   // Obtener tipos únicos de cesantias
-   obtenerTiposCesantias(): void {
+  // Obtener tipos únicos de cesantías
+  obtenerTiposCesantias(): void {
     const tipos: Set<string> = new Set();
-    this.listarCesantias.forEach(cesantias => {
-      if (cesantias.tipo_cesantia_reportada) {
-        tipos.add(cesantias.tipo_cesantia_reportada);
+    this.listarCesantias.forEach(cesantia => {
+      if (cesantia.tipo_cesantia_reportada) {
+        tipos.add(cesantia.tipo_cesantia_reportada);
       }
     });
     this.tiposCesantias = Array.from(tipos);
   }
 
-
- 
-
-
-
-  // Elimina una cesantia por su ID
-  eliminarCesantias(id: any): void {
-    this.cesantiasService.deleteCesantias(id, this.token).subscribe(
-      data => {
-        this.cargarCesantias();
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
-  // Filtramos las cesantias por término de búsqueda, mes y tipo de cesantias reportada
-  filtrarCesantias():Cesantias[] {
-    let cesantiasFiltradas = this.listarCesantias;
-
-    // Filtrar por término de búsqueda
-    if (this.searchTerm.trim()) {
-      cesantiasFiltradas = cesantiasFiltradas.filter(cesantias => 
-        (cesantias.user?.cedula?.toString() ?? '').includes(this.searchTerm.trim())
-      );
-    }
-
-    // Filtrar por tipo de cesantia reportada
-    if (this.tipoCesantiasSeleccionada) {
-      cesantiasFiltradas =cesantiasFiltradas.filter(cesantias => 
-        (cesantias.tipo_cesantia_reportada?.toLowerCase() === this.tipoCesantiasSeleccionada.toLowerCase())
-      );
-    }
-
-    return cesantiasFiltradas;
-  }
-  
-  // Descarga una imagen asociada a una cesantia
-  downloadImage(uuid: string): void {
-    this.cesantiasService.downloadImage(uuid, this.token).subscribe((data: Blob) => {
-      const url = window.URL.createObjectURL(data);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'imagen.jpg'; // Cambia 'imagen.jpg' por el nombre adecuado
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-    }, error => {
-      console.log(error);
-    });
-  }
-
-
+  // Descarga un ZIP de una cesantía
   downloadZip(uuid: string, cedula: number): void {
     this.cesantiasService.downloadZip(uuid, this.token).subscribe((data: Blob) => {
       const url = window.URL.createObjectURL(data);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `cesantias_${cedula}__${uuid}.zip`; // Aquí se incluye la cédula del usuario en el nombre del archivo ZIP
+      a.download = `cesantias_${cedula}__${uuid}.zip`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -231,18 +201,8 @@ export class IndexComponent {
     });
   }
 
-
-  // Redirige a la página de edición de una cesantia por su ID
+  // Redirige a la página de edición de una cesantía por su ID
   editarCesantias(id: any): void {
-    this.router.navigateByUrl("/cesantias/editar/"+id);
+    this.router.navigateByUrl("/cesantias/editar/" + id);
   }
-
-
-
-
-  
-
-
-
-
 }

@@ -27,22 +27,19 @@
     </div>
     <div class="col-md-2">
       <label for="year"></label>
-      <button type="button" class="btn btn-success btn-block mt-4" (click)="downloadIncapacidadesByYear(year)">Descargar Incapacidades  </button>
-    
+      <button type="button" class="btn btn-success btn-block mt-4" (click)="downloadIncapacidadesByYear(year)">Descargar Incapacidades</button>
     </div>
   </div>
 
-
   <div class="table-container">
-
-     <!-- Icono de carga -->
-     <div *ngIf="cargandoReferidos" class="loading-overlay">
+    <!-- Icono de carga -->
+    <div *ngIf="cargandoReferidos" class="loading-overlay">
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Cargando...</span>
       </div>
     </div>
 
-    <table  *ngIf="!cargandoReferidos" class="table table-bordered table-hover">
+    <table *ngIf="!cargandoReferidos" class="table table-bordered table-hover">
       <thead>
         <tr>
           <th>ID</th>
@@ -51,42 +48,40 @@
           <th>Tipo de Incapacidad Reportada</th>
           <th>Días de incapacidad</th>
           <th>Fecha inicio incapacidad</th>
-          
           <th>Entidad Afiliada</th>
           <th>Imagen</th>
           <th>Aplica Cobro</th>
-          
           <th>Tipo de Incapacidad Autorizada</th>
-          
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody class="scrollable-tbody">
-        <tr *ngFor="let incapacidad of filtrarIncapacidades()">
+        <tr *ngFor="let incapacidad of paginatedIncapacidades()">
           <td>{{ incapacidad.id }}</td>
           <td>{{ incapacidad.user.cedula }}</td>
           <td>{{ incapacidad.user.name }}</td>
-          <td>{{incapacidad.tipo_incapacidad_reportada}}</td>
+          <td>{{ incapacidad.tipo_incapacidad_reportada }}</td>
           <td>{{ incapacidad.dias_incapacidad }}</td>
           <td>{{ incapacidad.fecha_inicio_incapacidad }}</td>
           <td>{{ incapacidad.entidad_afiliada }}</td>
-         
           <td>
             <button type="button" class="btn btn-primary" *ngIf="incapacidad.uuid" (click)="downloadZip(incapacidad.uuid!, incapacidad.user.cedula)">Descargar ZIP</button>
-
           </td>
           <td>{{ incapacidad.aplica_cobro }}</td>
-         
           <td>{{ incapacidad.tipo_incapacidad }}</td>
-          
           <td>
             <button type="button" class="btn btn-warning" (click)="editarIncapacidades(incapacidad.id)">Autorizar</button>
             <button type="button" class="btn btn-danger" (click)="eliminarFeeds(incapacidad.id)">Eliminar</button>
-            
           </td>
         </tr>
       </tbody>
     </table>
+
+    
+  </div>
+  <div class="d-flex justify-content-center mt-3">
+    <button class="btn btn-secondary" (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+    <span class="mx-3">Página {{ currentPage }} de {{ totalPages() }}</span>
+    <button class="btn btn-secondary" (click)="nextPage()" [disabled]="currentPage === totalPages()">Siguiente</button>
+  </div>
 </div>
-
-
