@@ -4,6 +4,8 @@ import { UsersService } from '../../servicios/users.service';
 import { Users } from '../../modelos/users';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-index',
@@ -86,30 +88,55 @@ export class IndexComponent {
   editarUsers(id: any): void {
     this._router.navigateByUrl("/users/editar/" + id);
   }
-
-  // Activa un usuario por su ID
   activarUser(id: any): void {
-    this.usersService.activateUser(id, this.token).subscribe(
-      data => {
-        this.cargaUsers();
-      },
-      error => {
-        console.log(error);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Deseas activar este usuario?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, activar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.usersService.activateUser(id, this.token).subscribe(
+          data => {
+            this.cargaUsers();
+            Swal.fire('Activado!', 'Usuario activado con éxito!', 'success');
+          },
+          error => {
+            console.log(error);
+            Swal.fire('Error!', 'Error al activar el usuario.', 'error');
+          }
+        );
       }
-    );
+    });
   }
-
-  // Desactiva un usuario por su ID
+  
   desactivarUser(id: any): void {
-    this.usersService.deactivateUser(id, this.token).subscribe(
-      data => {
-        this.cargaUsers();
-      },
-      error => {
-        console.log(error);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Deseas desactivar este usuario?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, desactivar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.usersService.deactivateUser(id, this.token).subscribe(
+          data => {
+            this.cargaUsers();
+            Swal.fire('Desactivado!', 'Usuario desactivado con éxito!', 'success');
+          },
+          error => {
+            console.log(error);
+            Swal.fire('Error!', 'Error al desactivar el usuario.', 'error');
+          }
+        );
       }
-    );
+    });
   }
+  
+  
 
   // Filtra la lista de usuarios según el término de búsqueda
   filtrarUsers(): Users[] {
@@ -122,11 +149,13 @@ export class IndexComponent {
   }
 
   // Devuelve los usuarios paginados
-  paginatedUsers(): Users[] {
-    const filteredUsers = this.filtrarUsers();
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return filteredUsers.slice(startIndex, startIndex + this.itemsPerPage);
-  }
+  // Devuelve los usuarios paginados en orden inverso
+paginatedUsers(): Users[] {
+  const filteredUsers = this.filtrarUsers();
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  // Invertir la lista antes de paginar
+  return filteredUsers.reverse().slice(startIndex, startIndex + this.itemsPerPage);
+}
 
   // Total de páginas
   totalPages(): number {

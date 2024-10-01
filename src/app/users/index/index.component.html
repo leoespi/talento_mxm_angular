@@ -30,7 +30,7 @@
     <table *ngIf="!cargandoReferidos" class="table table-bordered table-hover">
       <thead>
         <tr>
-          <th>ID</th>
+       
           <th>Nombre</th>
           <th>Cédula</th>
           <th>Email</th>
@@ -39,7 +39,7 @@
       </thead>
       <tbody class="scrollable-tbody">
         <tr *ngFor="let user of paginatedUsers()">
-          <td>{{ user.id }}</td>
+         
           <td>{{ user.name }}</td>
           <td>{{ user.cedula }}</td>
           <td>{{ user.email }}</td>
@@ -51,11 +51,11 @@
       </tbody>
     </table>
 
-   
+    <div class="d-flex justify-content-center mt-3">
+      <button class="btn btn-secondary" (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+      <span class="mx-3">Página {{ currentPage }} de {{ totalPages() }}</span>
+      <button class="btn btn-secondary" (click)="nextPage()" [disabled]="currentPage === totalPages()">Siguiente</button>
+    </div>
   </div>
-  <div class="d-flex justify-content-center mt-3">
-    <button class="btn btn-secondary" (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
-    <span class="mx-3">Página {{ currentPage }} de {{ totalPages() }}</span>
-    <button class="btn btn-secondary" (click)="nextPage()" [disabled]="currentPage === totalPages()">Siguiente</button>
-  </div>
+ 
 </div>
