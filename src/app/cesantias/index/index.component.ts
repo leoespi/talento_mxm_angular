@@ -4,6 +4,7 @@ import { CesantiasService } from '../../servicios/cesantias.service';
 import { Cesantias } from '../../modelos/cesantias';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-index',
@@ -130,50 +131,79 @@ export class IndexComponent {
 
   autorizarCesantia(id: number | undefined): void {
     if (id === undefined) {
-      console.error('ID de cesantía no definido');
-      return;
+        console.error('ID de cesantía no definido');
+        return;
     }
 
-    const access_token = localStorage.getItem('clave');
-    if (!access_token) {
-      console.error('Token de acceso no encontrado');
-      return;
-    }
+    Swal.fire({
+        title: 'Autorizar Cesantía',
+        text: '¿Está seguro de que desea autorizar esta cesantía?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Autorizar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const access_token = localStorage.getItem('clave');
+            if (!access_token) {
+                console.error('Token de acceso no encontrado');
+                return;
+            }
 
-    this.cesantiasService.authorizeCesantia(id, access_token).subscribe(
-      (data) => {
-        console.log('Cesantía autorizada exitosamente:', data);
-        this.cargarCesantias();
-      },
-      (error) => {
-        console.error('Error al autorizar la cesantía:', error);
-      }
-    );
-  }
+            this.cesantiasService.authorizeCesantia(id, access_token).subscribe(
+                (data) => {
+                    console.log('Cesantía autorizada exitosamente:', data);
+                    this.cargarCesantias();
+                    Swal.fire('Autorizada!', 'La cesantía ha sido autorizada.', 'success');
+                },
+                (error) => {
+                    console.error('Error al autorizar la cesantía:', error);
+                    Swal.fire('Error!', 'No se pudo autorizar la cesantía.', 'error');
+                }
+            );
+        }
+    });
+}
 
-  denegarCesantiaAdmin(id: number | undefined): void {
+// Método para denegar cesantía
+denegarCesantiaAdmin(id: number | undefined): void {
     if (!id) {
-      console.error('ID de cesantía no definido');
-      return;
+        console.error('ID de cesantía no definido');
+        return;
     }
 
-    const justificacion = prompt('Ingrese la justificación para la denegación:');
-    if (!justificacion) {
-      console.error('Justificación requerida');
-      return;
-    }
+    Swal.fire({
+        title: 'Denegar Cesantía',
+        text: 'Ingrese la justificación para la denegación:',
+        input: 'textarea',
+        inputPlaceholder: 'Justificación...',
+        showCancelButton: true,
+        confirmButtonText: 'Denegar',
+        cancelButtonText: 'Cancelar',
+        preConfirm: (justificacion) => {
+            if (!justificacion) {
+                Swal.showValidationMessage('Justificación requerida');
+            }
+            return justificacion;
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const justificacion = result.value;
 
-    this.cesantiasService.denyCesantiaAdmin(id, this.token!, justificacion).subscribe(
-      (data) => {
-        console.log('Cesantía denegada exitosamente:', data);
-        this.cargarCesantias();
-      },
-      (error) => {
-        console.error('Error al denegar la cesantía:', error);
-      }
-    );
-  }
-
+            this.cesantiasService.denyCesantiaAdmin(id, this.token!, justificacion).subscribe(
+                (data) => {
+                    console.log('Cesantía denegada exitosamente:', data);
+                    this.cargarCesantias();
+                    Swal.fire('Denegada!', 'La cesantía ha sido denegada.', 'success');
+                },
+                (error) => {
+                    console.error('Error al denegar la cesantía:', error);
+                    Swal.fire('Error!', 'No se pudo denegar la cesantía.', 'error');
+                }
+            );
+        }
+    });
+}
   // Obtener tipos únicos de cesantías
   obtenerTiposCesantias(): void {
     const tipos: Set<string> = new Set();
