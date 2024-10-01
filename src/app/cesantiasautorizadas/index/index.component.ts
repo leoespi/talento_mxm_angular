@@ -4,6 +4,7 @@ import { CesantiasAutorizadasService } from '../../servicios/cesantias-autorizad
 import { Cesantias } from '../../modelos/cesantias';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -71,50 +72,78 @@ export class IndexComponent {
         return;
     }
 
-    const justificacion = prompt('Ingrese la justificación para la aprobación:');
-    if (!justificacion) {
-        console.error('Justificación requerida');
-        return;
-    }
-
-    // Llamar al servicio para aprobar la cesantía
-    this.CesantiasAutorizadasServicio.aprobarCesantia(id, justificacion, this.token).subscribe(
-        (data) => {
-            console.log('Cesantía aprobada exitosamente:', data);
-            // Aquí podrías actualizar la lista de cesantías si es necesario
-            this.cargarCesantias();
-        },
-        (error) => {
-            console.error('Error al aprobar la cesantía:', error);
+    Swal.fire({
+        title: 'Aprobar Cesantía',
+        text: 'Ingrese la justificación para la aprobación:',
+        input: 'textarea',
+        inputPlaceholder: 'Justificación...',
+        showCancelButton: true,
+        confirmButtonText: 'Aprobar',
+        cancelButtonText: 'Cancelar',
+        preConfirm: (justificacion) => {
+            if (!justificacion) {
+                Swal.showValidationMessage('Justificación requerida');
+            }
+            return justificacion;
         }
-    );
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const justificacion = result.value;
+
+            // Llamar al servicio para aprobar la cesantía
+            this.CesantiasAutorizadasServicio.aprobarCesantia(id, justificacion, this.token).subscribe(
+                (data) => {
+                    console.log('Cesantía aprobada exitosamente:', data);
+                    this.cargarCesantias();
+                    Swal.fire('Aprobada!', 'La cesantía ha sido aprobada.', 'success');
+                },
+                (error) => {
+                    console.error('Error al aprobar la cesantía:', error);
+                    Swal.fire('Error!', 'No se pudo aprobar la cesantía.', 'error');
+                }
+            );
+        }
+    });
 }
-
   
 
-  
 denegarCesantiaAdmin(id: number | undefined): void {
   if (!id) {
-    console.error('ID de cesantía no definido');
-    return;
+      console.error('ID de cesantía no definido');
+      return;
   }
 
-  // Puedes pedir una justificación al usuario si es necesario
-  const justificacion = prompt('Ingrese la justificación para la denegación:');
-  if (!justificacion) {
-    console.error('Justificación requerida');
-    return;
-  }
+  Swal.fire({
+      title: 'Denegar Cesantía',
+      text: 'Ingrese la justificación para la denegación:',
+      input: 'textarea',
+      inputPlaceholder: 'Justificación...',
+      showCancelButton: true,
+      confirmButtonText: 'Denegar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: (justificacion) => {
+          if (!justificacion) {
+              Swal.showValidationMessage('Justificación requerida');
+          }
+          return justificacion;
+      }
+  }).then((result) => {
+      if (result.isConfirmed) {
+          const justificacion = result.value;
 
-  this.CesantiasAutorizadasServicio.denyCesantiaAdmin(id, this.token!, justificacion).subscribe(
-    (data) => {
-      console.log('Cesantía denegada exitosamente:', data);
-      this.cargarCesantias(); // Actualizar la lista después de denegar
-    },
-    (error) => {
-      console.error('Error al denegar la cesantía:', error);
-    }
-  );
+          this.CesantiasAutorizadasServicio.denyCesantiaAdmin(id, this.token!, justificacion).subscribe(
+              (data) => {
+                  console.log('Cesantía denegada exitosamente:', data);
+                  this.cargarCesantias(); // Actualizar la lista después de denegar
+                  Swal.fire('Denegada!', 'La cesantía ha sido denegada.', 'success');
+              },
+              (error) => {
+                  console.error('Error al denegar la cesantía:', error);
+                  Swal.fire('Error!', 'No se pudo denegar la cesantía.', 'error');
+              }
+          );
+      }
+  });
 }
 
 
