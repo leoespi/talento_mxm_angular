@@ -1,0 +1,10 @@
+<div class="max-w-7xl mx-auto bg-white shadow-md rounded-lg overflow-hidden mt-10">
+    <div class="relative w-full h-80 overflow-hidden"> <!-- Cambia h-48 a h-80 -->
+      <div *ngFor="let image of images; let i = index" 
+           class="absolute inset-0 transition-opacity duration-1000"
+           [ngClass]="{'opacity-0': currentIndex !== i, 'opacity-100': currentIndex === i}">
+        <img [src]="image" alt="Imagen" class="w-full h-full object-cover">
+      </div>
+    </div>
+  </div>
+  
