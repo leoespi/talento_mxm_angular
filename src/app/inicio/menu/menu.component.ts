@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router'; // Asegúrate de importar RouterModule
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule], // Agrega RouterModule aquí
   templateUrl: './menu.component.html',
-  styleUrl: './menu.component.scss'
+  styleUrls: ['./menu.component.scss'] // Corrige 'styleUrl' a 'styleUrls'
 })
 export class MenuComponent {
   clave: string | null = null;
-  rolId: number | null = null; // Agrega esta variable para almacenar el rol del usuario
+  rolId: number | null = null; // Almacena el rol del usuario
 
   constructor(private router: Router) {}
 

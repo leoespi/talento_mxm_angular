@@ -1,23 +1,20 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-<h1><span class="badge bg-secondary"></span></h1>
-
-<nav>
-  <div class="logo-container">
-    <img src="assets/img/MXMLOGO.png" alt="logo">
-  </div>
-  
-  <div class="links-container">
-    <a href="/home/index" *ngIf="clave != null">Inicio</a>
-
-    <a href="/users/index" *ngIf="(clave != null && rolId === 4) || rolId === 1">Usuarios</a>
-    <a href="/incapacidades/index" *ngIf="(clave != null && rolId === 4) || rolId === 1">Incapacidades</a>
-    <a href="/cesantias/index" *ngIf="(clave != null && rolId === 4) || rolId === 1">Cesantias</a>
-    <a href="/cesantiasautorizadas/index" *ngIf="clave != null && rolId === 4">Cesantias Autorizadas</a>
-    <a href="/referidos/index" *ngIf="(clave != null && rolId === 4) || rolId === 1">Plan Referidos</a>
-    <a href="/feeds/listado" *ngIf="(clave != null && rolId === 4) || rolId === 3">Publicacion</a>
-    <button type="button" *ngIf="clave != null" (click)="logout()" id="logout">Cerrar Sesión</button>
-
+<nav class="sidebar bg-gray-800 text-white h-screen fixed top-0 left-0 w-64">
+  <div class="logo-container p-4">
+    <img src="assets/img/MXMLOGO.png" alt="logo" class="h-12 mx-auto">
   </div>
 
+  <div class="links-container flex flex-col p-4 space-y-2">
+    <a href="/home/index" *ngIf="clave != null" class="block p-2 rounded hover:bg-gray-700">Inicio</a>
+    <a href="/users/index" *ngIf="(clave != null && rolId === 4) || rolId === 1" class="block p-2 rounded hover:bg-gray-700">Usuarios</a>
+    <a href="/incapacidades/index" *ngIf="(clave != null && rolId === 4) || rolId === 1" class="block p-2 rounded hover:bg-gray-700">Incapacidades</a>
+    <a href="/cesantias/index" *ngIf="(clave != null && rolId === 4) || rolId === 1" class="block p-2 rounded hover:bg-gray-700">Cesantías</a>
+    <a href="/cesantiasautorizadas/index" *ngIf="clave != null && rolId === 4" class="block p-2 rounded hover:bg-gray-700">Cesantías Autorizadas</a>
+    <a href="/referidos/index" *ngIf="(clave != null && rolId === 4) || rolId === 1" class="block p-2 rounded hover:bg-gray-700">Plan Referidos</a>
+    <a href="/feeds/listado" *ngIf="(clave != null && rolId === 4) || rolId === 3" class="block p-2 rounded hover:bg-gray-700">Publicación</a>
+    <button type="button" *ngIf="clave != null" (click)="logout()" id="logout" class="w-full p-2 bg-red-600 rounded hover:bg-red-700">Cerrar Sesión</button>
+  </div>
 </nav>
+
+<div class="body ml-64">
+  <router-outlet></router-outlet> <!-- Contenido principal aquí -->
+</div>
