@@ -1,14 +1,14 @@
-<div id="body">
-    <div class="login-container">
+<div id="body" class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="login-container bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
         <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
-            <h1>Inicio de sesion Portal Talento Humano</h1>
-            <div class="input-group">
-                <input type="text" formControlName="cedula" placeholder="Cédula">
+            <h1 class="text-2xl font-semibold text-center text-gray-800 mb-6">Inicio de sesión Portal Talento Humano</h1>
+            <div class="input-group mb-4">
+                <input type="text" formControlName="cedula" placeholder="Cédula" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-green-500 transition duration-300" required>
             </div>
-            <div class="input-group">
-                <input type="password" formControlName="password" placeholder="Contraseña">
+            <div class="input-group mb-6">
+                <input type="password" formControlName="password" placeholder="Contraseña" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-green-500 transition duration-300" required>
             </div>
-            <button type="submit">Ingresar</button>
+            <button type="submit" class="w-full p-3 bg-green-500 text-white rounded-full font-semibold transition duration-300 hover:bg-green-600">Ingresar</button>
         </form>
     </div>
 </div>
