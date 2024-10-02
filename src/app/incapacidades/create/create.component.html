@@ -1,15 +1,15 @@
-<form [formGroup]="incapcacidadForm" (ngSubmit)="agregarIncapacidad()" class="custom-form">
-    
-  <div class="form-group">
-    <label for="aplica_cobro">Aplica cobro</label>
-    <input type="text" id="aplica_cobro" formControlName="aplica_cobro">
-    
-    <label for="tipo_incapacidad">Tipo de incapacidad</label>
-    <input type="text" id="tipo_incapacidad" formControlName="tipo_incapacidad">
-    
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <form [formGroup]="incapcacidadForm" (ngSubmit)="agregarIncapacidad()" class="bg-white shadow-md rounded-lg p-6 max-w-lg w-full">
+      <div class="mb-4">
+          <label for="aplica_cobro" class="block text-gray-700 font-semibold mb-2">Aplica Cobro:</label>
+          <input type="text" id="aplica_cobro" formControlName="aplica_cobro" class="border rounded-md w-full p-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Ingrese si aplica cobro">
+      </div>
 
-  </div>
-   
-    <button type="submit">Guardar</button>
+      <div class="mb-4">
+          <label for="tipo_incapacidad" class="block text-gray-700 font-semibold mb-2">Tipo de Incapacidad:</label>
+          <input type="text" id="tipo_incapacidad" formControlName="tipo_incapacidad" class="border rounded-md w-full p-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Ingrese tipo de incapacidad">
+      </div>
+
+      <button type="submit" class="bg-green-600 text-white rounded-md px-4 py-2 mt-4 hover:bg-green-700">Guardar</button>
   </form>
-  
+</div>

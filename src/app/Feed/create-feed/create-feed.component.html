@@ -1,15 +1,20 @@
-<form [formGroup]="feedForm" (ngSubmit)="onSubmit()" class="feed-form">
-  <div class="form-group">
-    <label for="content">Content:</label>
-    <textarea id="content" formControlName="content" required></textarea>
-  </div>
-  <div class="form-group">
-    <label for="images">Images:</label>
-    <input type="file" id="images" name="images" (change)="onFileSelected($event)" multiple accept="image/*">
-  </div>
-  <div class="form-group">
-    <label for="videoLink">Video Link (optional):</label>
-    <input type="url" id="videoLink" formControlName="videoLink" placeholder="Enter YouTube video URL">
-  </div>
-  <button type="submit" [disabled]="feedForm.invalid" class="submit-button">Create Feed</button>
-</form>
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <form [formGroup]="feedForm" (ngSubmit)="onSubmit()" class="bg-white shadow-md rounded-lg p-6 max-w-lg w-full">
+      <div class="mb-4">
+          <label for="content" class="block text-gray-700 font-semibold mb-2">Contenido:</label>
+          <textarea id="content" formControlName="content" required class="border rounded-md w-full p-2 focus:outline-none focus:ring-2 focus:ring-green-500" rows="4" placeholder="Escribe aquí..."></textarea>
+      </div>
+
+      <div class="mb-4">
+          <label for="images" class="block text-gray-700 font-semibold mb-2">Imágenes:</label>
+          <input type="file" id="images" name="images" (change)="onFileSelected($event)" multiple accept="image/*" class="border rounded-md w-full p-2">
+      </div>
+
+      <div class="mb-4">
+          <label for="videoLink" class="block text-gray-700 font-semibold mb-2">Enlace de Video (opcional):</label>
+          <input type="url" id="videoLink" formControlName="videoLink" placeholder="Ingrese la URL del video de YouTube" class="border rounded-md w-full p-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+      </div>
+
+      <button type="submit" [disabled]="feedForm.invalid" class="bg-green-600 text-white rounded-md px-4 py-2 mt-4 hover:bg-green-700">Crear Publicación</button>
+  </form>
+</div>

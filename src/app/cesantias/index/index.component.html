@@ -1,30 +1,24 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<div class="container mx-auto p-6">
+    <h2 class="text-3xl font-semibold text-center mb-6">Lista de Cesantías En Revisión</h2>
 
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <h2 class="text-left">Lista de Cesantías En Revisión</h2>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+        <div>
+            <label for="searchTerm" class="block text-sm font-medium text-gray-700">Buscar Cesantía por Cédula:</label>
+            <input type="text" id="searchTerm" [(ngModel)]="searchTerm" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-green-500" placeholder="Buscar por cédula">
         </div>
-    </div>
-    <br/>
-    <div class="row mt-4">
-        <div class="col-md-2">
-            <label for="searchTerm">Buscar Cesantía por Cédula:</label>
-            <input type="text" id="searchTerm" [(ngModel)]="searchTerm" class="form-control form-control-sm" placeholder="Buscar por cédula" aria-label="Recipient's username" aria-describedby="basic-addon2">
-        </div>
-        <div class="col-md-2">
-            <label for="tiposCesantias">Buscar por Tipo Cesantía:</label>
-            <select id="tiposCesantias" [(ngModel)]="tipoCesantiasSeleccionada" class="form-control form-control-sm">
+        <div>
+            <label for="tiposCesantias" class="block text-sm font-medium text-gray-700">Buscar por Tipo Cesantía:</label>
+            <select id="tiposCesantias" [(ngModel)]="tipoCesantiasSeleccionada" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-green-500">
                 <option value="">Seleccionar Tipo de cesantía</option>
                 <option *ngFor="let tipo of tiposCesantias" [value]="tipo">{{ tipo }}</option>
             </select>
         </div>
-        <div class="col-md-2">
-            <label for="yearToDownload">Seleccionar año:</label>
-            <input type="number" id="yearToDownload" [(ngModel)]="yearToDownload" class="form-control form-control-sm" placeholder="Año a Descargar" aria-label="Año">
+        <div>
+            <label for="yearToDownload" class="block text-sm font-medium text-gray-700">Seleccionar año:</label>
+            <input type="number" id="yearToDownload" [(ngModel)]="yearToDownload" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-green-500" placeholder="Año a Descargar">
         </div>
-        <div class="col-md-2">
-            <button type="button" id="btnDescargar" class="btn btn-success btn-block mt-2" (click)="descargarCesantiasPorAnio()">Descargar <br> Cesantías</button>
+        <div class="flex items-end">
+            <button type="button" id="btnDescargar" class="w-full bg-green-600 text-white rounded-md p-2 hover:bg-green-700" (click)="descargarCesantiasPorAnio()">Descargar <br> Cesantías</button>
         </div>
     </div>
 
@@ -35,41 +29,40 @@
             </div>
         </div>
 
-        <table *ngIf="!cargandoReferidos" class="table table-bordered table-hover">
-            <thead>
+        <table *ngIf="!cargandoReferidos" class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+            <thead class="bg-gray-100">
                 <tr>
-                    <th>ID</th>
-                    <th>Cédula</th>
-                    <th>Nombre</th>
-                    <th>Tipo de Solicitud</th>
-                    <th>Imágenes</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
+                    <th class="py-3 px-4 text-left text-gray-600">ID</th>
+                    <th class="py-3 px-4 text-left text-gray-600">Cédula</th>
+                    <th class="py-3 px-4 text-left text-gray-600">Nombre</th>
+                    <th class="py-3 px-4 text-left text-gray-600">Tipo de Solicitud</th>
+                    <th class="py-3 px-4 text-left text-gray-600">Imágenes</th>
+                    <th class="py-3 px-4 text-left text-gray-600">Estado</th>
+                    <th class="py-3 px-4 text-left text-gray-600">Acciones</th>
                 </tr>
             </thead>
-            <tbody class="scrollable-tbody">
-                <tr *ngFor="let cesantia of paginatedCesantias()">
-                    <td>{{ cesantia.id }}</td>
-                    <td>{{ cesantia.user.cedula }}</td>
-                    <td>{{ cesantia.user.name }}</td>
-                    <td>{{ cesantia.tipo_cesantia_reportada }}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" *ngIf="cesantia?.uuid && cesantia?.user?.cedula" (click)="downloadZip(cesantia.uuid!, cesantia.user.cedula)">Descargar</button>
+            <tbody class="text-gray-700">
+                <tr *ngFor="let cesantia of paginatedCesantias()" class="hover:bg-gray-50">
+                    <td class="py-2 px-4 border-b">{{ cesantia.id }}</td>
+                    <td class="py-2 px-4 border-b">{{ cesantia.user.cedula }}</td>
+                    <td class="py-2 px-4 border-b">{{ cesantia.user.name }}</td>
+                    <td class="py-2 px-4 border-b">{{ cesantia.tipo_cesantia_reportada }}</td>
+                    <td class="py-2 px-4 border-b">
+                        <button type="button" class="bg-blue-600 text-white rounded-md p-1 hover:bg-blue-700" *ngIf="cesantia?.uuid && cesantia?.user?.cedula" (click)="downloadZip(cesantia.uuid!, cesantia.user.cedula)">Descargar</button>
                     </td>
-                    <td>{{ cesantia.estado }}</td>
-                    <td>
-                        <button type="button" class="btn btn-success" (click)="autorizarCesantia(cesantia.id)">Autorizar</button>
-                        <button type="button" class="btn btn-danger" (click)="denegarCesantiaAdmin(cesantia.id)">Denegar</button>
+                    <td class="py-2 px-4 border-b">{{ cesantia.estado }}</td>
+                    <td class="py-2 px-4 border-b">
+                        <button type="button" class="bg-green-600 text-white rounded-md p-1 hover:bg-green-700" (click)="autorizarCesantia(cesantia.id)">Autorizar</button>
+                        <button type="button" class="bg-red-600 text-white rounded-md p-1 hover:bg-red-700" (click)="denegarCesantiaAdmin(cesantia.id)">Denegar</button>
                     </td>
                 </tr>
             </tbody>
         </table>
-
-       
     </div>
-    <div *ngIf="!cargandoReferidos" class="d-flex justify-content-center mt-3">
-        <button (click)="prevPage()" [disabled]="currentPage === 1" class="btn btn-secondary">Anterior</button>
+
+    <div *ngIf="!cargandoReferidos" class="flex justify-center mt-4">
+        <button (click)="prevPage()" [disabled]="currentPage === 1" class="bg-gray-300 text-gray-700 rounded-md px-4 py-2 mr-2">Anterior</button>
         <span>Página {{ currentPage }} de {{ totalPages() }}</span>
-        <button (click)="nextPage()" [disabled]="currentPage === totalPages()" class="btn btn-secondary">Siguiente</button>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages()" class="bg-gray-300 text-gray-700 rounded-md px-4 py-2 ml-2">Siguiente</button>
     </div>
 </div>
