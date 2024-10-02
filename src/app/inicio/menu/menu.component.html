@@ -1,17 +1,17 @@
-<nav class="sidebar bg-gray-800 text-white h-screen fixed top-0 left-0 w-64">
-  <div class="logo-container p-4">
-    <img src="assets/img/MXMLOGO.png" alt="logo" class="h-12 mx-auto">
+<nav class="sidebar bg-gray-800 text-white h-screen fixed top-0 left-0 w-64 shadow-lg">
+  <div class="logo-container p-4 flex justify-center">
+    <img src="assets/img/MXMLOGO.png" alt="logo" class="h-12">
   </div>
 
   <div class="links-container flex flex-col p-4 space-y-2">
-    <a href="/home/index" *ngIf="clave != null" class="block p-2 rounded hover:bg-gray-700">Inicio</a>
-    <a href="/users/index" *ngIf="(clave != null && rolId === 4) || rolId === 1" class="block p-2 rounded hover:bg-gray-700">Usuarios</a>
-    <a href="/incapacidades/index" *ngIf="(clave != null && rolId === 4) || rolId === 1" class="block p-2 rounded hover:bg-gray-700">Incapacidades</a>
-    <a href="/cesantias/index" *ngIf="(clave != null && rolId === 4) || rolId === 1" class="block p-2 rounded hover:bg-gray-700">Cesantías</a>
-    <a href="/cesantiasautorizadas/index" *ngIf="clave != null && rolId === 4" class="block p-2 rounded hover:bg-gray-700">Cesantías Autorizadas</a>
-    <a href="/referidos/index" *ngIf="(clave != null && rolId === 4) || rolId === 1" class="block p-2 rounded hover:bg-gray-700">Plan Referidos</a>
-    <a href="/feeds/listado" *ngIf="(clave != null && rolId === 4) || rolId === 3" class="block p-2 rounded hover:bg-gray-700">Publicación</a>
-    <button type="button" *ngIf="clave != null" (click)="logout()" id="logout" class="w-full p-2 bg-red-600 rounded hover:bg-red-700">Cerrar Sesión</button>
+    <button (click)="navigate('/home/index')" *ngIf="clave != null" class="block w-full p-3 rounded transition duration-200 bg-gray-700 hover:bg-gray-600">Inicio</button>
+    <button (click)="navigate('/users/index')" *ngIf="(clave != null && rolId === 4) || rolId === 1" class="block w-full p-3 rounded transition duration-200 bg-gray-700 hover:bg-gray-600">Usuarios</button>
+    <button (click)="navigate('/incapacidades/index')" *ngIf="(clave != null && rolId === 4) || rolId === 1" class="block w-full p-3 rounded transition duration-200 bg-gray-700 hover:bg-gray-600">Incapacidades</button>
+    <button (click)="navigate('/cesantias/index')" *ngIf="(clave != null && rolId === 4) || rolId === 1" class="block w-full p-3 rounded transition duration-200 bg-gray-700 hover:bg-gray-600">Cesantías</button>
+    <button (click)="navigate('/cesantiasautorizadas/index')" *ngIf="clave != null && rolId === 4" class="block w-full p-3 rounded transition duration-200 bg-gray-700 hover:bg-gray-600">Cesantías Autorizadas</button>
+    <button (click)="navigate('/referidos/index')" *ngIf="(clave != null && rolId === 4) || rolId === 1" class="block w-full p-3 rounded transition duration-200 bg-gray-700 hover:bg-gray-600">Plan Referidos</button>
+    <button (click)="navigate('/feeds/listado')" *ngIf="(clave != null && rolId === 4) || rolId === 3" class="block w-full p-3 rounded transition duration-200 bg-gray-700 hover:bg-gray-600">Publicación</button>
+    <button type="button" *ngIf="clave != null" (click)="logout()" class="w-full p-3 bg-red-600 rounded-lg hover:bg-red-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">Cerrar Sesión</button>
   </div>
 </nav>
 
