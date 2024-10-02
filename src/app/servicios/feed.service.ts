@@ -10,6 +10,7 @@ import { Feed } from '../modelos/feed';
 export class FeedService {
   private baseUrl = 'http://localhost:8000/api';
   private feedsUrl = `${this.baseUrl}/feeds`;
+  private feedsdeleteUrl = `${this.baseUrl}/feeds/`;
 
   constructor(private http: HttpClient) {}
 
@@ -45,7 +46,7 @@ deleteFeeds(id:string, access_token:any): Observable<any> {
     'Authorization': 'Bearer ' + access_token
   });
   const options = { headers: headers};
-  return this.http.delete(this.feedsUrl +id, options);
+  return this.http.delete(this.feedsdeleteUrl +id, options);
 
 }
 

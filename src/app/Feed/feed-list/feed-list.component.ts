@@ -5,6 +5,8 @@ import { Feed } from '../../modelos/feed';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -60,12 +62,38 @@ export class FeedListComponent {
   }
 
 
-  aliminarfeeds(id:any):void{
-    this.feedService.deleteFeeds(id, this.token).subscribe(
-      data=>{
-        this.ngOnInit();
-      },
-    )
+  aliminarfeeds(id: any): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminarlo',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.feedService.deleteFeeds(id, this.token).subscribe(
+          data => {
+            Swal.fire(
+              'Eliminado!',
+              'La publicación ha sido eliminada.',
+              'success'
+            );
+            this.ngOnInit();
+          },
+          error => {
+            Swal.fire(
+              'Error!',
+              'Hubo un problema al eliminar la publicación.',
+              'error'
+            );
+          }
+        );
+      }
+    });
   }
+  
 
 }
