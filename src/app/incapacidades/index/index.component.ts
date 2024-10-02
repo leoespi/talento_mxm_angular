@@ -4,6 +4,8 @@ import { IncapacidadesService } from '../../servicios/incapacidades.service';
 import { Incapacidades } from '../../modelos/incapacidades';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-index',
@@ -146,15 +148,37 @@ export class IndexComponent {
 
   // Elimina una incapacidad por su ID
   eliminarFeeds(id: any): void {
-    this.incapacidadesService.deleteIncapacidades(id, this.token).subscribe(
-      data => {
-        this.cargarIncapacidades();
-      },
-      error => {
-        console.log(error);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡Esta acción no se puede deshacer!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.incapacidadesService.deleteIncapacidades(id, this.token).subscribe(
+          data => {
+            Swal.fire(
+              'Eliminado!',
+              'La incapacidad ha sido eliminada.',
+              'success'
+            );
+            this.cargarIncapacidades();
+          },
+          error => {
+            console.log(error);
+            Swal.fire(
+              'Error!',
+              'No se pudo eliminar la incapacidad.',
+              'error'
+            );
+          }
+        );
       }
-    );
+    });
   }
+  
 
   // Descarga una imagen asociada a una incapacidad
   downloadImage(uuid: string): void {
