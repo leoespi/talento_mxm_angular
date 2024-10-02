@@ -1,29 +1,27 @@
 .sidebar {
-    position: fixed;
-    background-color: rgb(0, 10, 146);
-    height: 100%; /* Ocupa toda la altura de la pantalla */
-    width: 250px; /* Ancho fijo para el sidebar */
-    top: 0;
-    left: 0; /* Alineado a la izquierda */
-    z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
-  }
-  
-  .body {
-    margin-left: 250px; /* Deja espacio para el sidebar */
-    height: 250%; /* Altura completa del viewport */
-    overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es largo */
-    background-color: #f7fafc; /* Fondo del body */
-    padding: 20px; /* Espaciado interno */
-  }
-  
-  .footer {
-    height: 0px; /* Altura fija para el footer */
-    width: 0%;
-    bottom: 0;
-    position: fixed;
-    background-color: rgb(0, 10, 146); /* Color de fondo para el footer */
-    text-align: center;
-    line-height: 50px; /* Centrado vertical */
-    color: white; /* Color del texto */
-  }
-  
+  position: fixed;
+  background-color: rgb(0, 10, 146);
+  height: 100%; /* Ocupa toda la altura de la pantalla */
+  width: 250px; /* Ancho fijo para el sidebar */
+  top: 0;
+  left: 0; /* Alineado a la izquierda */
+  z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+}
+
+.body {
+  margin-left: 250px; /* Deja espacio para el sidebar */
+  height: -60vh; /* Ajusta a la altura del viewport */
+  overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es largo */
+  background-color: #f7fafc; /* Fondo del body */
+  padding: 20px; /* Espaciado interno */
+}
+
+.footer {
+  height: 5px; /* Ajusta según sea necesario */
+  width: 100%; /* Asegúrate de que ocupe el ancho completo */
+  position: fixed; /* Mantiene el footer en la parte inferior */
+  bottom: 0; /* Fijo en la parte inferior */
+  text-align: center;
+  line-height: 50px; /* Centrado vertical */
+  color: white; /* Color del texto */
+}
