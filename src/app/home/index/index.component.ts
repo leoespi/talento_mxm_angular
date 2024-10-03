@@ -18,9 +18,33 @@ export class IndexComponent implements OnInit {
   
   // Reemplaza estas URLs con las URLs de tus imágenes
   images: string[] = [
-    'assets/img/flayer1.jpg',
-    'assets/img/flayer2.jpg',
-    'assets/img/flayer3.jpg',
+    'assets/img/sede1.jpg',
+    'assets/img/sede2.jpg',
+    'assets/img/sede3.jpg',
+
+    'assets/img/sede4.jpg',
+    'assets/img/sede5.jpg',
+    'assets/img/sede6.jpg',
+
+    'assets/img/sede7.jpg',
+    'assets/img/sede8.jpg',
+    'assets/img/sede9.jpg',
+
+    'assets/img/sede10.jpg',
+    'assets/img/sede11.jpg',
+    'assets/img/sede12.jpg',
+
+    'assets/img/sede13.jpg',
+    'assets/img/sede14.jpg',
+    'assets/img/sede15.jpg',
+
+    'assets/img/sede16.jpg',
+    'assets/img/sede17.jpg',
+    'assets/img/sede18.jpg',
+
+    'assets/img/sede19.jpg',
+    'assets/img/sede20.jpg',
+    
 
     
   ];
@@ -45,6 +69,6 @@ export class IndexComponent implements OnInit {
   startImageRotation(): void {
     setInterval(() => {
       this.currentIndex = (this.currentIndex + 1) % this.images.length;
-    }, 8000); // Cambia la imagen cada 10 segundos
+    }, 5000); // Cambia la imagen cada 10 segundos
   }
 }
