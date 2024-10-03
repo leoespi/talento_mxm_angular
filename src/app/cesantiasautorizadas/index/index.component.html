@@ -21,7 +21,7 @@
                 </tr>
             </thead>
             <tbody class="text-gray-700">
-                <tr *ngFor="let cesantia of listarCesantias" class="hover:bg-gray-50">
+                <tr *ngFor="let cesantia of paginatedCesantias()" class="hover:bg-gray-50">
                     <td class="py-2 px-4 border-b">{{ cesantia.id }}</td>
                     <td class="py-2 px-4 border-b">{{ cesantia.user.cedula }}</td>
                     <td class="py-2 px-4 border-b">{{ cesantia.user.name }}</td>
@@ -34,5 +34,11 @@
                 </tr>
             </tbody>
         </table>
+
+        <div *ngIf="!cargandoReferidos" class="flex justify-center mt-4">
+            <button class="bg-gray-400 text-white rounded-md px-4 py-2" (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+            <span class="mx-3">Página {{ currentPage }} de {{ totalPages() }}</span>
+            <button class="bg-gray-400 text-white rounded-md px-4 py-2" (click)="nextPage()" [disabled]="currentPage === totalPages()">Siguiente</button>
+        </div>
     </div>
 </div>
