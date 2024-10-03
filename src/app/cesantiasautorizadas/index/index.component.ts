@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-index',
   standalone: true,
-  providers:[CesantiasAutorizadasService],
+  providers: [CesantiasAutorizadasService],
   imports: [FormsModule, CommonModule],
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss']
@@ -46,7 +46,7 @@ export class IndexComponent {
       (data: any) => {
         console.log(data);
         this.cargandoReferidos = false;
-        this.listarCesantias = data.authorizedCesantia;
+        this.listarCesantias = data.authorizedCesantia; // Asegúrate de que el nombre sea correcto según la respuesta de tu API
       },
       err => {
         console.log(err);
@@ -80,14 +80,102 @@ export class IndexComponent {
     }
   }
 
-  // Aprobar y denegar cesantías ya implementadas
   aprobarCesantia(id: number | undefined): void {
-    // lógica para aprobar cesantías
+    if (!id) {
+      console.error('ID de cesantía no definido');
+      return;
+    }
+
+    Swal.fire({
+      title: 'Aprobar Cesantía',
+      text: 'Ingrese la justificación para la aprobación:',
+      input: 'textarea',
+      inputPlaceholder: 'Justificación...',
+      showCancelButton: true,
+      confirmButtonText: 'Aprobar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: (justificacion) => {
+        if (!justificacion) {
+          Swal.showValidationMessage('Justificación requerida');
+        }
+        return justificacion;
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const justificacion = result.value;
+
+        // Llamar al servicio para aprobar la cesantía
+        this.cesantiasAutorizadasServicio.aprobarCesantia(id, justificacion, this.token).subscribe(
+          (data) => {
+            console.log('Cesantía aprobada exitosamente:', data);
+            this.cargarCesantias();
+            Swal.fire('Aprobada!', 'La cesantía ha sido aprobada.', 'success');
+          },
+          (error) => {
+            console.error('Error al aprobar la cesantía:', error);
+            Swal.fire('Error!', 'No se pudo aprobar la cesantía.', 'error');
+          }
+        );
+      }
+    });
   }
 
   denegarCesantiaAdmin(id: number | undefined): void {
-    // lógica para denegar cesantías
+    if (!id) {
+      console.error('ID de cesantía no definido');
+      return;
+    }
+
+    Swal.fire({
+      title: 'Denegar Cesantía',
+      text: 'Ingrese la justificación para la denegación:',
+      input: 'textarea',
+      inputPlaceholder: 'Justificación...',
+      showCancelButton: true,
+      confirmButtonText: 'Denegar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: (justificacion) => {
+        if (!justificacion) {
+          Swal.showValidationMessage('Justificación requerida');
+        }
+        return justificacion;
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const justificacion = result.value;
+
+        this.cesantiasAutorizadasServicio.denyCesantiaAdmin(id, this.token!, justificacion).subscribe(
+          (data) => {
+            console.log('Cesantía denegada exitosamente:', data);
+            this.cargarCesantias(); // Actualizar la lista después de denegar
+            Swal.fire('Denegada!', 'La cesantía ha sido denegada.', 'success');
+          },
+          (error) => {
+            console.error('Error al denegar la cesantía:', error);
+            Swal.fire('Error!', 'No se pudo denegar la cesantía.', 'error');
+          }
+        );
+      }
+    });
   }
 
-  // ... otras funciones
+  downloadZip(uuid: string, cedula: number): void {
+    this.cesantiasAutorizadasServicio.downloadZip(uuid, this.token).subscribe((data: Blob) => {
+      const url = window.URL.createObjectURL(data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `cesantias_${cedula}__${uuid}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  // Redirige a la página de edición de una cesantía por su ID
+  editarCesantias(id: any): void {
+    this.router.navigateByUrl("/cesantias/editar/" + id);
+  }
 }
