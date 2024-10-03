@@ -2,12 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FeedService } from '../../servicios/feed.service';
 import { Feed } from '../../modelos/feed';
-
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
-
-
 
 @Component({
   selector: 'app-feed-list',
@@ -17,26 +14,20 @@ import Swal from 'sweetalert2';
   templateUrl: './feed-list.component.html',
   styleUrls: ['./feed-list.component.scss']
 })
-export class FeedListComponent {
+export class FeedListComponent implements OnInit {
   id: string | null;
   cargandoReferidos: boolean = false;
   token: string | null = null;
   clave: string | null = 'valor';
   feeds: any[] = [];
-  
 
- 
-
+  // Paginación
+  currentPage: number = 1; // Página actual
+  itemsPerPage: number = 10; // Elementos por página
 
   constructor(private feedService: FeedService, private router: Router, private aRouter: ActivatedRoute) { 
     this.id = this.aRouter.snapshot.paramMap.get('id');
   }
-
-  navigateToCreateFeed(): void {
-    this.router.navigate(['/feeds/crear']); // Navegación a la ruta deseada
-  }
-
-  
 
   ngOnInit(): void {
     this.recuperarToken();
@@ -61,6 +52,27 @@ export class FeedListComponent {
     }
   }
 
+  // Paginación
+  paginatedFeeds(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.feeds.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  totalPages(): number {
+    return Math.ceil(this.feeds.length / this.itemsPerPage);
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages()) {
+      this.currentPage++;
+    }
+  }
 
   aliminarfeeds(id: any): void {
     Swal.fire({
@@ -81,7 +93,7 @@ export class FeedListComponent {
               'La publicación ha sido eliminada.',
               'success'
             );
-            this.ngOnInit();
+            this.ngOnInit(); // Recargar la lista
           },
           error => {
             Swal.fire(
@@ -94,6 +106,8 @@ export class FeedListComponent {
       }
     });
   }
-  
 
+  navigateToCreateFeed(): void {
+    this.router.navigate(['/feeds/crear']);
+  }
 }
