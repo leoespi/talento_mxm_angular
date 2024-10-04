@@ -1,4 +1,3 @@
-// feed.model.ts
 
 export interface Feed {
   id?: number; // El ID puede ser opcional si es generado automáticamente por el servidor
