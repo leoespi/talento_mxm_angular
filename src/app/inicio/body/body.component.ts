@@ -29,7 +29,7 @@ export class BodyComponent {
   roles = [
     { id: 1, name: 'Administrador' },
     { id: 3, name: 'Comunicacion' },
-    { id: 4, name: 'Superadmin' }
+   
   ]; // Simulación de roles, reemplaza con una llamada real a tu API si es necesario
 
   constructor(private fb: FormBuilder, private loginService: LoginService, private _router: Router) { }

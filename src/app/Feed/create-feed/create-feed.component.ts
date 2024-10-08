@@ -26,7 +26,7 @@ export class CreateFeedComponent implements OnInit {
   feedForm: FormGroup;
   token: string = ''; // Aseguramos que token siempre sea de tipo string
   images: File[] = [];
-  userId: number = 4; // Usuario predefinido con user_id = 4
+  userId: number = 5; // Usuario predefinido con user_id = 4
 
   constructor(
     private feedService: FeedService,
