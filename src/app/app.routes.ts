@@ -15,6 +15,7 @@ import { FeedListComponent } from './Feed/feed-list/feed-list.component';
 import { CreateFeedComponent as CreateFeedComponent } from './Feed/create-feed/create-feed.component';
 
 import { IndexComponent as IndexHomeComponent } from './home/index/index.component';
+import { HorariosComponent as IndexHorariosComponent } from './horarios/index/index.component';
 
 
 import { RolesGuard } from './Guards/roles.guard';
@@ -41,6 +42,8 @@ export const routes: Routes = [
   { path: 'feeds/listado', component: FeedListComponent, canActivate: [ComunicacionGuard] }, // Nuevo guardia para rol 3
   { path: 'feeds/crear', component: CreateFeedComponent, canActivate: [ComunicacionGuard] }, // Nuevo guardia para rol 3
   { path: 'home/index', component: IndexHomeComponent }, // Nuevo guardia para rol 3
+  { path: 'horarios/index', component: IndexHorariosComponent }, 
+
 ];
 
 

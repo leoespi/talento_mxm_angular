@@ -1,0 +1,31 @@
+<!-- horarios/horarios.component.html -->
+<div>
+    <h2>Horarios</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Cédula</th>
+          <th>Lunes</th>
+          <th>Martes</th>
+          <th>Miércoles</th>
+          <th>Jueves</th>
+          <th>Viernes</th>
+          <th>Sábado</th>
+          <th>Domingo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let horario of horarios">
+          <td>{{ horario.cedula }}</td>
+          <td>{{ horario.lunes }}</td>
+          <td>{{ horario.martes }}</td>
+          <td>{{ horario.miercoles }}</td>
+          <td>{{ horario.jueves }}</td>
+          <td>{{ horario.viernes }}</td>
+          <td>{{ horario.sabado }}</td>
+          <td>{{ horario.domingo }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
