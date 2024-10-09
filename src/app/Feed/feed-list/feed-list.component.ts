@@ -4,9 +4,7 @@ import { FeedService } from '../../servicios/feed.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Feed, FeedImage } from '../../modelos/feed';
-
 import Swal from 'sweetalert2';
-
 
 @Component({
   selector: 'app-feed-list',
@@ -23,7 +21,6 @@ export class FeedListComponent implements OnInit {
   clave: string | null = 'valor';
   feeds: any[] = [];
   
-
   // Paginación
   currentPage: number = 1; // Página actual
   itemsPerPage: number = 10; // Elementos por página
@@ -32,35 +29,25 @@ export class FeedListComponent implements OnInit {
     this.id = this.aRouter.snapshot.paramMap.get('id');
   }
 
-  
-
-  // Modifica la función ngOnInit
   ngOnInit(): void {
       this.recuperarToken();
       this.cargandoReferidos = true;
 
       const baseUrl = 'http://localhost:8000'; // Base URL del backend
 
-  
       this.feedService.getAllFeeds(this.token).subscribe(
           response => {
               this.feeds = response.feeds;
-  
-              // Modificar las rutas de las imágenes
               this.feeds.forEach(feed => {
-                  // Configurar el image_path principal
                   if (feed.image_path) {
                       feed.image_path = `${baseUrl}${feed.image_path}`; // Solo una vez
                   }
-  
-                  // Configurar las rutas de las imágenes adicionales
                   if (feed.images) {
                       feed.images.forEach((image: FeedImage) => {
                           image.image_path = `${baseUrl}${image.image_path}`; // Solo una vez
                       });
                   }
               });
-  
               this.cargandoReferidos = false;
           },
           error => {
@@ -69,13 +56,32 @@ export class FeedListComponent implements OnInit {
           }
       );
   }
+  mostrarImagen(imagePath: string): void {
+    Swal.fire({
+      title: 'Imagen de Publicación',
+      html: `
+        <div class="flex flex-col items-center">
+          <img src="${imagePath}" alt="Imagen" style="width: 100%; height: auto; max-width: 500px;" />
+          <button id="viewInTab" class="bg-blue-600 text-white rounded-md px-4 py-2 mt-4">Visualizar en Pestaña</button>
+        </div>
+      `,
+      showCloseButton: true,
+      showConfirmButton: false,
+      width: '80%',
+      padding: '1rem',
+      willOpen: () => {
+        const viewInTabButton = document.getElementById('viewInTab');
+        if (viewInTabButton) {
+          viewInTabButton.onclick = () => {
+            window.open(imagePath, '_blank'); // Abre la imagen en una nueva pestaña
+          };
+        }
+      }
+    });
+  }
+  
   
 
-
-
-
-
-  // Recupera el token del almacenamiento local
   recuperarToken(): void {
     this.token = localStorage.getItem('clave');
     if (this.token == null) {
@@ -83,7 +89,6 @@ export class FeedListComponent implements OnInit {
     }
   }
 
-  // Paginación
   paginatedFeeds(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     return this.feeds.slice(startIndex, startIndex + this.itemsPerPage);

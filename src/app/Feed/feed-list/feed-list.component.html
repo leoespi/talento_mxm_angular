@@ -18,7 +18,7 @@
           <tr>
             <th class="py-3 px-4 text-left text-gray-600">Contenido</th>
             <th class="py-3 px-4 text-left text-gray-600">Autor</th>
-            <th class="py-3 px-4 text-left text-gray-600">Imágenes</th> <!-- Nueva columna -->
+            <th class="py-3 px-4 text-left text-gray-600">Imágenes</th>
             <th class="py-3 px-4 text-left text-gray-600">Acciones</th>
           </tr>
         </thead>
@@ -27,12 +27,18 @@
             <td class="py-2 px-4 border-b">{{ feed.content }}</td>
             <td class="py-2 px-4 border-b">{{ feed.user.name }}</td>
             <td class="py-2 px-4 border-b">
-              <div *ngFor="let image of feed.images">
-                <a [href]="image.image_path" target="_blank" rel="noopener noreferrer">
-                  <img [src]="image.image_path" alt="Imagen de publicación" class="w-16 h-16 object-cover cursor-pointer">
-                </a>
+              <div class="flex flex-wrap justify-center">
+                <div *ngFor="let image of feed.images" class="m-1">
+                  <img 
+                    [src]="image.image_path" 
+                    alt="Imagen de publicación" 
+                    class="w-16 h-16 object-cover cursor-pointer"
+                    (click)="mostrarImagen(image.image_path)" />
+                </div>
               </div>
             </td>
+            
+            
             <td class="py-2 px-4 border-b">
               <button type="button" class="bg-red-600 text-white rounded-md p-1 hover:bg-red-700" (click)="aliminarfeeds(feed.id)">Eliminar</button>
             </td>
