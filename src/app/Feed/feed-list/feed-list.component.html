@@ -1,44 +1,50 @@
 <div class="container mx-auto p-6">
-    <div class="mb-6">
-      <h2 class="text-3xl font-semibold text-center">Lista de Publicaciones</h2>
-      <button type="button" class="bg-green-600 text-white rounded-md px-4 py-2 mt-4" *ngIf="clave !== null" (click)="navigateToCreateFeed()">Crear Publicación</button>
+  <div class="mb-6">
+    <h2 class="text-3xl font-semibold text-center">Lista de Publicaciones</h2>
+    <button type="button" class="bg-green-600 text-white rounded-md px-4 py-2 mt-4" *ngIf="clave !== null" (click)="navigateToCreateFeed()">Crear Publicación</button>
+  </div>
+
+  <div class="feeds-container">
+    <!-- Icono de carga -->
+    <div *ngIf="cargandoReferidos" class="loading-overlay flex justify-center items-center h-64">
+      <div class="spinner-border text-blue-500" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
     </div>
-  
-    <div class="feeds-container">
-      <!-- Icono de carga -->
-      <div *ngIf="cargandoReferidos" class="loading-overlay flex justify-center items-center h-64">
-        <div class="spinner-border text-blue-500" role="status">
-          <span class="visually-hidden">Cargando...</span>
-        </div>
-      </div>
-  
-      <div class="table-container">
-        <table *ngIf="!cargandoReferidos" class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-          <thead class="bg-gray-100">
-            <tr>
-              <th class="py-3 px-4 text-left text-gray-600">Contenido</th>
-              <th class="py-3 px-4 text-left text-gray-600">Autor</th>
-              <th class="py-3 px-4 text-left text-gray-600">Acciones</th>
-            </tr>
-          </thead>
-          <tbody class="text-gray-700">
-            <tr *ngFor="let feed of paginatedFeeds()" class="hover:bg-gray-50">
-              <td class="py-2 px-4 border-b">{{ feed.content }}</td>
-              <td class="py-2 px-4 border-b">{{ feed.user.name }}</td>
-              <td class="py-2 px-4 border-b">
-                <button type="button" class="bg-red-600 text-white rounded-md p-1 hover:bg-red-700" (click)="aliminarfeeds(feed.id)">Eliminar</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        
-        
-      </div>
-      <div *ngIf="!cargandoReferidos" class="flex justify-center mt-4">
-        <button class="bg-gray-400 text-white rounded-md px-4 py-2" (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
-        <span class="mx-3">Página {{ currentPage }} de {{ totalPages() }}</span>
-        <button class="bg-gray-400 text-white rounded-md px-4 py-2" (click)="nextPage()" [disabled]="currentPage === totalPages()">Siguiente</button>
-      </div>
+
+    <div class="table-container">
+      <table *ngIf="!cargandoReferidos" class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="py-3 px-4 text-left text-gray-600">Contenido</th>
+            <th class="py-3 px-4 text-left text-gray-600">Autor</th>
+            <th class="py-3 px-4 text-left text-gray-600">Imágenes</th> <!-- Nueva columna -->
+            <th class="py-3 px-4 text-left text-gray-600">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-700">
+          <tr *ngFor="let feed of paginatedFeeds()" class="hover:bg-gray-50">
+            <td class="py-2 px-4 border-b">{{ feed.content }}</td>
+            <td class="py-2 px-4 border-b">{{ feed.user.name }}</td>
+            <td class="py-2 px-4 border-b">
+              <div *ngFor="let image of feed.images">
+                <a [href]="image.image_path" target="_blank" rel="noopener noreferrer">
+                  <img [src]="image.image_path" alt="Imagen de publicación" class="w-16 h-16 object-cover cursor-pointer">
+                </a>
+              </div>
+            </td>
+            <td class="py-2 px-4 border-b">
+              <button type="button" class="bg-red-600 text-white rounded-md p-1 hover:bg-red-700" (click)="aliminarfeeds(feed.id)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div *ngIf="!cargandoReferidos" class="flex justify-center mt-4">
+      <button class="bg-gray-400 text-white rounded-md px-4 py-2" (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+      <span class="mx-3">Página {{ currentPage }} de {{ totalPages() }}</span>
+      <button class="bg-gray-400 text-white rounded-md px-4 py-2" (click)="nextPage()" [disabled]="currentPage === totalPages()">Siguiente</button>
     </div>
   </div>
-  
+</div>

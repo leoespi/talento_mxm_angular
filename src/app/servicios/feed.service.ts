@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Feed } from '../modelos/feed';
 
 @Injectable({
@@ -14,40 +13,33 @@ export class FeedService {
 
   constructor(private http: HttpClient) {}
 
-  
-getAllFeeds(access_token: any): Observable<any> {
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + access_token
-  });
-  const options = { headers: headers };
+  getAllFeeds(access_token: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token
+    });
+    const options = { headers: headers };
 
-  return this.http.get<any>(`${this.baseUrl}/feeds`, options).pipe(
-   
-  );
-}
+    return this.http.get<any>(`${this.baseUrl}/feeds`, options);
+  }
 
+  createFeed(feed: Feed, access_token: string, formData: FormData): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + access_token
+    });
 
-createFeed(feed: Feed, access_token: string, formData: FormData): Observable<any> {
-  const headers = new HttpHeaders({
-    'Authorization': 'Bearer ' + access_token
-  });
+    // Agregar user_id al FormData
+    formData.append('user_id', feed.user_id.toString());
 
-  // Agregar user_id al FormData
-  formData.append('user_id', feed.user_id.toString());
+    return this.http.post(this.feedsUrl, formData, { headers });
+  }
 
-  return this.http.post(this.feedsUrl, formData, { headers });
-}
-
-
-deleteFeeds(id:string, access_token:any): Observable<any> {
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + access_token
-  });
-  const options = { headers: headers};
-  return this.http.delete(this.feedsdeleteUrl +id, options);
-
-}
-
+  deleteFeeds(id: string, access_token: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token
+    });
+    const options = { headers: headers };
+    return this.http.delete(this.feedsdeleteUrl + id, options);
+  }
 }

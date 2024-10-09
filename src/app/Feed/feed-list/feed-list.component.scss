@@ -6,6 +6,13 @@
   .scrollable-tbody {
     overflow-y: auto; /* Habilitar el desplazamiento vertical solo si es necesario */
   }
+
+  .img {
+    display: block; /* Asegúrate de que no esté oculto */
+    max-width: 100%; /* Ajusta el tamaño si es necesario */
+    height: auto; /* Mantiene la proporción */
+  }
+  
   
   .loading-overlay {
     position: fixed;

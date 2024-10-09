@@ -3,22 +3,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FeedService } from '../../servicios/feed.service';
 import { Feed } from '../../modelos/feed';
-
-
 import { CommonModule } from '@angular/common';
-
-import { FormsModule } from '@angular/forms';
-
-import {  ReactiveFormsModule } from '@angular/forms';
-import {  ActivatedRoute } from '@angular/router'; 
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-create-feed',
-  standalone : true,
-  providers : [FeedService],
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, ReactiveFormsModule],
-
+  standalone: true,
+  providers: [FeedService],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './create-feed.component.html',
   styleUrls: ['./create-feed.component.scss']
 })
@@ -26,7 +18,7 @@ export class CreateFeedComponent implements OnInit {
   feedForm: FormGroup;
   token: string = ''; // Aseguramos que token siempre sea de tipo string
   images: File[] = [];
-  userId: number = 5; // Usuario predefinido con user_id = 4
+  userId: number = 5; // Usuario predefinido con user_id = 5
 
   constructor(
     private feedService: FeedService,
@@ -35,7 +27,6 @@ export class CreateFeedComponent implements OnInit {
   ) {
     this.feedForm = this.fb.group({
       content: ['', Validators.required],
-      images: [''],
       videoLink: ['']
     });
   }
@@ -69,6 +60,8 @@ export class CreateFeedComponent implements OnInit {
     const feed: Feed = {
       content: this.feedForm.value.content,
       user_id: this.userId,
+      image_path: '', // Establecer un valor inicial vacío o agregar lógica para manejarlo
+      images: [] // Inicializa si es necesario
     };
 
     this.feedService.createFeed(feed, this.token, formData).subscribe(

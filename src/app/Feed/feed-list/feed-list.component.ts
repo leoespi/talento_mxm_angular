@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FeedService } from '../../servicios/feed.service';
-import { Feed } from '../../modelos/feed';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Feed, FeedImage } from '../../modelos/feed';
+
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-feed-list',
@@ -20,6 +22,7 @@ export class FeedListComponent implements OnInit {
   token: string | null = null;
   clave: string | null = 'valor';
   feeds: any[] = [];
+  
 
   // Paginación
   currentPage: number = 1; // Página actual
@@ -29,20 +32,48 @@ export class FeedListComponent implements OnInit {
     this.id = this.aRouter.snapshot.paramMap.get('id');
   }
 
+  
+
+  // Modifica la función ngOnInit
   ngOnInit(): void {
-    this.recuperarToken();
-    this.cargandoReferidos = true;
-    this.feedService.getAllFeeds(this.token).subscribe(
-      response => {
-        this.feeds = response.feeds;
-        this.cargandoReferidos = false;
-      },
-      error => {
-        console.log('Error fetching feeds:', error);
-        this.cargandoReferidos = false;
-      }
-    );
+      this.recuperarToken();
+      this.cargandoReferidos = true;
+
+      const baseUrl = 'http://localhost:8000'; // Base URL del backend
+
+  
+      this.feedService.getAllFeeds(this.token).subscribe(
+          response => {
+              this.feeds = response.feeds;
+  
+              // Modificar las rutas de las imágenes
+              this.feeds.forEach(feed => {
+                  // Configurar el image_path principal
+                  if (feed.image_path) {
+                      feed.image_path = `${baseUrl}${feed.image_path}`; // Solo una vez
+                  }
+  
+                  // Configurar las rutas de las imágenes adicionales
+                  if (feed.images) {
+                      feed.images.forEach((image: FeedImage) => {
+                          image.image_path = `${baseUrl}${image.image_path}`; // Solo una vez
+                      });
+                  }
+              });
+  
+              this.cargandoReferidos = false;
+          },
+          error => {
+              console.log('Error fetching feeds:', error);
+              this.cargandoReferidos = false;
+          }
+      );
   }
+  
+
+
+
+
 
   // Recupera el token del almacenamiento local
   recuperarToken(): void {
