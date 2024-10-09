@@ -15,7 +15,7 @@ import { FeedListComponent } from './Feed/feed-list/feed-list.component';
 import { CreateFeedComponent as CreateFeedComponent } from './Feed/create-feed/create-feed.component';
 
 import { IndexComponent as IndexHomeComponent } from './home/index/index.component';
-import { HorariosComponent as IndexHorariosComponent } from './horarios/index/index.component';
+import { IndexComponent as IndexHorariosComponent } from './horarios/index/index.component';
 
 
 import { RolesGuard } from './Guards/roles.guard';

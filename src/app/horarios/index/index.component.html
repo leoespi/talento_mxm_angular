@@ -1,31 +1,75 @@
-<!-- horarios/horarios.component.html -->
-<div>
-    <h2>Horarios</h2>
-    <table>
-      <thead>
+<div class="container mx-auto p-6 bg-gray-50 rounded-lg shadow-md">
+  <h2 class="text-3xl font-semibold text-center mb-6 text-gray-800">Horarios</h2>
+
+  <div class="mb-4">
+    <label for="file-upload" class="block text-gray-700 mb-2">Sube tu archivo:</label>
+    <input
+      id="file-upload"
+      type="file"
+      (change)="onFileSelected($event)"
+      accept=".xlsx, .csv, .xls"
+      class="file:mr-4 file:py-3 file:px-5 file:rounded-full file:border-0
+             file:text-sm file:font-semibold file:bg-blue-500 file:text-white
+             hover:file:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300
+             transition duration-150 ease-in-out"
+    />
+  </div>
+
+  <button
+    (click)="importarExcel()"
+    class="mt-4 bg-blue-500 text-white font-semibold py-3 px-6 rounded-lg
+           hover:bg-blue-600 transition duration-200"
+  >
+    Importar Excel
+  </button>
+
+  <div class="table-container overflow-x-auto mt-6">
+    <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+      <thead class="bg-gray-200">
         <tr>
-          <th>Cédula</th>
-          <th>Lunes</th>
-          <th>Martes</th>
-          <th>Miércoles</th>
-          <th>Jueves</th>
-          <th>Viernes</th>
-          <th>Sábado</th>
-          <th>Domingo</th>
+          <th class="py-4 px-6 text-left text-gray-600">Cédula</th>
+          <th class="py-4 px-6 text-left text-gray-600">Lunes</th>
+          <th class="py-4 px-6 text-left text-gray-600">Martes</th>
+          <th class="py-4 px-6 text-left text-gray-600">Miércoles</th>
+          <th class="py-4 px-6 text-left text-gray-600">Jueves</th>
+          <th class="py-4 px-6 text-left text-gray-600">Viernes</th>
+          <th class="py-4 px-6 text-left text-gray-600">Sábado</th>
+          <th class="py-4 px-6 text-left text-gray-600">Domingo</th>
+          <th class="py-4 px-6 text-left text-gray-600">Lunes2</th>
+          <th class="py-4 px-6 text-left text-gray-600">Martes2</th>
+          <th class="py-4 px-6 text-left text-gray-600">Miércoles2</th>
+          <th class="py-4 px-6 text-left text-gray-600">Jueves2</th>
+          <th class="py-4 px-6 text-left text-gray-600">Viernes2</th>
+          <th class="py-4 px-6 text-left text-gray-600">Sábado2</th>
+          <th class="py-4 px-6 text-left text-gray-600">Domingo2</th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let horario of horarios">
-          <td>{{ horario.cedula }}</td>
-          <td>{{ horario.lunes }}</td>
-          <td>{{ horario.martes }}</td>
-          <td>{{ horario.miercoles }}</td>
-          <td>{{ horario.jueves }}</td>
-          <td>{{ horario.viernes }}</td>
-          <td>{{ horario.sabado }}</td>
-          <td>{{ horario.domingo }}</td>
-        </tr>
+      <tbody class="text-gray-700">
+        <ng-container *ngIf="horarios && horarios.length > 0; else noHorarios">
+          <tr *ngFor="let horario of horarios" class="hover:bg-gray-50 transition duration-200">
+            <td class="py-3 px-6 border-b">{{ horario.cedula }}</td>
+            <td class="py-3 px-6 border-b">{{ horario.lunes }}</td>
+            <td class="py-3 px-6 border-b">{{ horario.martes }}</td>
+            <td class="py-3 px-6 border-b">{{ horario.miercoles }}</td>
+            <td class="py-3 px-6 border-b">{{ horario.jueves }}</td>
+            <td class="py-3 px-6 border-b">{{ horario.viernes }}</td>
+            <td class="py-3 px-6 border-b">{{ horario.sabado }}</td>
+            <td class="py-3 px-6 border-b">{{ horario.domingo }}</td>
+            <td class="py-3 px-6 border-b">{{ horario.lunes2 }}</td>
+            <td class="py-3 px-6 border-b">{{ horario.martes2 }}</td>
+            <td class="py-3 px-6 border-b">{{ horario.miercoles2 }}</td>
+            <td class="py-3 px-6 border-b">{{ horario.jueves2 }}</td>
+            <td class="py-3 px-6 border-b">{{ horario.viernes2 }}</td>
+            <td class="py-3 px-6 border-b">{{ horario.sabado2 }}</td>
+            <td class="py-3 px-6 border-b">{{ horario.domingo2 }}</td>
+          </tr>
+        </ng-container>
+        <ng-template #noHorarios>
+          <tr>
+            <td colspan="15" class="text-center">No hay horarios disponibles.</td>
+          </tr>
+        </ng-template>
       </tbody>
     </table>
   </div>
-  
+</div>
