@@ -14,6 +14,8 @@ export class IncapacidadesService {
 
    // URL base de la API para las incapacidades
   url='http://127.0.0.1:8000/api/incapacidades/';
+  
+  geturl='http://127.0.0.1:8000/api/incapacidadesall';
 
  
   // URL de la API para obtener usuarios
@@ -59,7 +61,7 @@ export class IncapacidadesService {
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers};
-    return this.http.get(this.url, options);
+    return this.http.get(this.geturl, options);
   }
 
   // Método para agregar una nueva incapacidad médica
