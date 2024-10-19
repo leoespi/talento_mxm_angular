@@ -65,6 +65,38 @@ export class IndexComponent {
     );
   }
 
+  mostrarImagenes(incapacidad: Incapacidades): void {
+    // Verificar si incapacidad.images está definido y es un array
+    const imagenesConRuta = Array.isArray(incapacidad.images) ? incapacidad.images.map((image: any) => ({
+      image_path: `http://localhost:8000/storage/${image.image_path}`
+    })) : [];
+  
+    // Crear el HTML para mostrar las imágenes en la alerta
+    const htmlContenido = `
+      <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+        ${imagenesConRuta.map(img => `
+          <div style="margin: 5px;">
+            <img src="${img.image_path}" style="width: 100px; height: auto; margin: 5px;" onclick="window.open('${img.image_path}', '_blank')" />
+          </div>
+        `).join('')}
+      </div>
+    `;
+  
+    // Mostrar la alerta con las imágenes
+    Swal.fire({
+      title: 'Imágenes',
+      html: htmlContenido,
+      showCloseButton: true,
+      confirmButtonText: 'Cerrar',
+      customClass: {
+        popup: 'my-popup' // Puedes agregar clases personalizadas si necesitas estilos adicionales
+      }
+    });
+  }
+  
+  
+  
+
   // Obtener tipos únicos de incapacidades
   obtenerTiposIncapacidad(): void {
     const tipos: Set<string> = new Set();
