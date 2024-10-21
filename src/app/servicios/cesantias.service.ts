@@ -13,7 +13,9 @@ export class CesantiasService {
    // URL base de la API para las incapacidades
    url='http://127.0.0.1:8000/api/cesantias/';
 
- 
+   urlget='http://127.0.0.1:8000/api/cesantiasall/';
+
+
    // URL de la API para obtener usuarios
    usersUrl = 'http://127.0.0.1:8000/api/users';
  
@@ -62,7 +64,7 @@ export class CesantiasService {
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers};
-    return this.http.get(this.url, options);
+    return this.http.get(this.urlget, options);
   }
 
   authorizeCesantia(id: number | undefined, access_token: any): Observable<any> {

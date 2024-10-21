@@ -48,8 +48,11 @@
                     <td class="py-2 px-4 border-b">{{ cesantia.user.name }}</td>
                     <td class="py-2 px-4 border-b">{{ cesantia.tipo_cesantia_reportada }}</td>
                     <td class="py-2 px-4 border-b">
-                        <button type="button" class="bg-blue-600 text-white rounded-md p-1 hover:bg-blue-700" *ngIf="cesantia?.uuid && cesantia?.user?.cedula" (click)="downloadZip(cesantia.uuid!, cesantia.user.cedula)">Descargar</button>
-                    </td>
+                        <button type="button" class="bg-blue-600 text-white rounded-lg shadow-md p-2 transition duration-300 hover:bg-blue-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50" (click)="mostrarImagenes(cesantia)">
+                          Ver Imágenes
+                        </button>
+                      </td>
+                      
                     <td class="py-2 px-4 border-b">{{ cesantia.estado ? cesantia.estado : 'Pendiente' }}</td>
                     <td class="py-2 px-4 border-b flex space-x-2">
                         <button type="button" class="bg-green-600 text-white rounded-md p-1 hover:bg-green-700" (click)="autorizarCesantia(cesantia.id)">Autorizar</button>
