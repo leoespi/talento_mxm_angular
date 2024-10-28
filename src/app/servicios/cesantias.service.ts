@@ -39,6 +39,17 @@ export class CesantiasService {
      return this.http.get<any>(`${this.usersUrl}/${userId}`, options);
    }
 
+
+   // Método para descargar documentos de incapacidad por ID
+ downloadDocumentsById(id: string, access_token: any): Observable<Blob> {
+  const headers = new HttpHeaders({
+    'Authorization': 'Bearer ' + access_token
+  });
+  const options = { headers: headers, responseType: 'blob' as 'json' };
+  return this.http.get<Blob>(`${this.url}${id}/documentos`, options);
+}
+
+
     // Método para exportar cesantías en formato Excel
   exportCesantias(year: number | null): Observable<Blob> {
     const headers = new HttpHeaders({

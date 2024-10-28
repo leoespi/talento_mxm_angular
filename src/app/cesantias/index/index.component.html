@@ -23,7 +23,7 @@
     </div>
 
     <div class="table-container">
-        <div *ngIf="cargandoReferidos" class="loading-overlay">
+        <div *ngIf="cargandoReferidos" class="loading-overlay flex justify-center items-center h-48">
             <div class="spinner-border text-primary" role="status">
                 <span class="visually-hidden">Cargando...</span>
             </div>
@@ -37,6 +37,7 @@
                     <th class="py-3 px-4 text-left text-gray-600">Nombre</th>
                     <th class="py-3 px-4 text-left text-gray-600">Tipo de Solicitud</th>
                     <th class="py-3 px-4 text-left text-gray-600">Imágenes</th>
+                    <th class="py-3 px-4 text-left text-gray-600">Documentos</th>
                     <th class="py-3 px-4 text-left text-gray-600">Estado</th>
                     <th class="py-3 px-4 text-left text-gray-600">Acciones</th>
                 </tr>
@@ -48,27 +49,26 @@
                     <td class="py-2 px-4 border-b">{{ cesantia.user.name }}</td>
                     <td class="py-2 px-4 border-b">{{ cesantia.tipo_cesantia_reportada }}</td>
                     <td class="py-2 px-4 border-b">
-                        <button type="button" class="bg-blue-600 text-white rounded-lg shadow-md p-2 transition duration-300 hover:bg-blue-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50" (click)="mostrarImagenes(cesantia)">
-                          Ver Imágenes
+                        <button type="button" class="bg-blue-600 text-white rounded-lg shadow-md p-2 transition duration-300 hover:bg-blue-700" (click)="mostrarImagenes(cesantia)">
+                            Ver Imágenes
                         </button>
-                      </td>
-                      
+                    </td>
+                    <td>
+                        <button type="button" class="bg-green-600 text-white rounded-lg shadow-md p-2 transition duration-300 hover:bg-green-700" (click)="cesantia.id ? downloadDocumentsById(cesantia.id) : null">Descargar</button>
+                    </td>
                     <td class="py-2 px-4 border-b">{{ cesantia.estado ? cesantia.estado : 'Pendiente' }}</td>
-                    
                     <td class="py-2 px-4 border-b flex space-x-2">
                         <button type="button" class="bg-green-600 text-white rounded-md p-1 hover:bg-green-700" (click)="autorizarCesantia(cesantia.id)">Autorizar</button>
-                        
                         <button type="button" class="bg-red-600 text-white rounded-md p-1 hover:bg-red-700" (click)="denegarCesantiaAdmin(cesantia.id)">Denegar</button>
                     </td>
-                    
                 </tr>
             </tbody>
         </table>
     </div>
 
     <div *ngIf="!cargandoReferidos" class="flex justify-center mt-4">
-        <button (click)="prevPage()" [disabled]="currentPage === 1" class="bg-gray-300 text-gray-700 rounded-md px-4 py-2 mr-2">Anterior</button>
+        <button (click)="prevPage()" [disabled]="currentPage === 1" class="bg-gray-300 text-gray-700 rounded-md px-4 py-2 mr-2 hover:bg-gray-400">Anterior</button>
         <span>Página {{ currentPage }} de {{ totalPages() }}</span>
-        <button (click)="nextPage()" [disabled]="currentPage === totalPages()" class="bg-gray-300 text-gray-700 rounded-md px-4 py-2 ml-2">Siguiente</button>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages()" class="bg-gray-300 text-gray-700 rounded-md px-4 py-2 ml-2 hover:bg-gray-400">Siguiente</button>
     </div>
 </div>

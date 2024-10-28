@@ -92,6 +92,27 @@ export class IndexComponent {
     });
   }
 
+// Descarga un ZIP de los documentos de incapacidad por ID
+downloadDocumentsById(id: any): void {
+  this.cesantiasService.downloadDocumentsById(id, this.token).subscribe((data: Blob) => {
+    const url = window.URL.createObjectURL(data);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `documentos_incapacidad_${id}.zip`; // Nombre del archivo ZIP
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  }, error => {
+    console.log(error);
+    Swal.fire({
+      title: 'Error',
+      text: 'No se pudo descargar el ZIP.',
+      icon: 'error',
+    });
+  });
+}
+
   // Método para descargar cesantías por el año seleccionado
   descargarCesantiasPorAnio(): void {
     if (this.yearToDownload !== null) {
