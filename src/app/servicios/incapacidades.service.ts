@@ -112,6 +112,15 @@ export class IncapacidadesService {
     return this.http.get<Blob>(`${this.url}download-zip/${uuid}`, options);
   }
 
+ // Método para descargar documentos de incapacidad por ID
+ downloadDocumentsById(id: string, access_token: any): Observable<Blob> {
+  const headers = new HttpHeaders({
+    'Authorization': 'Bearer ' + access_token
+  });
+  const options = { headers: headers, responseType: 'blob' as 'json' };
+  return this.http.get<Blob>(`${this.url}${id}/documentos`, options);
+}
+
   // Método para obtener todos los usuarios del sistema
   getUserss(access_token:any):Observable<any>{
     const headers = new HttpHeaders({

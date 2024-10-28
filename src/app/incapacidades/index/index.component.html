@@ -44,6 +44,7 @@
           <th class="py-3 px-4 text-left text-gray-600">Fecha inicio incapacidad</th>
           <th class="py-3 px-4 text-left text-gray-600">Entidad Afiliada</th>
           <th class="py-3 px-4 text-left text-gray-600">Imagen</th>
+          <th class="py-3 px-4 text-left text-gray-600">Documentos</th>
           <th class="py-3 px-4 text-left text-gray-600">Aplica Cobro</th>
           <th class="py-3 px-4 text-left text-gray-600">Tipo de Incapacidad Autorizada</th>
           <th class="py-3 px-4 text-left text-gray-600">Acciones</th>
@@ -62,6 +63,11 @@
             <button type="button" class="bg-blue-600 text-white rounded-lg shadow-md p-2 transition duration-300 hover:bg-blue-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50" (click)="mostrarImagenes(incapacidad)">
               Ver Imágenes
             </button>
+          </td>
+          <td>
+            <button type="button" class="bg-green-600 text-white rounded-lg shadow-md p-2 transition duration-300 hover:bg-green-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50" (click)="incapacidad.id ? downloadDocumentsById(incapacidad.id) : null">Descargar Documentos</button>
+
+            
           </td>
           
           
