@@ -66,10 +66,10 @@ export class IndexComponent {
   mostrarImagenes(cesantias: Cesantias): void {
     // Verificar si incapacidad.images está definido y es un array
     const imagenesConRuta = Array.isArray(cesantias.images) ? cesantias.images.map((image: any) => ({
-      image_path: `http://localhost:8000/storage/${image.image_path}`
+        image_path: `http://localhost:8000/storage/${image.image_path}`
     })) : [];
-  
-    // Crear el HTML para mostrar las imágenes en la alerta
+
+    // Crear el HTML para mostrar las imágenes y los botones
     const htmlContenido = `
       <div style="display: flex; flex-wrap: wrap; justify-content: center;">
         ${imagenesConRuta.map(img => `
@@ -78,19 +78,36 @@ export class IndexComponent {
           </div>
         `).join('')}
       </div>
+      <div style="text-align: center; margin-top: 15px;">
+        <button id="downloadButton" style="padding: 10px; cursor: pointer; background-color: green; color: white; border: none; border-radius: 5px; margin-right: 10px;">Descargar ZIP</button>
+       
+      </div>
     `;
-  
+
     // Mostrar la alerta con las imágenes
     Swal.fire({
-      title: 'Imágenes',
-      html: htmlContenido,
-      showCloseButton: true,
-      confirmButtonText: 'Cerrar',
-      customClass: {
-        popup: 'my-popup' // Puedes agregar clases personalizadas si necesitas estilos adicionales
-      }
+        title: 'Imágenes',
+        html: htmlContenido,
+        showCloseButton: true,
+        confirmButtonText: 'Cerrar',
+        focusConfirm: false,
+        customClass: {
+            cancelButton: 'swal2-cancel', // Personaliza si es necesario
+        }
     });
-  }
+
+    // Agregar evento al botón de descarga
+    setTimeout(() => {
+        const downloadButton = document.getElementById('downloadButton');
+        if (downloadButton) {
+            downloadButton.addEventListener('click', () => {
+                this.downloadZip(cesantias.id, cesantias.user?.cedula);
+            });
+        }
+    }, 0);
+}
+
+
 
 // Descarga un ZIP de los documentos de incapacidad por ID
 downloadDocumentsById(id: any): void {
@@ -267,12 +284,12 @@ denegarCesantiaAdmin(id: number | undefined): void {
   }
 
   // Descarga un ZIP de una cesantía
-  downloadZip(uuid: string, cedula: number): void {
-    this.cesantiasService.downloadZip(uuid, this.token).subscribe((data: Blob) => {
+  downloadZip(id: any, cedula: number): void {
+    this.cesantiasService.downloadZip(id, this.token).subscribe((data: Blob) => {
       const url = window.URL.createObjectURL(data);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `cesantias_${cedula}__${uuid}.zip`;
+      a.download = `cesantias_${cedula}__${id}.zip`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);

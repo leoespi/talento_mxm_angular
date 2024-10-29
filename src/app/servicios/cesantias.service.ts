@@ -151,12 +151,12 @@ export class CesantiasService {
   }
 
 
-  downloadZip(uuid: string, access_token: any): Observable<Blob> {
+  downloadZip(id: string, access_token: any): Observable<Blob> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers, responseType: 'blob' as 'json' };
-    return this.http.get<Blob>(`${this.url}download-zip/${uuid}`, options);
+    return this.http.get<Blob>(`${this.url}${id}/download-images`, options);
   }
  
    // Método para obtener todos los usuarios del sistema
