@@ -96,21 +96,22 @@ export class IncapacidadesService {
   }
 
 
-  downloadImage(uuid: string, access_token: any): Observable<Blob> {
+  downloadImage(id: string, access_token: any): Observable<Blob> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers, responseType: 'blob' as 'json' };
-    return this.http.get<Blob>(`${this.url}${uuid}/downloadFromDB`, options);
+    return this.http.get<Blob>(`${this.url}${id}/downloadFromDB`, options);
   }
 
-  downloadZip(uuid: string, access_token: any): Observable<Blob> {
+  downloadZip(id: string, access_token: any): Observable<Blob> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers, responseType: 'blob' as 'json' };
-    return this.http.get<Blob>(`${this.url}download-zip/${uuid}`, options);
+    return this.http.get<Blob>(`${this.url}${id}/download-images`, options);
   }
+ 
 
  // Método para descargar documentos de incapacidad por ID
  downloadDocumentsById(id: string, access_token: any): Observable<Blob> {

@@ -80,6 +80,10 @@ export class IndexComponent {
           </div>
         `).join('')}
       </div>
+      <div style="text-align: center; margin-top: 15px;">
+        <button id="downloadButton" style="padding: 10px; cursor: pointer; background-color: green; color: white; border: none; border-radius: 5px; margin-right: 10px;">Descargar ZIP</button>
+       
+      </div>
     `;
   
     // Mostrar la alerta con las imágenes
@@ -92,8 +96,34 @@ export class IndexComponent {
         popup: 'my-popup' // Puedes agregar clases personalizadas si necesitas estilos adicionales
       }
     });
+
+     // Agregar evento al botón de descarga
+     setTimeout(() => {
+      const downloadButton = document.getElementById('downloadButton');
+      if (downloadButton) {
+          downloadButton.addEventListener('click', () => {
+              this.downloadZip(incapacidad.id, incapacidad.user?.cedula);
+          });
+      }
+  }, 0);
   }
 
+
+  // Descarga un ZIP de una cesantía
+  downloadZip(id: any, cedula: number): void {
+    this.incapacidadesService.downloadZip(id, this.token).subscribe((data: Blob) => {
+      const url = window.URL.createObjectURL(data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `cesantias_${cedula}__${id}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }, error => {
+      console.log(error);
+    });
+  }
 
   
   
@@ -238,8 +268,8 @@ downloadDocumentsById(id: any): void {
   
 
   // Descarga una imagen asociada a una incapacidad
-  downloadImage(uuid: string): void {
-    this.incapacidadesService.downloadImage(uuid, this.token).subscribe((data: Blob) => {
+  downloadImage(id: string): void {
+    this.incapacidadesService.downloadImage(id, this.token).subscribe((data: Blob) => {
       const url = window.URL.createObjectURL(data);
       const a = document.createElement('a');
       a.href = url;
@@ -253,21 +283,8 @@ downloadDocumentsById(id: any): void {
     });
   }
 
-  // Descarga un ZIP de una incapacidad
-  downloadZip(uuid: string, cedula: number): void {
-    this.incapacidadesService.downloadZip(uuid, this.token).subscribe((data: Blob) => {
-      const url = window.URL.createObjectURL(data);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `incapacidad_${cedula}__${uuid}.zip`; // Incluye la cédula en el nombre del archivo ZIP
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-    }, error => {
-      console.log(error);
-    });
-  }
+   // Descarga un ZIP de una incapacidad
+   
 
   // Redirige a la página de edición de una incapacidad por su ID
   editarIncapacidades(id: any): void {

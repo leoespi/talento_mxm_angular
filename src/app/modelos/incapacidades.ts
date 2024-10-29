@@ -9,7 +9,7 @@ export interface Incapacidades {
     cedula:number;
     name :string | null | undefined;
     user: any;
-    
+    uuid?: string| null | undefined;
     tipo_incapacidad_reportada ?: string | null | undefined; 
     dias_incapacidad : number | null | undefined;
     fecha_inicio_incapacidad: Date;
