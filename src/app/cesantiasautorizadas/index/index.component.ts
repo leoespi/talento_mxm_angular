@@ -159,23 +159,6 @@ export class IndexComponent {
     });
   }
 
-  downloadZip(uuid: string, cedula: number): void {
-    this.cesantiasAutorizadasServicio.downloadZip(uuid, this.token).subscribe((data: Blob) => {
-      const url = window.URL.createObjectURL(data);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `cesantias_${cedula}__${uuid}.zip`;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-    }, error => {
-      console.log(error);
-    });
-  }
+  
 
-  // Redirige a la página de edición de una cesantía por su ID
-  editarCesantias(id: any): void {
-    this.router.navigateByUrl("/cesantias/editar/" + id);
-  }
 }

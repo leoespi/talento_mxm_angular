@@ -60,13 +60,11 @@
           <td class="py-2 px-4 border-b">{{ incapacidad.fecha_inicio_incapacidad }}</td>
           <td class="py-2 px-4 border-b">{{ incapacidad.entidad_afiliada }}</td>
           <td class="py-2 px-4 border-b">
-            <button type="button" class="bg-blue-600 text-white rounded-lg shadow-md p-2 transition duration-300 hover:bg-blue-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50" (click)="mostrarImagenes(incapacidad)">
-              Ver Imágenes
-            </button>
+            <button type="button" class="bg-blue-600 text-white rounded-lg shadow-md p-2 transition duration-300 hover:bg-blue-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50" (click)="mostrarImagenes(incapacidad)">Visualizar</button>
           
           </td>
           <td>
-            <button type="button" class="bg-green-600 text-white rounded-lg shadow-md p-2 transition duration-300 hover:bg-green-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50" (click)="incapacidad.id ? downloadDocumentsById(incapacidad.id) : null">Descargar Documentos</button>
+            <button type="button" class="text-center bg-green-600 text-white rounded-lg shadow-md p-2 transition duration-300 hover:bg-green-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50" (click)="incapacidad.id ? downloadDocumentsById(incapacidad.id) : null">Descargar</button>
 
             
           </td>

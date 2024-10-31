@@ -3,133 +3,86 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Incapacidades } from '../modelos/incapacidades';
 import { Observable } from 'rxjs';
 
-
-
-
-
 @Injectable({
   providedIn: 'root'
 })
 export class IncapacidadesService {
+  private apiurl = 'http://127.0.0.1:8000/api';
 
-   // URL base de la API para las incapacidades
-  url='http://127.0.0.1:8000/api/incapacidades/';
-  
-  geturl='http://127.0.0.1:8000/api/incapacidadesall';
+  constructor(private http: HttpClient) {}
 
- 
-  // URL de la API para obtener usuarios
-  usersUrl = 'http://127.0.0.1:8000/api/users';
-
-
-  // URL de la API para exportar incapacidades
-  urlExport='http://127.0.0.1:8000/api/export-incapacidades';
-
-
-  constructor(private http:HttpClient) {
-
-   }
-
-
-    // Método para obtener un usuario por su ID
-   getUserById(userId: number | null | undefined, access_token: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + access_token
-    });
+  // Obtiene un usuario por su ID
+  getUserById(userId: number | null | undefined, access_token: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + access_token });
     const options = { headers: headers };
-    return this.http.get<any>(`${this.usersUrl}/${userId}`, options);
+    return this.http.get<any>(`${this.apiurl}/users/${userId}`, options);
   }
-   
 
-
- 
-
-   // Método para descargar todas las incapacidades en formato de hoja de cálculo por año
+  // Descarga incapacidades por año
   downloadIncapacidadesByYear(year: string, access_token: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + access_token
-    });
-    const options = { headers: headers, responseType: 'blob' as 'json' }; // Cambia el tipo de respuesta a "blob"
-    return this.http.get(`${this.urlExport}?year=${year}`, options); // Agrega el año a la URL
+    const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + access_token });
+    const options = { headers: headers, responseType: 'blob' as 'json' };
+    return this.http.get(`${this.apiurl}/export-incapacidades/?year=${year}`, options);
   }
 
-
-     // Método para obtener todas las incapacidades médicas LISTAR LOS DATOS
-   getIncapacidades(access_token:any):Observable<any>{
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + access_token
-    });
-    const options = { headers: headers};
-    return this.http.get(this.geturl, options);
-  }
-
-  // Método para agregar una nueva incapacidad médica
-  addIncapacidades(incapacidades: Incapacidades, access_token: any): Observable<any> {
+  // Obtiene todas las incapacidades médicas
+  getIncapacidades(access_token: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers };
-    return this.http.post(this.url, incapacidades, options);
+    return this.http.get(`${this.apiurl}/incapacidadesall`, options);
   }
 
-
-  // Método para actualizar una incapacidad médica existente
-  updateIncapacidades(id:string, incapacidades:Incapacidades, access_token:any):Observable<any>{
+  // Actualiza una incapacidad médica existente
+  updateIncapacidades(id: string, incapacidades: Incapacidades, access_token: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token
     });
-    const options = { headers: headers};
-    return this.http.put(this.url +id,incapacidades, options);         
+    const options = { headers: headers };
+    return this.http.put(`${this.apiurl}/incapacidades/${id}`, incapacidades, options);
   }
 
-  // Método para eliminar una incapacidad médica
-  deleteIncapacidades(id:string, access_token:any):Observable<any>{
+  // Elimina una incapacidad médica
+  deleteIncapacidades(id: string, access_token: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token
     });
-    const options = { headers: headers};
-    return this.http.delete(this.url +id, options);
+    const options = { headers: headers };
+    return this.http.delete(`${this.apiurl}/incapacidades/${id}`, options);
   }
 
-
+  // Descarga una imagen por ID
   downloadImage(id: string, access_token: any): Observable<Blob> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + access_token
-    });
+    const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + access_token });
     const options = { headers: headers, responseType: 'blob' as 'json' };
-    return this.http.get<Blob>(`${this.url}${id}/downloadFromDB`, options);
+    return this.http.get<Blob>(`${this.apiurl}/incapacidades/${id}/downloadFromDB`, options);
   }
 
+  // Descarga un ZIP de imágenes por ID
   downloadZip(id: string, access_token: any): Observable<Blob> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + access_token
-    });
+    const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + access_token });
     const options = { headers: headers, responseType: 'blob' as 'json' };
-    return this.http.get<Blob>(`${this.url}${id}/download-images`, options);
+    return this.http.get<Blob>(`${this.apiurl}/incapacidades/${id}/download-images`, options);
   }
- 
 
- // Método para descargar documentos de incapacidad por ID
- downloadDocumentsById(id: string, access_token: any): Observable<Blob> {
-  const headers = new HttpHeaders({
-    'Authorization': 'Bearer ' + access_token
-  });
-  const options = { headers: headers, responseType: 'blob' as 'json' };
-  return this.http.get<Blob>(`${this.url}${id}/documentos`, options);
-}
+  // Descarga documentos de incapacidad por ID
+  downloadDocumentsById(id: string, access_token: any): Observable<Blob> {
+    const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + access_token });
+    const options = { headers: headers, responseType: 'blob' as 'json' };
+    return this.http.get<Blob>(`${this.apiurl}/incapacidades/${id}/documentos`, options);
+  }
 
-  // Método para obtener todos los usuarios del sistema
-  getUserss(access_token:any):Observable<any>{
+  // Obtiene todos los usuarios del sistema
+  getUserss(access_token: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token
     });
-    const options = { headers: headers};
-    return this.http.get(this.url, options);
+    const options = { headers: headers };
+    return this.http.get(`${this.apiurl}/incapacidades/`, options);
   }
-
 }

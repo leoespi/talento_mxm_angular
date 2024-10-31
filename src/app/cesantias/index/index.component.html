@@ -24,7 +24,7 @@
 
     <div class="table-container">
         <div *ngIf="cargandoReferidos" class="loading-overlay flex justify-center items-center h-48">
-            <div class="spinner-border text-primary" role="status">
+            <div class="spinner-border text-blue-500" role="status">
                 <span class="visually-hidden">Cargando...</span>
             </div>
         </div>
@@ -49,20 +49,13 @@
                     <td class="py-2 px-4 border-b">{{ cesantia.user.name }}</td>
                     <td class="py-2 px-4 border-b">{{ cesantia.tipo_cesantia_reportada }}</td>
                     <td class="py-2 px-4 border-b">
-                        <button type="button" class="bg-blue-600 text-white rounded-lg shadow-md p-2 transition duration-300 hover:bg-blue-700" (click)="mostrarImagenes(cesantia)">
-                            Ver Imágenes
-                        </button>
-                        <!-- index.component.html -->
-                       
-
-
-                        <button> </button>
+                        <button type="button" class="bg-blue-600 text-white rounded-lg shadow-md p-2 transition duration-300 hover:bg-blue-700" (click)="mostrarImagenes(cesantia)">Visualizar</button>
                     </td>
-                    <td>
-                        <button type="button" class="bg-green-600 text-white rounded-lg shadow-md p-2 transition duration-300 hover:bg-green-700" (click)="cesantia.id ? downloadDocumentsById(cesantia.id) : null">Descargar</button>
+                    <td class="py-2 px-4 border-b">
+                        <button type="button" class="bg-yellow-600 text-white rounded-lg shadow-md p-2 transition duration-300 hover:bg-yellow-700" (click)="cesantia.id ? downloadDocumentsById(cesantia.id) : null">Descargar</button>
                     </td>
                     <td class="py-2 px-4 border-b">{{ cesantia.estado ? cesantia.estado : 'Pendiente' }}</td>
-                    <td class="py-2 px-4 border-b flex space-x-2">
+                    <td class="py-2 px-4 border-b ">
                         <button type="button" class="bg-green-600 text-white rounded-md p-1 hover:bg-green-700" (click)="autorizarCesantia(cesantia.id)">Autorizar</button>
                         <button type="button" class="bg-red-600 text-white rounded-md p-1 hover:bg-red-700" (click)="denegarCesantiaAdmin(cesantia.id)">Denegar</button>
                     </td>

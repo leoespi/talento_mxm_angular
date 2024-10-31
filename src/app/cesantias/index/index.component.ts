@@ -79,7 +79,7 @@ export class IndexComponent {
         `).join('')}
       </div>
       <div style="text-align: center; margin-top: 15px;">
-        <button id="downloadButton" style="padding: 10px; cursor: pointer; background-color: green; color: white; border: none; border-radius: 5px; margin-right: 10px;">Descargar ZIP</button>
+        <button id="downloadButton" style="padding: 10px; cursor: pointer; background-color: green; color: white; border: none; border-radius: 5px; margin-right: 10px;">Descargar Imagenes</button>
        
       </div>
     `;
@@ -115,7 +115,7 @@ downloadDocumentsById(id: any): void {
     const url = window.URL.createObjectURL(data);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `documentos_incapacidad_${id}.zip`; // Nombre del archivo ZIP
+    a.download = `documentos_cesantia_${id}.zip`; // Nombre del archivo ZIP
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
@@ -299,8 +299,5 @@ denegarCesantiaAdmin(id: number | undefined): void {
     });
   }
 
-  // Redirige a la página de edición de una cesantía por su ID
-  editarCesantias(id: any): void {
-    this.router.navigateByUrl("/cesantias/editar/" + id);
-  }
+ 
 }

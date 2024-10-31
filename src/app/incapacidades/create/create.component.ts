@@ -81,19 +81,7 @@ export class CreateComponent {
         this._router.navigate(['/incapacidades/index']);
       }
     );
-
-    }else{
-      // Si no hay un ID, agrega una nueva incapacidad
-      this.IncapacidadesServicio.addIncapacidades(incapacidad, this.token).subscribe
-      (data =>{
-        this._router.navigate(['/incapacidades/index']);
-
-      },err => {
-        console.log(err);
-        this._router.navigate(['/incapacidades/index']);
-      }
-    );
-    }
+  }
 
     
   }
