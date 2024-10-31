@@ -72,18 +72,6 @@ export class IndexComponent {
     }
   }
 
-  deleteReferido(id: number | undefined): void {
-    if (id !== undefined) {
-      this.referidosService.deleteReferido(id).subscribe(
-        () => {
-          this.loadReferidos();
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
-    }
-  }
 
   // Redirige a la página de edición de un referido por su ID
   editarReferidos(id: any): void {
