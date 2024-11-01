@@ -16,6 +16,7 @@ export interface Cesantias {
     images?: CesantiasImage[]; 
 
     uuid?: string| null | undefined;// Agregar el atributo uuid
+    createdAt?: string | null | undefined; // Agregar la fecha de creación
 
 
 }

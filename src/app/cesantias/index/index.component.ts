@@ -47,20 +47,23 @@ export class IndexComponent {
   }
 
   // Carga las cesantías desde el servidor
-  cargarCesantias(): void {
-    this.cargandoReferidos = true;
-    this.cesantiasService.getCesantias(this.token).subscribe(
-      (data: any) => {
-        this.cargandoReferidos = false;
-        this.listarCesantias = data.cesantias;
-        this.obtenerTiposCesantias();
-      },
-      err => {
-        console.log(err);
-        this.cargandoReferidos = false;
-      }
-    );
-  }
+cargarCesantias(): void {
+  this.cargandoReferidos = true;
+  this.cesantiasService.getCesantias(this.token).subscribe(
+    (data: any) => {
+      this.cargandoReferidos = false;
+      // Ordenar las cesantías por ID de mayor a menor
+      this.listarCesantias = data.cesantias.sort((a: Cesantias, b: Cesantias) => b.id! - a.id!);
+      this.obtenerTiposCesantias();
+    },
+    err => {
+      console.log(err);
+      this.cargandoReferidos = false;
+    }
+  );
+}
+
+
 
   
   mostrarImagenes(cesantias: Cesantias): void {

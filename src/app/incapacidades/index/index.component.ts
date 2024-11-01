@@ -48,22 +48,25 @@ export class IndexComponent {
       this.router.navigate(['/']);
     }
   }
+// Carga las incapacidades desde el servidor
+cargarIncapacidades(): void {
+  this.cargandoReferidos = true;
+  this.incapacidadesService.getIncapacidades(this.token).subscribe(
+    (data: any) => {
+      this.cargandoReferidos = false;
+      this.listarIncapacidades = data.incapacidades;
 
-  // Carga las incapacidades desde el servidor
-  cargarIncapacidades(): void {
-    this.cargandoReferidos = true;
-    this.incapacidadesService.getIncapacidades(this.token).subscribe(
-      (data: any) => {
-        this.listarIncapacidades = data.incapacidades;
-        this.cargandoReferidos = false;
-        this.obtenerTiposIncapacidad();
-      },
-      err => {
-        console.log(err);
-        this.cargandoReferidos = false;
-      }
-    );
-  }
+      // Ordenar las incapacidades por ID de mayor a menor
+      this.listarIncapacidades.sort((a: Incapacidades, b: Incapacidades) => b.id! - a.id!);
+
+      this.obtenerTiposIncapacidad();
+    },
+    err => {
+      console.log(err);
+      this.cargandoReferidos = false;
+    }
+  );
+}
 
   mostrarImagenes(incapacidad: Incapacidades): void {
     // Verificar si incapacidad.images está definido y es un array
