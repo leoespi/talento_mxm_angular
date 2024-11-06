@@ -30,32 +30,39 @@ export class FeedListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.recuperarToken();
-      this.cargandoReferidos = true;
+    this.recuperarToken();
+    this.cargandoReferidos = true;
 
-      const baseUrl = 'http://localhost:8000'; // Base URL del backend
+    const baseUrl = 'http://localhost:8000'; // Base URL del backend
 
-      this.feedService.getAllFeeds(this.token).subscribe(
-          response => {
-              this.feeds = response.feeds;
-              this.feeds.forEach(feed => {
-                  if (feed.image_path) {
-                      feed.image_path = `${baseUrl}${feed.image_path}`; // Solo una vez
-                  }
-                  if (feed.images) {
-                      feed.images.forEach((image: FeedImage) => {
-                          image.image_path = `${baseUrl}${image.image_path}`; // Solo una vez
-                      });
-                  }
-              });
-              this.cargandoReferidos = false;
-          },
-          error => {
-              console.log('Error fetching feeds:', error);
-              this.cargandoReferidos = false;
-          }
-      );
-  }
+    this.feedService.getAllFeeds(this.token).subscribe(
+        response => {
+            this.feeds = response.feeds;
+
+            // Ordenar los feeds por el id de mayor a menor
+            this.feeds.sort((a, b) => b.id - a.id); // Suponiendo que "id" es un número
+
+            this.feeds.forEach(feed => {
+                if (feed.image_path) {
+                    feed.image_path = `${baseUrl}${feed.image_path}`; // Solo una vez
+                }
+                if (feed.images) {
+                    feed.images.forEach((image: FeedImage) => {
+                        image.image_path = `${baseUrl}${image.image_path}`; // Solo una vez
+                    });
+                }
+            });
+
+            this.cargandoReferidos = false;
+        },
+        error => {
+            console.log('Error fetching feeds:', error);
+            this.cargandoReferidos = false;
+        }
+    );
+}
+
+
   mostrarImagen(imagePath: string): void {
     Swal.fire({
       title: 'Imagen de Publicación',

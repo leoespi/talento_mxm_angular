@@ -118,7 +118,7 @@ cargarIncapacidades(): void {
       const url = window.URL.createObjectURL(data);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `cesantias_${cedula}__${id}.zip`;
+      a.download = `Incapacidad_${cedula}__${id}.zip`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
