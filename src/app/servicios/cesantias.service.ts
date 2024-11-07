@@ -7,7 +7,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CesantiasService {
-  
+
+  //url prueba  (SOLO SE USA PARA CARGAR EL POR LA IP DEL COMPUTADOR)
+  //private apiurl = 'http://192.168.1.148:8000/api/';
+
+
   // URL API 
   apiurl = 'http://127.0.0.1:8000/api/';
 

@@ -9,6 +9,10 @@ import { Cesantiasautorizadas } from '../modelos/cesantiasautorizadas';
 })
 export class CesantiasAutorizadasService {
 
+  
+  //url prueba  (SOLO SE USA PARA CARGAR EL POR LA IP DEL COMPUTADOR)
+  //private baseUrl = 'http://192.168.1.148:8000/api/';
+
   // URL base de la API
   private baseUrl = 'http://127.0.0.1:8000/api/';
 

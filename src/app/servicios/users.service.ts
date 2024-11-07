@@ -8,6 +8,10 @@ import { Observable } from 'rxjs';
 })
 export class UsersService {
 
+  //url prueba  (SOLO SE USA PARA CARGAR EL POR LA IP DEL COMPUTADOR)
+ //url = 'http://192.168.1.148:8000/api/users';
+
+
   // URLs de la API
   url='http://127.0.0.1:8000/api/users';
 

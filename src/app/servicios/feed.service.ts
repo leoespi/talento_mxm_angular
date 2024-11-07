@@ -7,6 +7,11 @@ import { Feed } from '../modelos/feed';
   providedIn: 'root'
 })
 export class FeedService {
+
+  //url prueba  (SOLO SE USA PARA CARGAR EL POR LA IP DEL COMPUTADOR)
+  //private  baseUrl =  'http://192.168.1.148:8000/api';
+
+
   private baseUrl = 'http://localhost:8000/api';
   private feedsUrl = `${this.baseUrl}/feeds`;
   private feedsdeleteUrl = `${this.baseUrl}/feeds/`;

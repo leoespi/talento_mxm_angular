@@ -8,6 +8,13 @@ import {Referidos }  from '../modelos/referidos';
   providedIn: 'root'
 })
 export class ReferidosService {
+
+
+  //url prueba  (SOLO SE USA PARA CARGAR EL POR LA IP DEL COMPUTADOR)
+  //private apiUrl = 'http://192.168.1.148:8000/api/referidos/';
+
+
+
   private apiUrl = 'http://127.0.0.1:8000/api/referidos/';
 
   

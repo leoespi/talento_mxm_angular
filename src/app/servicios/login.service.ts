@@ -6,6 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
+
+  //url prueba  (SOLO SE USA PARA CARGAR EL POR LA IP DEL COMPUTADOR)
+  //url = 'http://192.168.1.148:8000/api/';
+
+
   url = 'http://127.0.0.1:8000/api/';
 
   constructor(private http: HttpClient) { }
