@@ -18,9 +18,23 @@ export class UsersService {
   urldestroy= 'http://127.0.0.1:8000/api/user';
 
   urlExport='http://127.0.0.1:8000/api/export-users'
+  urlImport='http://127.0.0.1:8000/api/import-users'
 
   constructor(private http:HttpClient){}
 
+
+   // Método para subir archivo Excel
+// Método para subir archivo Excel
+importUsers(file: File, access_token: string): Observable<any> {
+  const formData: FormData = new FormData();
+  formData.append('file', file, file.name);
+
+  const headers = new HttpHeaders({
+    'Authorization': 'Bearer ' + access_token
+  });
+
+  return this.http.post(this.urlImport, formData, { headers: headers });
+}
 
   // Método para descargar usuarios
   downloadUsers(access_token: any): Observable<any> {

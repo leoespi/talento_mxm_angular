@@ -3,17 +3,34 @@
     <h2 class="text-3xl font-semibold text-center">Lista de Usuarios</h2>
   </div>
 
-  <div class="flex flex-col md:flex-row justify-between mb-4">
-    <div class="mb-4 md:mb-0 md:w-3/5">
-      <label for="search" class="block text-gray-700">Buscar Usuario por Cédula:</label>
-      <input type="text" [(ngModel)]="searchTerm" id="search" class="border rounded-md w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Buscar por cédula">
+  <!-- Barra de búsqueda, botón de descarga e importación en una sola línea -->
+  <div class="flex flex-col md:flex-row justify-between mb-4 space-y-3 md:space-y-0">
+    <!-- Buscar Usuario (por cédula o nombre) -->
+    <div class="mb-4 md:mb-0 md:w-2/5">
+      <label for="search" class="block text-gray-700">Buscar Usuario:</label>
+      <input type="text" [(ngModel)]="searchTerm" id="search" class="border rounded-md w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Buscar por nombre o cédula">
     </div>
-    <div class="md:w-2/5 space-x-2">
+
+    <!-- Descargar lista Usuarios -->
+    <div class="mb-4 md:mb-0 md:w-1/5 flex flex-col items-center md:items-start">
       <label class="block text-gray-700 mb-2">Descargar lista Usuarios:</label>
       <button type="button" class="bg-blue-600 text-white rounded-md px-4 py-2" (click)="downloadUsers()">Descargar Usuarios</button>
     </div>
+
+    <!-- Seleccionar archivo Excel -->
+    <div class="mb-4 md:mb-0 md:w-2/5">
+      <label for="file-upload" class="block text-gray-700">Seleccionar archivo Excel para importar:</label>
+      <input type="file" id="file-upload" (change)="onFileChange($event)" class="border rounded-md w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    </div>
+
+    <!-- Botón de Importar Usuarios -->
+    <div class="mb-4 md:mb-0 md:w-1/5 flex flex-col items-center md:items-start">
+      <label class="block text-gray-700 mb-2">Importar lista Usuarios Excel:</label>
+      <button type="button" class="bg-blue-600 text-white rounded-md px-4 py-2" (click)="importUsers()">Importar Usuarios</button>
+    </div>
   </div>
 
+  <!-- Tabla de usuarios -->
   <div class="table-container">
     <!-- Icono de carga -->
     <div *ngIf="cargandoReferidos" class="loading-overlay flex justify-center items-center h-64">
@@ -44,6 +61,7 @@
       </tbody>
     </table>
 
+    <!-- Paginación -->
     <div *ngIf="!cargandoReferidos" class="flex justify-center mt-4">
       <button class="bg-gray-400 text-white rounded-md px-4 py-2" (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
       <span class="mx-3">Página {{ currentPage }} de {{ totalPages() }}</span>
