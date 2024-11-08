@@ -26,6 +26,7 @@ export class CreateFeedComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.feedForm = this.fb.group({
+      categoria: ['', Validators.required],
       content: ['', Validators.required],
       videoLink: ['']
     });
@@ -49,6 +50,7 @@ export class CreateFeedComponent implements OnInit {
     }
 
     const formData = new FormData();
+    formData.append('categoria', this.feedForm.value.categoria);
     formData.append('content', this.feedForm.value.content);
     formData.append('video_link', this.feedForm.value.videoLink);
 
@@ -58,6 +60,7 @@ export class CreateFeedComponent implements OnInit {
 
     // Crear un objeto Feed con los datos necesarios
     const feed: Feed = {
+      categoria:this.feedForm.value.categoria,
       content: this.feedForm.value.content,
       user_id: this.userId,
       image_path: '', // Establecer un valor inicial vacío o agregar lógica para manejarlo

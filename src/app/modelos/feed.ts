@@ -5,6 +5,7 @@ export interface FeedImage {
 export interface Feed {
   id?: number;
   user_id: number;
+  categoria:string; 
   content: string;
   image_path: string; // Este puede ser el path de una imagen principal
   video_link?: string;

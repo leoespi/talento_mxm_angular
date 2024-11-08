@@ -16,6 +16,7 @@
       <table *ngIf="!cargandoReferidos" class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
         <thead class="bg-gray-100">
           <tr>
+            <th class="py-3 px-4 text-left text-gray-600">Categoria</th>
             <th class="py-3 px-4 text-left text-gray-600">Contenido</th>
             <th class="py-3 px-4 text-left text-gray-600">Autor</th>
             <th class="py-3 px-4 text-left text-gray-600">Imágenes</th>
@@ -24,6 +25,7 @@
         </thead>
         <tbody class="text-gray-700">
           <tr *ngFor="let feed of paginatedFeeds()" class="hover:bg-gray-50">
+            <td class="py-2 px-4 border-b">{{ feed.categoria }}</td>
             <td class="py-2 px-4 border-b">{{ feed.content }}</td>
             <td class="py-2 px-4 border-b">{{ feed.user.name }}</td>
             <td class="py-2 px-4 border-b">
