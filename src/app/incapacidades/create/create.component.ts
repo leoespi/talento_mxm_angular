@@ -27,12 +27,15 @@ export class CreateComponent {
   incapcacidadForm = this.fb.group({
     aplica_cobro: null,
     tipo_incapacidad: '',
+    categoria_id: null,    
+
   
    
     			
   });
 
   id: string | null;
+  
 
   constructor(private fb: FormBuilder, private _router: Router, 
     private IncapacidadesServicio: IncapacidadesService, private aRoute: ActivatedRoute) {
@@ -66,6 +69,9 @@ export class CreateComponent {
       user_id: this.incapcacidadForm.get('user_id')?.value,
       cedula: this.incapcacidadForm.get('cedula')?.value!,
       name: this.incapcacidadForm.get('name')?.value,
+      categoria_id: this.incapcacidadForm.get('categoria_id')?.value ?? 0,
+
+ 
       dias_incapacidad: this.incapcacidadForm.get('dias_incapacidad')?.value,
       fecha_inicio_incapacidad: this.incapcacidadForm.get('fecha_inicio_incapacidad')?.value!,
     }

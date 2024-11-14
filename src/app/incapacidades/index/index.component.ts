@@ -28,6 +28,9 @@ export class IndexComponent {
   tipoIncapacidadSeleccionada: string = '';
   tiposIncapacidad: string[] = [];
 
+  categorias: any[] = []; // Lista de categorías
+  categoriasMap: Map<number, string> = new Map(); // Mapa de id -> codigo
+
   currentPage: number = 1; // Página actual
   itemsPerPage: number = 10; // Elementos por página
 
@@ -39,6 +42,7 @@ export class IndexComponent {
   ngOnInit(): void {
     this.recuperarToken();
     this.cargarIncapacidades();
+    this.cargarCategorias();  // Cargar las categorías al iniciar
   }
 
   // Recupera el token del almacenamiento local
@@ -67,6 +71,31 @@ cargarIncapacidades(): void {
     }
   );
 }
+
+ // Cargar las categorías desde el backend
+ cargarCategorias(): void {
+  this.incapacidadesService.getCategorias(this.token).subscribe(
+    (data: any) => {
+      // Crear un mapa id -> codigo
+      this.categorias = data;
+      this.categorias.forEach(categoria => {
+        this.categoriasMap.set(categoria.id, categoria.codigo); // Mapear el id con el código
+      });
+    },
+    err => {
+      console.log(err);
+    }
+  );
+
+}
+
+
+// Método para obtener el código de la categoría por su id
+obtenerCodigoCategoria(categoriaId: number): string {
+  return this.categoriasMap.get(categoriaId) ?? 'Desconocido'; // Retorna 'Desconocido' si no se encuentra el id
+}
+
+
 
   mostrarImagenes(incapacidad: Incapacidades): void {
     // Verificar si incapacidad.images está definido y es un array

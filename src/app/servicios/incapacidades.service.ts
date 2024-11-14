@@ -23,6 +23,14 @@ export class IncapacidadesService {
     return this.http.get<any>(`${this.apiurl}/users/${userId}`, options);
   }
 
+
+    // Método para obtener las categorías
+    getCategorias(access_token: any): Observable<any> {
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + access_token });
+      const options = { headers: headers };
+      return this.http.get(`${this.apiurl}/categorias`, options);
+    }
+
   // Descarga incapacidades por año
   downloadIncapacidadesByYear(year: string, access_token: any): Observable<any> {
     const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + access_token });

@@ -44,6 +44,7 @@
           <th class="py-3 px-4 text-left text-gray-600">Días de incapacidad</th>
           <th class="py-3 px-4 text-left text-gray-600">Fecha inicio incapacidad</th>
           <th class="py-3 px-4 text-left text-gray-600">Entidad Afiliada</th>
+          <th class="py-3 px-4 text-left text-gray-600">Codigo</th>
           <th class="py-3 px-4 text-left text-gray-600">Imagen</th>
           <th class="py-3 px-4 text-left text-gray-600">Documentos</th>
           <th class="py-3 px-4 text-left text-gray-600">Aplica Cobro</th>
@@ -60,6 +61,9 @@
           <td class="py-2 px-4 border-b">{{ incapacidad.dias_incapacidad }}</td>
           <td class="py-2 px-4 border-b">{{ incapacidad.fecha_inicio_incapacidad }}</td>
           <td class="py-2 px-4 border-b">{{ incapacidad.entidad_afiliada }}</td>
+          <td class="py-2 px-4 border-b">
+            {{ obtenerCodigoCategoria(incapacidad.categoria_id) }} <!-- Mostrar el código -->
+          </td>
           <td class="py-2 px-4 border-b">
             <button type="button" class="bg-blue-600 text-white rounded-lg shadow-md p-2 transition duration-300 hover:bg-blue-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50" (click)="mostrarImagenes(incapacidad)">Visualizar</button>
           
