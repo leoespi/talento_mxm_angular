@@ -45,6 +45,8 @@
           <th class="py-3 px-4 text-left text-gray-600">Nombre</th>
           <th class="py-3 px-4 text-left text-gray-600">Cédula</th>
           <th class="py-3 px-4 text-left text-gray-600">Email</th>
+          <th class="py-3 px-4 text-left text-gray-600">Punto de venta</th>
+          <th class="py-3 px-4 text-left text-gray-600">Cargo</th>
           <th class="py-3 px-4 text-left text-gray-600">Acciones</th>
         </tr>
       </thead>
@@ -53,6 +55,8 @@
           <td class="py-2 px-4 border-b">{{ user.name }}</td>
           <td class="py-2 px-4 border-b">{{ user.cedula }}</td>
           <td class="py-2 px-4 border-b">{{ user.email }}</td>
+          <td class="py-2 px-4 border-b">{{ user.p_venta }}</td>
+          <td class="py-2 px-4 border-b">{{ user.cargo }}</td>
           <td class="py-2 px-4 border-b">
             <button type="button" class="bg-green-600 text-white rounded-md p-1 hover:bg-green-700" (click)="activarUser(user.id)" *ngIf="!user.is_active">Activar</button>
             <button type="button" class="bg-red-600 text-white rounded-md p-1 hover:bg-red-700" (click)="desactivarUser(user.id)" *ngIf="user.is_active">Desactivar</button>

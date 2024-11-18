@@ -66,6 +66,8 @@ export class BodyComponent {
           <input type="text" id="name" class="swal2-input" placeholder="Nombre">
           <input type="text" id="cedula" class="swal2-input" placeholder="Cédula">
           <input type="text" id="email" class="swal2-input" placeholder="Email">
+          <input type="text" id="p_venta" class="swal2-input" placeholder="Punto de Venta">
+          <input type="text" id="cargo" class="swal2-input" placeholder="Cargo">
           <input type="password" id="password" class="swal2-input" placeholder="Contraseña">
           <select id="rol_id" class="swal2-select">
             <option value="">Seleccione un rol</option>
@@ -83,17 +85,19 @@ export class BodyComponent {
         const name = (document.getElementById('name') as HTMLInputElement).value;
         const cedula = (document.getElementById('cedula') as HTMLInputElement).value;
         const email = (document.getElementById('email') as HTMLInputElement).value;
+        const p_venta = (document.getElementById('p_venta') as HTMLInputElement).value;
+        const cargo = (document.getElementById('cargo') as HTMLInputElement).value;
         const password = (document.getElementById('password') as HTMLInputElement).value;
         const rol_id = (document.getElementById('rol_id') as HTMLSelectElement).value;
 
-        if (!name ||!cedula || !email || !password || !rol_id) {
+        if (!name ||!cedula || !email|| !p_venta || !cargo || !password || !rol_id) {
           Swal.showValidationMessage('Por favor completa todos los campos');
         }
-        return { name, cedula, email, rol_id, password };
+        return { name, cedula, email, p_venta, cargo, rol_id, password };
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.loginService.Register(result.value.name, result.value.cedula, result.value.email, result.value.rol_id, result.value.password)
+        this.loginService.Register(result.value.name, result.value.cedula, result.value.email, result.value.p_venta, result.value.cargo, result.value.rol_id, result.value.password)
           .subscribe(response => {
             Swal.fire({
               icon: 'success',

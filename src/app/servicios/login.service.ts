@@ -26,7 +26,7 @@ export class LoginService {
   }
 
   // Método para registrar un usuario administrador
-  Register(name:any, cedula: any, email: any, rol_id: any, password: any): Observable<any> {
-    return this.http.post(this.url + "registeradmin", { name: name, cedula: cedula, email: email, rol_id: rol_id, password: password });
+  Register(name:any, cedula: any, email: any, p_venta:any, cargo:any , rol_id: any, password: any): Observable<any> {
+    return this.http.post(this.url + "registeradmin", { name: name, cedula: cedula, email: email, p_venta: p_venta ,cargo: cargo , rol_id: rol_id, password: password });
   }
 }
