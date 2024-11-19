@@ -40,7 +40,7 @@
           <th class="py-3 px-4 text-left text-gray-600">ID</th>
           <th class="py-3 px-4 text-left text-gray-600">Cédula</th>
           <th class="py-3 px-4 text-left text-gray-600">Nombre</th>
-          <th class="py-3 px-4 text-left text-gray-600">Tipo de Incapacidad Reportada</th>
+          <th class="py-3 px-4 text-left text-gray-600">Incapacidad Reportada</th>
           <th class="py-3 px-4 text-left text-gray-600">Días de incapacidad</th>
           <th class="py-3 px-4 text-left text-gray-600">Fecha inicio incapacidad</th>
           <th class="py-3 px-4 text-left text-gray-600">Entidad Afiliada</th>
@@ -48,7 +48,8 @@
           <th class="py-3 px-4 text-left text-gray-600">Imagen</th>
           <th class="py-3 px-4 text-left text-gray-600">Documentos</th>
           <th class="py-3 px-4 text-left text-gray-600">Aplica Cobro</th>
-          <th class="py-3 px-4 text-left text-gray-600">Tipo de Incapacidad Autorizada</th>
+          <th class="py-3 px-4 text-left text-gray-600">Tipo de Incapacidad</th>
+          <th class="py-3 px-4 text-left text-gray-600">Tipo de Ausentismo</th>
           <th class="py-3 px-4 text-left text-gray-600">Acciones</th>
         </tr>
       </thead>
@@ -76,6 +77,7 @@
           
           
           <td class="py-2 px-4 border-b">{{ incapacidad.aplica_cobro }}</td>
+          <td class="py-2 px-4 border-b">{{ incapacidad.identificador_incapacidad}}</td>
           <td class="py-2 px-4 border-b">{{ incapacidad.tipo_incapacidad }}</td>
           <td class="py-2 px-4 border-b">
             <button type="button" class="bg-yellow-500 text-white rounded-md p-1 hover:bg-yellow-600" (click)="editarIncapacidades(incapacidad.id)">Autorizar</button>

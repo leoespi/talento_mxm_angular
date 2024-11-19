@@ -26,6 +26,7 @@ export class CreateComponent {
 
   incapcacidadForm = this.fb.group({
     aplica_cobro: null,
+    identificador_incapacidad: '',
     tipo_incapacidad: '',
     categoria_id: null,    
 
@@ -64,6 +65,7 @@ export class CreateComponent {
 
     const incapacidad: Incapacidades = {
       aplica_cobro: this.incapcacidadForm.get("aplica_cobro")?.value,
+      identificador_incapacidad: this.incapcacidadForm.get('identificador_incapacidad')?.value,
       tipo_incapacidad: this.incapcacidadForm.get('tipo_incapacidad')?.value,
       user: this.incapcacidadForm.get('user')?.value,
       user_id: this.incapcacidadForm.get('user_id')?.value,

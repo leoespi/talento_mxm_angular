@@ -14,6 +14,7 @@ export interface Incapacidades {
     dias_incapacidad : number | null | undefined;
     fecha_inicio_incapacidad: Date;
     aplica_cobro : boolean | null | undefined
+    identificador_incapacidad: string | null | undefined;
     entidad_afiliada ?:string | null | undefined;
     categoria_id: number;  
     tipo_incapacidad ?:string | null | undefined; 

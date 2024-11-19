@@ -10,6 +10,16 @@
           <input type="text" id="tipo_incapacidad" formControlName="tipo_incapacidad" class="border rounded-md w-full p-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Ingrese tipo de incapacidad">
       </div>
 
+      <div class="form-group mb-6">
+        <label for="identificador_incapacidad" class="block text-gray-700 font-semibold mb-2">Idenitificador</label>
+        <select id="identificador_incapacidad" formControlName="identificador_incapacidad" class="block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="AT">AT</option>
+          <option value="EG">EG</option>
+          <option value="LM-LP">LM-LP</option>
+        </select>
+      </div>
+
+
       <button type="submit" class="bg-green-600 text-white rounded-md px-4 py-2 mt-4 hover:bg-green-700">Guardar</button>
   </form>
 </div>
