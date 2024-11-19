@@ -12,7 +12,7 @@ export class FeedService {
   //private  baseUrl =  'http://192.168.1.148:8000/api';
 
 
-  private baseUrl = 'http://localhost:8000/api';
+  private baseUrl = 'http://127.0.0.1:8000/api';
   private feedsUrl = `${this.baseUrl}/feeds`;
   private feedsdeleteUrl = `${this.baseUrl}/feeds/`;
 

@@ -11,14 +11,10 @@ export class UsersService {
   //url prueba  (SOLO SE USA PARA CARGAR EL POR LA IP DEL COMPUTADOR)
  //url = 'http://192.168.1.148:8000/api/users';
 
+ // base url
+ private apiurl = 'http://127.0.0.1:8000/api';
 
-  // URLs de la API
-  url='http://127.0.0.1:8000/api/users';
-
-  urldestroy= 'http://127.0.0.1:8000/api/user';
-
-  urlExport='http://127.0.0.1:8000/api/export-users'
-  urlImport='http://127.0.0.1:8000/api/import-users'
+  
 
   constructor(private http:HttpClient){}
 
@@ -33,7 +29,7 @@ importUsers(file: File, access_token: string): Observable<any> {
     'Authorization': 'Bearer ' + access_token
   });
 
-  return this.http.post(this.urlImport, formData, { headers: headers });
+  return this.http.post(this.apiurl+'/import-users', formData, { headers: headers });
 }
 
   // Método para descargar usuarios
@@ -42,7 +38,7 @@ importUsers(file: File, access_token: string): Observable<any> {
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers, responseType: 'blob' as 'json' }; 
-    return this.http.get(this.urlExport, options);
+    return this.http.get(this.apiurl+'/export-users', options);
   }
   
 
@@ -53,18 +49,10 @@ importUsers(file: File, access_token: string): Observable<any> {
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers};
-    return this.http.get("http://127.0.0.1:8000/api/users", options);
+    return this.http.get(this.apiurl+'/users', options);
   }
 
-  // Método para agregar usuarios
-  addUsers(users : Users, access_token:any):Observable<any>{
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + access_token
-    });
-    const options = { headers: headers};
-    return this.http.post(this.url,users, options);
-  }
+ 
 
   // Método para actualizar usuarios
   updateUsers(id:string, users:Users, access_token:any):Observable<any>{
@@ -73,7 +61,7 @@ importUsers(file: File, access_token: string): Observable<any> {
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers};
-    return this.http.put(this.url+"/"+id,users, options);         
+    return this.http.put(this.apiurl+"/"+id,users, options);         
   }
 
   // Método para eliminar usuarios
@@ -83,7 +71,7 @@ importUsers(file: File, access_token: string): Observable<any> {
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers};
-    return this.http.delete(this.urldestroy+"/"+id, options);
+    return this.http.delete(this.apiurl+"/user/"+id, options);
   }
 
    // Método para activar usuarios
@@ -93,7 +81,8 @@ importUsers(file: File, access_token: string): Observable<any> {
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers };
-    return this.http.post(`http://127.0.0.1:8000/api/users/${id}/activate`, {}, options);
+    return this.http.post<Blob>(`${this.apiurl}/users/${id}/activate`,{}, options);
+
   }
 
   // Método para desactivar usuarios
@@ -103,6 +92,6 @@ importUsers(file: File, access_token: string): Observable<any> {
       'Authorization': 'Bearer ' + access_token
     });
     const options = { headers: headers };
-    return this.http.post(`http://127.0.0.1:8000/api/users/${id}/deactivate`, {}, options);
+    return this.http.post<Blob>(`${this.apiurl}/users/${id}/deactivate`,{}, options);
   }
 }

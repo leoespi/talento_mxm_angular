@@ -42,7 +42,6 @@ export class IndexComponent implements OnInit {
     'assets/img/sede17.jpg',
     'assets/img/sede18.jpg',
 
-    'assets/img/sede19.jpg',
     'assets/img/sede20.jpg',
     
 
