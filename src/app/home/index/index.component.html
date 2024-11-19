@@ -1,53 +1,17 @@
-<div class="max-w-7xl mx-auto mt-10 px-4 flex flex-col md:flex-row items-start justify-between space-x-10">
-  <!-- Card de imágenes -->
-  <div class="bg-white shadow-lg rounded-lg overflow-hidden flex-none" style="width: 350px; height: 450px;">
-    <div class="relative w-full h-full">
-      <div *ngFor="let image of images; let i = index" 
-           class="absolute inset-0 transition-opacity duration-1000"
-           [ngClass]="{'opacity-0': currentIndex !== i, 'opacity-100': currentIndex === i}">
-        <img [src]="image" alt="Imagen" class="w-full h-full object-cover">
-      </div>
-    </div>
-  </div>
-
-  <!-- Sección de Nuestros Principios -->
-  <div class="flex-1 mt-10">
-    <div class="text-left mb-8">
-      <h1 class="text-4xl font-bold text-gray-900 mb-4">Nuestros Principios</h1>
-      <p class="text-lg  text-left text-gray-700 mb-4">Valores que fundamentan nuestra cultura.</p>
-     
-    </div>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div class="bg-white rounded-lg border border-gray-300 p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
-        <h2 class="text-xl font-semibold text-gray-800">SERVIR</h2>
-        <p class="mt-2 text-gray-600">Estamos siempre listos para SERVIR.</p>
-      </div>
-      <div class="bg-white rounded-lg border border-gray-300 p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
-        <h2 class="text-xl font-semibold text-gray-800">ALEGRIA</h2>
-        <p class="mt-2 text-gray-600">Trabajamos con ALEGRIA y la transmitimos.</p>
-      </div>
-      <div class="bg-white rounded-lg border border-gray-300 p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
-        <h2 class="text-xl font-semibold text-gray-800">HUMILDAD</h2>
-        <p class="mt-2 text-gray-600">Actuamos con HUMILDAD y sencillez.</p>
-      </div>
-      <div class="bg-white rounded-lg border border-gray-300 p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
-        <h2 class="text-xl font-semibold text-gray-800">CREATIVOS</h2>
-        <p class="mt-2 text-gray-600">Somos CREATIVOS enfrentando retos.</p>
-      </div>
-      <div class="bg-white rounded-lg border border-gray-300 p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
-        <h2 class="text-xl font-semibold text-gray-800">COMUNICAMOS</h2>
-        <p class="mt-2 text-gray-600">Nos COMUNICAMOS para tener una mejor integración.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<br><br>
-
-
-<!-- Sección de Nuestros Valores -->
 <div class="max-w-7xl mx-auto space-y-16 mt-10 px-4">
+ 
+    <!-- Sección NUESTRA MEGA -->
+    <div class="text-center mb-16">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">NUESTRA META</h1><br>
+      
+      <img src="assets/img/meta.png" alt="Imagen Mega" class="mx-auto"><br><br>
+      <p class="text-lg text-gray-700 text-center leading-relaxed">
+        Satisfacer las necesidades de todos nuestros clientes, siendo líderes en la distribución, comercialización de alimentos, aseo y bienes de consumo complementarios en el hogar; a un precio justo, con excelente calidad, calidez y servicio; comprometidos en el bienestar, con un personal ético, capacitado, que trabaja en equipo con un alto nivel de competitividad y productividad.
+      </p>
+          </div>
+ 
+ 
+  <!-- Sección de Nuestros Valores -->
   <div class="text-center">
     <h1 class="text-4xl font-bold text-gray-900 mb-4">Nuestros Valores</h1>
     <p class="text-lg text-gray-700 mb-8">Los principios que nos guían en cada acción.</p>
@@ -74,6 +38,52 @@
     <div class="bg-white rounded-lg border border-gray-300 p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
       <h2 class="text-xl font-semibold text-gray-800">CONSTANCIA</h2>
       <p class="mt-2 text-gray-600">Insistimos y damos continuidad a todos los procesos que conducen a cumplir nuestros objetivos.</p>
+    </div>
+  </div>
+</div>
+
+<br><br>
+
+<div class="max-w-7xl mx-auto mt-10 px-4 flex flex-col md:flex-row items-start justify-between space-x-10">
+  <!-- Card de imágenes -->
+  <div class="bg-white shadow-lg rounded-lg overflow-hidden flex-none" style="width: 350px; height: 450px;">
+    <div class="relative w-full h-full">
+      <div *ngFor="let image of images; let i = index" 
+           class="absolute inset-0 transition-opacity duration-1000"
+           [ngClass]="{'opacity-0': currentIndex !== i, 'opacity-100': currentIndex === i}">
+        <img [src]="image" alt="Imagen" class="w-full h-full object-cover">
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección de Nuestros Principios -->
+  <div class="flex-1 mt-10">
+    <div class="text-left mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Nuestros Principios</h1>
+      <p class="text-lg  text-left text-gray-700 mb-4">Valores que fundamentan nuestra cultura.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="bg-white rounded-lg border border-gray-300 p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+        <h2 class="text-xl font-semibold text-gray-800">SERVIR</h2>
+        <p class="mt-2 text-gray-600">Estamos siempre listos para SERVIR.</p>
+      </div>
+      <div class="bg-white rounded-lg border border-gray-300 p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+        <h2 class="text-xl font-semibold text-gray-800">ALEGRIA</h2>
+        <p class="mt-2 text-gray-600">Trabajamos con ALEGRIA y la transmitimos.</p>
+      </div>
+      <div class="bg-white rounded-lg border border-gray-300 p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+        <h2 class="text-xl font-semibold text-gray-800">HUMILDAD</h2>
+        <p class="mt-2 text-gray-600">Actuamos con HUMILDAD y sencillez.</p>
+      </div>
+      <div class="bg-white rounded-lg border border-gray-300 p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+        <h2 class="text-xl font-semibold text-gray-800">CREATIVOS</h2>
+        <p class="mt-2 text-gray-600">Somos CREATIVOS enfrentando retos.</p>
+      </div>
+      <div class="bg-white rounded-lg border border-gray-300 p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+        <h2 class="text-xl font-semibold text-gray-800">COMUNICAMOS</h2>
+        <p class="mt-2 text-gray-600">Nos COMUNICAMOS para tener una mejor integración.</p>
+      </div>
     </div>
   </div>
 </div>
