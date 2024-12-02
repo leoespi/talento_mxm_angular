@@ -11,7 +11,15 @@ export class Cesantiasautorizadas {
     uuid?: string| null | undefined;// Agregar el atributo uuid
 
     
-    constructor(id: number, user_id:number ,estado:string,cedula: number, name:string, tipo_cesantia_reportada:string, image:string, uuid: string) {
+    constructor(id: number,
+         user_id:number ,
+         estado:string,
+         cedula: number, 
+         name:string, 
+         tipo_cesantia_reportada:string,
+          image:string, 
+          uuid: string) {
+            
         this.id = id;
         this.user_id = user_id;
         this.cedula = cedula;

@@ -72,6 +72,20 @@ cargarIncapacidades(): void {
   );
 }
 
+
+// Obtener tipos únicos de incapacidades
+obtenerTiposIncapacidad(): void {
+  const tipos: Set<string> = new Set();
+  this.listarIncapacidades.forEach(incapacidad => {
+    if (incapacidad.tipo_incapacidad_reportada) {
+      tipos.add(incapacidad.tipo_incapacidad_reportada);
+    }
+  });
+  this.tiposIncapacidad = Array.from(tipos);
+}
+
+
+
  // Cargar las categorías desde el backend
  cargarCategorias(): void {
   this.incapacidadesService.getCategorias(this.token).subscribe(
@@ -162,17 +176,7 @@ obtenerCodigoCategoria(categoriaId: number): string {
   
   
 
-  // Obtener tipos únicos de incapacidades
-  obtenerTiposIncapacidad(): void {
-    const tipos: Set<string> = new Set();
-    this.listarIncapacidades.forEach(incapacidad => {
-      if (incapacidad.tipo_incapacidad_reportada) {
-        tipos.add(incapacidad.tipo_incapacidad_reportada);
-      }
-    });
-    this.tiposIncapacidad = Array.from(tipos);
-  }
-
+  
   // Método para filtrar y paginar las incapacidades
   paginatedIncapacidades(): Incapacidades[] {
     const filteredIncapacidades = this.filtrarIncapacidades();

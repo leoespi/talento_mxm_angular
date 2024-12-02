@@ -11,6 +11,8 @@
     <button (click)="navigate('/cesantiasautorizadas/index')" *ngIf="clave != null && rolId === 4" class="block w-full p-3 rounded transition duration-200 bg-gray-700 hover:bg-gray-600">Cesantías Autorizadas</button>
     <button (click)="navigate('/referidos/index')" *ngIf="(clave != null && rolId === 4) || rolId === 1" class="block w-full p-3 rounded transition duration-200 bg-gray-700 hover:bg-gray-600">Plan Referidos</button>
     <button (click)="navigate('/feeds/listado')" *ngIf="(clave != null && rolId === 4) || rolId === 3" class="block w-full p-3 rounded transition duration-200 bg-gray-700 hover:bg-gray-600">Publicación</button>
+    <button (click)="navigate('/permisos/index')" *ngIf="(clave != null && rolId === 4) || rolId === 1" class="block w-full p-3 rounded transition duration-200 bg-gray-700 hover:bg-gray-600">Permisos</button>
+    <button (click)="navigate('/malla/index')" *ngIf="(clave != null && rolId === 4) || rolId === 1" class="block w-full p-3 rounded transition duration-200 bg-gray-700 hover:bg-gray-600">Mallas</button>
     <button type="button" *ngIf="clave != null" (click)="logout()" class="w-full p-3 bg-red-600 rounded-lg hover:bg-red-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">Cerrar Sesión</button>
   </div>
 </nav>

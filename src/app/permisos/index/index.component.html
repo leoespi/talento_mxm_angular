@@ -1,0 +1,110 @@
+<div class="container mx-auto p-6">
+  
+      <h2 class="text-3xl font-semibold text-center mb-6">Lista de Permisos</h2>
+
+   <!-- Filtros en una sola sección -->
+   <div class="bg-gray-50 p-4 rounded-lg shadow-md mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+      <!-- Filtro por cédula -->
+      <div>
+        <label for="cedula" class="block text-sm font-medium text-gray-700">Buscar por Cédula</label>
+        <input type="text" id="cedula" [(ngModel)]="cedulaBusqueda" (ngModelChange)="filtrarPermisos()" placeholder="Ingresar cédula" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"/>
+      </div>
+        <!-- Filtro por Sede -->
+        <div>
+          <label for="TipoSede" class="block text-sm font-medium text-gray-700">Buscar por Sede</label>
+          <select id="TipoSede" [(ngModel)]="tipoSede" (ngModelChange)="filtrarPermisos()" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+            <option value="">Seleccionar Sede</option>
+            <option *ngFor="let tipo of TipoSede" [value]="tipo">{{ tipo }}</option>
+          </select>
+        </div>
+
+      <!-- Filtro por categoría -->
+      <div>
+        <label for="tipoCategoria" class="block text-sm font-medium text-gray-700">Buscar categoría de lasolicitud</label>
+        <select id="tipoCategoria" [(ngModel)]="tipoCategoriaSeleccionada" (ngModelChange)="filtrarPermisos()" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+          <option value="">Seleccionar Tipo de Categoría</option>
+          <option *ngFor="let tiposSedes of tipoCategoria" [value]="tiposSedes">{{ tiposSedes }}</option>
+        </select>
+      </div>
+
+    <!-- Filtro por fecha de permiso (mes y año) -->
+    <div>
+      <label for="fechaPermiso" class="block text-sm font-medium text-gray-700">Buscar por Fecha de Permiso</label>
+      <input type="month" id="fechaPermiso" [(ngModel)]="fechaPermisoBusqueda" (ngModelChange)="filtrarPermisos()" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" />
+    </div>
+
+
+      <!-- Botón para exportar los permisos -->
+      <div >
+        <label for="fechaPermiso" class="block text-sm font-medium text-gray-700">Exportar Permisos</label>
+
+        <button class="bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition duration-200" (click)="exportarPermisos()">
+          Exportar Permisos
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicador de carga -->
+  <div *ngIf="cargandoReferidos" class="loading-overlay flex justify-center items-center h-64">
+    <div class="spinner-border text-blue-500" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+
+  <!-- Tabla de permisos -->
+  <div *ngIf="!cargandoReferidos">
+    <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="py-3 px-4 text-left text-gray-600">ID</th>
+          <th class="py-3 px-4 text-left text-gray-600">Cédula</th>
+          <th class="py-3 px-4 text-left text-gray-600">Nombre</th>
+          <th class="py-3 px-4 text-left text-gray-600">Sede</th>
+          <th class="py-3 px-4 text-left text-gray-600">Categoría de Solicitud</th>
+          <th class="py-3 px-4 text-left text-gray-600">Tiempo Requerido</th>
+          <th class="py-3 px-4 text-left text-gray-600">Unidad de Tiempo</th>
+          <th class="py-3 px-4 text-left text-gray-600">Hora</th>
+          <th class="py-3 px-4 text-left text-gray-600">Fecha Permiso</th>
+          <th class="py-3 px-4 text-left text-gray-600">Fecha Solicitud</th>
+          <th class="py-3 px-4 text-left text-gray-600">Justificacion</th>
+          <th class="py-3 px-4 text-left text-gray-600">Estado</th>
+          <th class="py-3 px-4 text-left text-gray-600">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-700">
+        <tr *ngFor="let permiso of paginatedPermisos()" class="hover:bg-gray-50">
+          <td class="py-2 px-4 border-b">{{ permiso.id }}</td>
+          <td class="py-2 px-4 border-b">{{ permiso.user.cedula }}</td> <!-- Acceder a cedula desde user -->
+          <td class="py-2 px-4 border-b">{{ permiso.user.name }}</td> <!-- Acceder a name desde user -->
+          <td class="py-2 px-4 border-b">{{ permiso.p_venta }}</td>
+          <td class="py-2 px-4 border-b">{{ permiso.categoria_solicitud }}</td>
+          <td class="py-2 px-4 text-center border-b">{{ permiso.tiempo_requerido }}</td>
+          <td class="py-2 px-4 border-b">{{ permiso.unidad_tiempo }}</td>
+          <td class="py-2 px-4 border-b">{{ permiso.hora }}</td>
+          <td class="py-2 px-4 border-b">{{ permiso.fecha_permiso | date:'dd/MM/yyyy' }}</td>
+          <td class="py-2 px-4 border-b">{{ permiso.fecha_solicitud | date:'dd/MM/yyyy' }}</td>
+          <td class="py-2 px-4 border-b">{{ permiso.justificacion }}</td> 
+          <td class="py-2 px-4 border-b">{{ permiso.estado }}</td>
+          <td class="py-2 px-4 border-b">
+            <button type="button" class="bg-green-600 text-white rounded-md p-1 hover:bg-green-700" (click)="editarPermiso(permiso.id)">Revisar</button>
+          </td>
+        </tr>
+      </tbody>
+      
+    </table>
+
+  
+
+
+  </div>
+
+  <div class="flex justify-center mt-4">
+    <button class="bg-gray-300 text-gray-700 rounded-md px-4 py-2 mr-2" (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+    <span class="mx-3">Página {{ currentPage }} de {{ totalPages() }}</span>
+    <button class="bg-gray-300 text-gray-700 rounded-md px-4 py-2" (click)="nextPage()" [disabled]="currentPage === totalPages()">Siguiente</button>
+  </div>
+</div>
+
+

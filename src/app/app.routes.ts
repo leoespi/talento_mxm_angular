@@ -9,6 +9,10 @@ import { CreateComponent as CreateCesantiasAutorizadas } from './cesantiasautori
 import { IndexComponent as IndexReferidosComponent } from './Referidos/index/index.component';
 import { CreateComponent as CreateReferidosComponent } from './Referidos/create/create.component';
 
+import { IndexComponent as IndexPermisosComponent } from './permisos/index/index.component';
+import { IndexComponent as IndexMallaComponent } from './malla/index/index.component';
+
+
 import { FeedListComponent } from './Feed/feed-list/feed-list.component';
 import { CreateFeedComponent as CreateFeedComponent } from './Feed/create-feed/create-feed.component';
 
@@ -36,7 +40,10 @@ export const routes: Routes = [
   { path: 'feeds/listado', component: FeedListComponent, canActivate: [ComunicacionGuard] }, // Nuevo guardia para rol 3
   { path: 'feeds/crear', component: CreateFeedComponent, canActivate: [ComunicacionGuard] }, // Nuevo guardia para rol 3
   { path: 'home/index', component: IndexHomeComponent }, // Nuevo guardia para rol 3
+  { path: 'permisos/index', component: IndexPermisosComponent, canActivate: [AdminGuard] }, // Nuevo guardia para rol 3
+  { path:'malla/index', component: IndexMallaComponent, canActivate: [AdminGuard] }, // Nuevo guardia para rol 3
 
+ 
 ];
 
 

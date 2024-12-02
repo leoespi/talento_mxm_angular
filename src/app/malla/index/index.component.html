@@ -1,0 +1,109 @@
+<div class="container mx-auto p-6">
+  <h2 class="text-3xl font-semibold text-center mb-6">Lista de Mallas</h2>
+
+  
+   <!-- Filtros en una sola sección -->
+   <div class="bg-gray-50 p-4 rounded-lg shadow-md mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- Filtro por cédula -->
+      <div>
+        <label for="cedula" class="block text-sm font-medium text-gray-700">Buscar por Cédula</label>
+        <input type="text" id="cedula" [(ngModel)]="cedulaBusqueda" (ngModelChange)="filtrarMallas()" placeholder="Ingresar cédula" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"/>
+      </div>
+
+      <div>
+        <!-- Filtro por Proceso -->
+        <label for="TipoProceso" class="block text-sm font-medium text-gray-700">Buscar por Proceso</label>
+
+      <select id="TipoProceso" [(ngModel)]="tipoProceso" (ngModelChange)="filtrarMallas()" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+        <option value="">Seleccionar Proceso</option>
+        <option *ngFor="let tipo of TipoProceso" [value]="tipo">{{ tipo }}</option>
+      </select>
+
+      </div>
+
+
+      <!-- Filtro por Sede -->
+      <div>
+        <label for="TipoSede" class="block text-sm font-medium text-gray-700">Buscar por Sede</label>
+        <select id="TipoSede" [(ngModel)]="tipoSede" (ngModelChange)="filtrarMallas()" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+          <option value="">Seleccionar Sede</option>
+          <option *ngFor="let tipo of TipoSede" [value]="tipo">{{ tipo }}</option>
+        </select>
+      </div>
+
+      
+      
+      
+
+
+
+     
+
+      
+    </div>
+  </div>
+
+
+
+
+
+
+  <div class="table-container">
+    <!-- Icono de carga -->
+    <div *ngIf="cargando" class="loading-overlay flex justify-center items-center h-64">
+      <div class="spinner-border text-blue-500" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+
+    <!-- Tabla de mallas -->
+    <table *ngIf="!cargando" class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="py-3 px-4 text-left text-gray-600">ID</th>
+          <th class="py-3 px-4 text-left text-gray-600">Cédula</th>
+          <th class="py-3 px-4 text-left text-gray-600">Nombre</th>
+          <th class="py-3 px-4 text-left text-gray-600">Proceso</th>
+          <th class="py-3 px-4 text-left text-gray-600">Punto de Venta</th>
+          <th class="py-3 px-4 text-left text-gray-600">Estado</th>
+          <th class="py-3 px-4 text-left text-gray-600">Calificación</th>
+          <th class="py-3 px-4 text-left text-gray-600">Documento</th>
+          <th class="py-3 px-4 text-left text-gray-600">Calificar</th>
+          <th class="py-3 px-4 text-left text-gray-600">Modificar Estado</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-700">
+        <tr *ngFor="let malla of mallasFiltradas" class="hover:bg-gray-50">
+          <td class="py-2 px-4 border-b">{{ malla.id }}</td>
+          <td class="py-2 px-4 border-b">{{ malla.user.cedula }}</td>
+          <td class="py-2 px-4 border-b">{{ malla.user?.name || 'No disponible' }}</td>
+          <td class="py-2 px-4 border-b">{{ malla.proceso || 'No disponible' }}</td>
+          <td class="py-2 px-4 border-b">{{ malla.p_venta || 'No disponible' }}</td>
+          <td class="py-2 px-4 border-b">{{ malla.estado || 'Sin revisar' }}</td>
+          <td class="py-2 px-4 border-b">{{ malla.calificacion || 'No disponible' }}</td>
+          <td>
+            <button type="button" class="bg-blue-600 text-white rounded-md p-1 hover:bg-blue-700" (click)="downloadDocumento(malla.id)">Descargar</button>
+          </td>
+          <td class="py-2 px-4 border-b">
+            <button type="button" class="bg-green-600 text-white rounded-md p-1 hover:bg-green-700" (click)="calificarMalla(malla.id)">Calificar</button>
+          </td>
+          <td class="py-2 px-4 border-b">
+            <button type="button" class="bg-yellow-600 text-white rounded-md p-1 hover:bg-green-700" (click)="estadoMalla(malla.id)">Estado</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+
+
+  
+  <div class="flex justify-center mt-4">
+    <button class="bg-gray-300 text-gray-700 rounded-md px-4 py-2 mr-2" (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+    <span class="mx-3">Página {{ currentPage }} de {{ totalPages() }}</span>
+    <button class="bg-gray-300 text-gray-700 rounded-md px-4 py-2" (click)="nextPage()" [disabled]="currentPage === totalPages()">Siguiente</button>
+  </div>
+
+</div>

@@ -1,32 +1,38 @@
 <div class="container mx-auto p-6">
   <h2 class="text-3xl font-semibold text-center mb-6">Lista de Incapacidades</h2>
 
-  <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
-   
-    <div>
-      <label for="searchTerm" class="block text-sm font-medium text-gray-700">Buscar Incapacidad por Cédula:</label>
-      <input type="text" id="searchTerm" [(ngModel)]="searchTerm" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-green-500" placeholder="Buscar por cédula">
-    </div>
-    <div>
-      <label for="tipoIncapacidad" class="block text-sm font-medium text-gray-700">Buscar por Tipo de Incapacidad:</label>
-      <select id="tipoIncapacidad" [(ngModel)]="tipoIncapacidadSeleccionada" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-green-500">
-        <option value="">Seleccionar Tipo de Incapacidad</option>
-        <option *ngFor="let tipo of tiposIncapacidad" [value]="tipo">{{ tipo }}</option>
-      </select>
-    </div>
-    <div>
-      <label for="searchMonth" class="block text-sm font-medium text-gray-700">Seleccionar incapacidad por Mes:</label>
-      <input type="month" id="searchMonth" [(ngModel)]="searchMonth" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-green-500" aria-label="Month Filter">
-    </div>
-    <div>
-      <label for="year" class="block text-sm font-medium text-gray-700">Seleccionar año a Descargar:</label>
-      <input type="text" id="year" [(ngModel)]="year" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-green-500" placeholder="Buscar por año">
-    </div>
-    <div class="flex items-end">
-      <button type="button" class="w-full bg-green-600 text-white rounded-md p-2 hover:bg-green-700" (click)="downloadIncapacidadesByYear(year)">Descargar Incapacidades</button>
-    </div>
-  </div>
+  <div class="bg-gray-50 p-4 rounded-lg shadow-md mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
 
+      <div>
+        <label for="searchTerm" class="block text-sm font-medium text-gray-700">Buscar Incapacidad por Cédula:</label>
+        <input type="text" id="searchTerm" [(ngModel)]="searchTerm" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-green-500" placeholder="Buscar por cédula">
+      </div>
+      <div>
+        <label for="tipoIncapacidad" class="block text-sm font-medium text-gray-700">Buscar por Tipo de Incapacidad:</label>
+        <select id="tipoIncapacidad" [(ngModel)]="tipoIncapacidadSeleccionada" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-green-500">
+          <option value="">Seleccionar Tipo de Incapacidad</option>
+          <option *ngFor="let tipo of tiposIncapacidad" [value]="tipo">{{ tipo }}</option>
+        </select>
+      </div>
+      <div>
+        <label for="searchMonth" class="block text-sm font-medium text-gray-700">Seleccionar incapacidad por Mes:</label>
+        <input type="month" id="searchMonth" [(ngModel)]="searchMonth" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-green-500" aria-label="Month Filter">
+      </div>
+      <div>
+        <label for="year" class="block text-sm font-medium text-gray-700">Seleccionar año a Descargar:</label>
+        <input type="text" id="year" [(ngModel)]="year" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-green-500" placeholder="Buscar por año">
+      </div>
+      <div class="flex items-end">
+        <button type="button" class="w-full bg-green-600 text-white rounded-md p-2 hover:bg-green-700" (click)="downloadIncapacidadesByYear(year)">Descargar Incapacidades</button>
+      </div>
+    </div>
+  
+
+    </div>
+  
+   
+    
   <div class="table-container">
     <div *ngIf="cargandoReferidos" class="loading-overlay">
       <div class="spinner-border text-primary" role="status">

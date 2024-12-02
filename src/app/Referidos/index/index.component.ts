@@ -23,7 +23,10 @@ export class IndexComponent {
   currentPage: number = 1;
   itemsPerPage: number = 10;
 
-  constructor(private referidosService: ReferidosService, private router: Router, private aRouter: ActivatedRoute) { 
+  constructor(private referidosService: ReferidosService,
+     private router: Router,
+     private aRouter: ActivatedRoute) { 
+      
     this.id = this.aRouter.snapshot.paramMap.get('id');
   }
 
